@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main_menu.MainMenu"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <Toolbar
+        android:id="@+id/main_menu_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/shadow"
+        android:elevation="18dp"
+        android:title="@string/app_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/your_cars_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_cars"
+            android:fontFamily="@font/google_sans_regular"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_margin="22dp"
+            app:layout_constraintLeft_toLeftOf="@+id/main_menu_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/main_menu_toolbar"
+            />
+
+        <TextView
+            android:id="@+id/view_all_saved_cars_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_all_saved_cars"
+            android:fontFamily="@font/google_sans_regular"
+            android:textSize="16sp"
+            android:textColor="@color/accent"
+            android:textStyle="bold"
+            android:layout_margin="25dp"
+            app:layout_constraintRight_toRightOf="@+id/main_menu_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/main_menu_toolbar"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/saved_cars_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/your_cars_text"
+             />
+
+
+
+        <TextView
+            android:id="@+id/search_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_title"
+            android:fontFamily="@font/google_sans_regular"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_margin="22dp"
+            app:layout_constraintLeft_toLeftOf="@+id/saved_cars_recycler"
+            app:layout_constraintTop_toTopOf="@+id/saved_cars_recycler"
+            />
+
+        <TextView
+            android:id="@+id/history_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_history_title"
+            android:fontFamily="@font/google_sans_regular"
+            android:textSize="16sp"
+            android:textColor="@color/accent"
+            android:textStyle="bold"
+            android:layout_margin="25dp"
+            app:layout_constraintRight_toRightOf="@+id/saved_cars_recycler"
+            app:layout_constraintTop_toTopOf="@+id/saved_cars_recycler"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/manufacturer_search_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/search_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
