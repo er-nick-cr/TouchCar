@@ -1,34 +1,44 @@
 package com.example.touchcar.data.datasource.network
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.example.touchcar.data.datasource.network.entity.NetworkManufacturerModel
+import com.example.touchcar.domain.entity.Manufacturer
+import com.example.touchcar.domain.entity.ManufacturerType
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
 class NetworkService @Inject constructor() {
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun getManufacturers(): Single<MutableList<NetworkManufacturerModel>> {
+    fun getManufacturers(): Single<List<Manufacturer>> {
         return Single.fromCallable{
             val document: Document = Jsoup.connect("https://www.epcdata.ru").get()
             val containers: Elements = document.select("tbody:first-of-type")
-            val networkManufacturerModels: MutableList<NetworkManufacturerModel> = mutableListOf();
-
-            for (container: Element in containers) {
+            containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()
                 val manufacturerMarket: String = container.select("p:first-of-type").text()
                 val manufacturerSide: String = container.select("h4:first-of-type").text()
 
-                networkManufacturerModels.add(NetworkManufacturerModel(manufacturerName, manufacturerMarket + manufacturerSide))
+                Manufacturer(
+                    type = when(manufacturerName) {
+                        "Toyota" -> ManufacturerType.TOYOTA
+                        "Nissan" -> ManufacturerType.NISSAN
+                        "Mitsubishi" -> ManufacturerType.MITSUBISHI
+                        "Mazda" -> ManufacturerType.MAZDA
+                        "Honda" -> ManufacturerType.HONDA
+                        "Lexus" -> ManufacturerType.LEXUS
+                        "Subaru" -> ManufacturerType.SUBARU
+                        "Suzuki" -> ManufacturerType.SUZUKI
+                        "Kia" -> ManufacturerType.KIA
+                        "Renault" -> ManufacturerType.RENAULT
+                        else -> {ManufacturerType.OTHER}
+                    },
+                    mark = manufacturerName,
+                    market = manufacturerMarket + manufacturerSide,
+                )
             }
-            networkManufacturerModels.removeIf { it.name == "" }
-            networkManufacturerModels.removeAt(0)
-            networkManufacturerModels
+                .filter { model -> model.mark.isNotEmpty() }
+                .drop(1)
         }
 
     }

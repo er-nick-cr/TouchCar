@@ -1,34 +1,26 @@
 package com.example.touchcar.presentation.main_menu
 
-import android.os.Build
+import android.graphics.Insets.add
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.domain.entity.Manufacturer
+import com.example.touchcar.presentation.main_menu.bottom_sheet.BottomSheetFragment
 import com.example.touchcar.presentation.main_menu.recycler.MainMenuAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MainMenu.newInstance] factory method to
- * create an instance of this fragment.
- */
 
 @AndroidEntryPoint
-class MainMenu : Fragment() {
+class MainMenuFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -38,15 +30,6 @@ class MainMenu : Fragment() {
     @Inject
     lateinit var mainMenuViewModel: MainMenuViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,35 +42,26 @@ class MainMenu : Fragment() {
 
         mainMenuViewModel.manufacturerLiveData
             .observe(
-                this, androidx.lifecycle.Observer
-                { manufacturers ->
-                    mainMenuAdapter.updateViewHolder(manufacturers)
+                this, { manufacturers ->
+                    mainMenuAdapter.manufacturers = manufacturers
                 })
-        mainMenuAdapter = MainMenuAdapter();
+        mainMenuAdapter = MainMenuAdapter(::onItemClick);
         recyclerView = view?.findViewById(R.id.manufacturer_search_recycler)!!
         recyclerView.adapter = mainMenuAdapter
 
         mainMenuViewModel.getManufacturers();
 
+
+    }
+
+    private fun onItemClick(manufacturer: Manufacturer) {
+        val bottomSheetFragment = BottomSheetFragment()
+            childFragmentManager.beginTransaction()
+                .add(bottomSheetFragment, "tag")
+                .commit()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MainMenu.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MainMenu().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
     }
 }

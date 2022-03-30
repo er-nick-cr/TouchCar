@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import com.example.touchcar.presentation.main_menu.MainMenu
 import com.example.touchcar.R
+import com.example.touchcar.presentation.main_menu.MainMenuFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<MainMenu>(R.id.fragment_container_view)
+                add<MainMenuFragment>(R.id.fragment_container_view)
             }
     }
 }

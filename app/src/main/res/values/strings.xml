@@ -1,15 +1,14 @@
 <resources>
     <string name="app_name">TouchCar</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="app_title">TouchCar</string>
-    <string name="your_cars">Ваши авто</string>
-    <string name="view_all_saved_cars">Посмотреть все</string>
-    <string name="manufacturer">TOYOTA</string>
-    <string name="model">ALTEZZA</string>
-    <string name="equipment">SXE10-AEAVF</string>
-    <string name="manufacturer_logo">MANUFACTURER_LOGO</string>
-    <string name="markets">Япония (правый руль), Европа, Азия, США</string>
-    <string name="search_title">Поиск</string>
-    <string name="search_history_title">История поиска</string>
+    <string name="common_app_title">TouchCar</string>
+    <string name="main_menu_your_cars">Ваши авто</string>
+    <string name="main_menu_view_all_saved_cars">Посмотреть все</string>
+    <string name="main_menu_manufacturer_logo">MANUFACTURER_LOGO</string>
+    <string name="main_menu_search_title">Поиск</string>
+    <string name="main_menu_search_history_title">История поиска</string>
+    <string name="next">next</string>
+    <string name="bottom_sheet_type_search_heading">Выберите тип поиска</string>
+    <string name="bottom_sheet_vin_search_heading">VIN-код или номер кузова</string>
+    <string name="bottom_sheet_model_search_heading">Модель автомобиля</string>
 </resources>

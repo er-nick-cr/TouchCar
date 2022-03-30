@@ -14,7 +14,7 @@ class MainMenuDiffCallback(private val oldList: List<Manufacturer>, private val 
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        return oldList[oldItemPosition].mark == newList[newItemPosition].mark
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

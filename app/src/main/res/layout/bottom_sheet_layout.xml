@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_expanded"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:behavior_peekHeight="229dp"
+    app:behavior_hideable="false">
+
+    <!-- В данном layout содержится разметка для развёрнутого состояния фрагмента
+    Изначально она находится в состоянии invisible и располагается под layout_top как и layout_collapsed-->
+
+    <TextView
+        android:id="@+id/type_search_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/google_sans_regular"
+        android:text="@string/bottom_sheet_type_search_heading"
+        android:textColor="@color/text_main"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/VIN_search_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type_search_heading">
+
+        <ImageView
+            android:id="@+id/VIN_search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vin_icon"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/VIN_search_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/google_sans_regular"
+            android:text="@string/bottom_sheet_vin_search_heading"
+            android:textColor="@color/text_main"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toRightOf="@+id/VIN_search_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/model_search_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VIN_search_block">
+
+        <ImageView
+            android:id="@+id/model_search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/model_icon"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/model_search_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/google_sans_regular"
+            android:text="@string/bottom_sheet_model_search_heading"
+            android:textColor="@color/text_main"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toRightOf="@+id/model_search_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

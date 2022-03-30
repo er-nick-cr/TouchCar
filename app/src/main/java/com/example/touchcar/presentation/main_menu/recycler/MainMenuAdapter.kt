@@ -1,31 +1,26 @@
 package com.example.touchcar.presentation.main_menu.recycler
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.R
+import com.example.touchcar.databinding.ManufacturerRecyclerItemBinding
 import com.example.touchcar.domain.entity.Manufacturer
 import java.util.*
-import java.util.zip.Inflater
 
-class MainMenuAdapter() : RecyclerView.Adapter<MainMenuViewHolder>() {
+class MainMenuAdapter(private val onItemClickListener: (Manufacturer) -> Unit) : RecyclerView.Adapter<MainMenuViewHolder>() {
 
-    var manufacturers: List<Manufacturer> = Collections.emptyList();
-
-
-    fun updateViewHolder(manufacturers: List<Manufacturer>) {
-        val callback = MainMenuDiffCallback(this.manufacturers, manufacturers)
+    var manufacturers: List<Manufacturer> = Collections.emptyList()
+    set(value) {
+        val callback = MainMenuDiffCallback(field, value)
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(callback)
-        this.manufacturers = manufacturers
+        field = value
         diffResult.dispatchUpdatesTo(this)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainMenuViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = inflater.inflate(R.layout.manufacturer_recycler_item, parent, false)
-        return MainMenuViewHolder(view)
+        val binding = ManufacturerRecyclerItemBinding.inflate(inflater, parent, false)
+        return MainMenuViewHolder(binding, ::onItemClick)
     }
 
     override fun onBindViewHolder(holder: MainMenuViewHolder, position: Int) {
@@ -35,4 +30,6 @@ class MainMenuAdapter() : RecyclerView.Adapter<MainMenuViewHolder>() {
     override fun getItemCount(): Int {
         return manufacturers.size
     }
+
+    private fun onItemClick(position: Int) = onItemClickListener.invoke(manufacturers[position])
 }

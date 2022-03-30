@@ -1,21 +1,27 @@
 package com.example.touchcar.presentation.main_menu.recycler
 
-import android.view.View
-import android.widget.AdapterView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.R
+import androidx.recyclerview.widget.RecyclerView.NO_POSITION
+import com.example.touchcar.databinding.ManufacturerRecyclerItemBinding
 import com.example.touchcar.domain.entity.Manufacturer
+import com.example.touchcar.presentation.utils.getLogo
 
 class MainMenuViewHolder constructor(
-    itemView: View,
-) : RecyclerView.ViewHolder(itemView) {
+   private val binding: ManufacturerRecyclerItemBinding,
+   private val onItemClickListener: (Int) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
-    private val manufacturerName: TextView = itemView.findViewById(R.id.car_manufacturer_text_search)
-    private val manufacturerMarket: TextView = itemView.findViewById(R.id.car_markets)
+    init {
+        binding.root.setOnClickListener {
+            val position: Int = bindingAdapterPosition
+            if (position != NO_POSITION) onItemClickListener.invoke(position)
+        }
+    }
+
 
     fun bind(manufacturer: Manufacturer) {
-        manufacturerName.text = manufacturer.name
-        manufacturerMarket.text = manufacturer.market
+        binding.carManufacturerTextSearch.text = manufacturer.mark
+        binding.carMarkets.text = manufacturer.market
+        binding.carManufacturerLogo.setImageResource(manufacturer.type.getLogo())
     }
 }

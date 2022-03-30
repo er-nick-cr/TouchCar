@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/manufacturer_item"
     android:layout_width="match_parent"
     android:layout_height="83dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rounded_corners"
+    android:background="@drawable/ripple_rounded_corners"
     android:elevation="18dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
@@ -15,21 +16,21 @@
         android:id="@+id/car_manufacturer_logo"
         android:layout_width="66dp"
         android:layout_height="46dp"
-        android:background="@drawable/toyota"
+        tools:background="@drawable/toyota"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:contentDescription="@string/manufacturer_logo" />
+        android:contentDescription="@string/main_menu_manufacturer_logo" />
 
     <TextView
         android:id="@+id/car_manufacturer_text_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/manufacturer"
+        tools:text="TOYOTA"
         android:fontFamily="@font/google_sans_regular"
         android:textSize="18sp"
-        android:textColor="@color/black"
+        android:textColor="@color/text_main"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
@@ -39,18 +40,23 @@
 
     <TextView
         android:id="@+id/car_markets"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/markets"
+        tools:text="Япония (правый руль), Европа, Азия, США"
+        android:textAlignment="textStart"
         android:fontFamily="@font/google_sans_regular"
         android:textSize="13sp"
         android:textColor="@color/grey_accent"
         android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toRightOf="@+id/car_manufacturer_logo"
+        android:layout_marginEnd="25dp"
+        android:singleLine = "false"
+        app:layout_constraintStart_toEndOf="@+id/car_manufacturer_logo"
+        app:layout_constraintEnd_toStartOf="@+id/next"
         app:layout_constraintTop_toBottomOf="@+id/car_manufacturer_text_search"
         />
 
     <ImageView
+        android:id="@+id/next"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:background="@drawable/continue_icon"
@@ -58,6 +64,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        android:contentDescription="@string/next" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

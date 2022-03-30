@@ -10,11 +10,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ManufacturerRepositoryImpl @Inject constructor(
-    val networkDataSource: NetworkDataSource,
-    val manufacturerFromNetworkToDomainMapper: ManufacturerFromNetworkToDomainMapper
+    private val networkDataSource: NetworkDataSource,
+    private val manufacturerFromNetworkToDomainMapper: ManufacturerFromNetworkToDomainMapper
     ) : ManufacturerRepository {
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun getManufacturers(): Single<List<Manufacturer>> {
         return networkDataSource.getManufacturers().map { manufacturerFromNetworkToDomainMapper.map(it) }
     }

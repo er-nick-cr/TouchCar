@@ -13,11 +13,11 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainMenuViewModel @Inject constructor(
-    val getManufacturerFromNetworkUseCase: GetManufacturerFromNetworkUseCase
+    private val getManufacturerFromNetworkUseCase: GetManufacturerFromNetworkUseCase
 ) : ViewModel() {
 
     val manufacturerLiveData: MutableLiveData<List<Manufacturer>> = MutableLiveData<List<Manufacturer>>()
-    val disposable:CompositeDisposable = CompositeDisposable()
+    private val disposable:CompositeDisposable = CompositeDisposable()
 
     fun getManufacturers() {
         disposable.add( getManufacturerFromNetworkUseCase.getManufacturer()
