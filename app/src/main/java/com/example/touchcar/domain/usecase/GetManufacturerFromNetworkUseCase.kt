@@ -10,7 +10,9 @@ interface GetManufacturerFromNetworkUseCase {
     fun getManufacturer(): Single<List<Manufacturer>>
 }
 
-class GetManufacturerFromNetworkUseCaseImpl @Inject constructor(val manufacturerRepository: ManufacturerRepository) : GetManufacturerFromNetworkUseCase {
+class GetManufacturerFromNetworkUseCaseImpl @Inject constructor(
+    private val manufacturerRepository: ManufacturerRepository
+) : GetManufacturerFromNetworkUseCase {
     override fun getManufacturer(): Single<List<Manufacturer>> {
         return manufacturerRepository.getManufacturers()
     }

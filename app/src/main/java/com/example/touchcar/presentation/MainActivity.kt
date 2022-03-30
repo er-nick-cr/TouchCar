@@ -19,6 +19,6 @@ class MainActivity : AppCompatActivity() {
                 setReorderingAllowed(true)
                 add<MainMenuFragment>(R.id.fragment_container_view)
             }
+        }
     }
-}
 }

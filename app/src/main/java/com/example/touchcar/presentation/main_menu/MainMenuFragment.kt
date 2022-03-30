@@ -21,9 +21,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainMenuFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private lateinit var recyclerView: RecyclerView
 

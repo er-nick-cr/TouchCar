@@ -10,7 +10,7 @@ import java.util.*
 
 class MainMenuAdapter(private val onItemClickListener: (Manufacturer) -> Unit) : RecyclerView.Adapter<MainMenuViewHolder>() {
 
-    var manufacturers: List<Manufacturer> = Collections.emptyList()
+    var manufacturers: List<Manufacturer> = emptyList()
     set(value) {
         val callback = MainMenuDiffCallback(field, value)
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(callback)

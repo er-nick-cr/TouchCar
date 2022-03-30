@@ -20,19 +20,7 @@ class NetworkService @Inject constructor() {
                 val manufacturerSide: String = container.select("h4:first-of-type").text()
 
                 Manufacturer(
-                    type = when(manufacturerName) {
-                        "Toyota" -> ManufacturerType.TOYOTA
-                        "Nissan" -> ManufacturerType.NISSAN
-                        "Mitsubishi" -> ManufacturerType.MITSUBISHI
-                        "Mazda" -> ManufacturerType.MAZDA
-                        "Honda" -> ManufacturerType.HONDA
-                        "Lexus" -> ManufacturerType.LEXUS
-                        "Subaru" -> ManufacturerType.SUBARU
-                        "Suzuki" -> ManufacturerType.SUZUKI
-                        "Kia" -> ManufacturerType.KIA
-                        "Renault" -> ManufacturerType.RENAULT
-                        else -> {ManufacturerType.OTHER}
-                    },
+                    type = getManufacturerType(manufacturerName),
                     mark = manufacturerName,
                     market = manufacturerMarket + manufacturerSide,
                 )
@@ -41,6 +29,22 @@ class NetworkService @Inject constructor() {
                 .drop(1)
         }
 
+    }
+
+    private fun getManufacturerType(manufacturerName: String) : ManufacturerType {
+       return when(manufacturerName) {
+            "Toyota" -> ManufacturerType.TOYOTA
+            "Nissan" -> ManufacturerType.NISSAN
+            "Mitsubishi" -> ManufacturerType.MITSUBISHI
+            "Mazda" -> ManufacturerType.MAZDA
+            "Honda" -> ManufacturerType.HONDA
+            "Lexus" -> ManufacturerType.LEXUS
+            "Subaru" -> ManufacturerType.SUBARU
+            "Suzuki" -> ManufacturerType.SUZUKI
+            "Kia" -> ManufacturerType.KIA
+            "Renault" -> ManufacturerType.RENAULT
+            else -> ManufacturerType.OTHER
+        }
     }
 
 
