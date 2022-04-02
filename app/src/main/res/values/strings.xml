@@ -11,4 +11,5 @@
     <string name="bottom_sheet_type_search_heading">Выберите тип поиска</string>
     <string name="bottom_sheet_vin_search_heading">VIN-код или номер кузова</string>
     <string name="bottom_sheet_model_search_heading">Модель автомобиля</string>
+    <string name="choose_market_title">Регион</string>
 </resources>

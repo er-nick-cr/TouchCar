@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.example.touchcar.R
 import com.example.touchcar.databinding.BottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BottomSheetFragment() : BottomSheetDialogFragment() {
 
     lateinit var binding: BottomSheetLayoutBinding
@@ -25,5 +29,16 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
         binding =
             BottomSheetLayoutBinding.bind(inflater.inflate(R.layout.bottom_sheet_layout, container))
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.modelSearchBlock.setOnClickListener {
+            val result = "result"
+            setFragmentResult(
+                "requestKey",
+                bundleOf("bundleKey" to result)
+            )
+        }
     }
 }
