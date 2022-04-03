@@ -13,16 +13,19 @@ class MainMenuViewModel @Inject constructor(
     private val getManufacturerFromNetworkUseCase: GetManufacturerFromNetworkUseCase
 ) : ViewModel() {
 
-    val manufacturerLiveData: MutableLiveData<List<Manufacturer>> = MutableLiveData<List<Manufacturer>>()
+    val manufacturerLiveData: MutableLiveData<List<Manufacturer>> =
+        MutableLiveData<List<Manufacturer>>()
     lateinit var currentManufacturer: Manufacturer
-    private val disposable:CompositeDisposable = CompositeDisposable()
+    private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun getManufacturers() {
-        disposable.add( getManufacturerFromNetworkUseCase.getManufacturer()
-            .subscribeOn(Schedulers.io())
-            .subscribe(
-                { value -> manufacturerLiveData.postValue(value) },
-                { error -> println(error) }))
+        disposable.add(
+            getManufacturerFromNetworkUseCase.getManufacturer()
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    { value -> manufacturerLiveData.postValue(value) },
+                    { error -> println(error) })
+        )
     }
 
     override fun onCleared() {

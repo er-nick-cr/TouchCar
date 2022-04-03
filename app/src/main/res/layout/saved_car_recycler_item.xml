@@ -19,7 +19,7 @@
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -32,7 +32,7 @@
         android:textColor="@color/text_main"
         android:textStyle="bold"
         android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/car_manufacturer_text"/>
 
     <TextView
@@ -45,7 +45,7 @@
         android:textColor="@color/grey_accent"
         android:layout_marginTop="7dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/car_model_text"/>
 
 

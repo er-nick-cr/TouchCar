@@ -10,4 +10,5 @@
     <color name="accent">#0675FE</color>
     <color name="text_main">#282828</color>
     <color name="grey_accent">#909090</color>
+    <color name="grey_divider">#E8E8E8</color>
 </resources>

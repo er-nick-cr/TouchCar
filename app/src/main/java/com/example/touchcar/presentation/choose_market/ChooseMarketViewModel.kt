@@ -7,5 +7,4 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ChooseMarketViewModel @Inject constructor(
-) : ViewModel() {
-}
+) : ViewModel()

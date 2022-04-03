@@ -46,7 +46,7 @@ class MainMenuFragment : Fragment() {
 
         mainMenuViewModel.getManufacturers();
 
-            childFragmentManager.setFragmentResultListener("requestKey", this) { requestKey, bundle ->
+        childFragmentManager.setFragmentResultListener("requestKey", this) { requestKey, bundle ->
             val result = bundle.getString("bundleKey")
             moveToMarketFragment()
         }
@@ -55,8 +55,13 @@ class MainMenuFragment : Fragment() {
 
     private fun moveToMarketFragment() {
         val navigator = activity as TouchCarNavigator
-        navigator.openChooseMarket(mainMenuViewModel.currentManufacturer)
+        if (mainMenuViewModel.currentManufacturer.market.isEmpty()) {
+            navigator.openChooseModel(mainMenuViewModel.currentManufacturer.url)
+        } else {
+            navigator.openChooseMarket(mainMenuViewModel.currentManufacturer)
+        }
     }
+
 
     private fun onItemClick(manufacturer: Manufacturer) {
         mainMenuViewModel.currentManufacturer = manufacturer

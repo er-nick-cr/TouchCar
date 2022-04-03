@@ -1,7 +1,7 @@
 package com.example.touchcar.domain.usecase
 
 import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.repository.ManufacturerRepository
+import com.example.touchcar.domain.repository.CarRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -11,9 +11,10 @@ interface GetManufacturerFromNetworkUseCase {
 }
 
 class GetManufacturerFromNetworkUseCaseImpl @Inject constructor(
-    private val manufacturerRepository: ManufacturerRepository
+    private val carRepository: CarRepository
 ) : GetManufacturerFromNetworkUseCase {
+
     override fun getManufacturer(): Single<List<Manufacturer>> {
-        return manufacturerRepository.getManufacturers()
+        return carRepository.getManufacturers()
     }
 }

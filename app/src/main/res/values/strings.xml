@@ -12,4 +12,8 @@
     <string name="bottom_sheet_vin_search_heading">VIN-код или номер кузова</string>
     <string name="bottom_sheet_model_search_heading">Модель автомобиля</string>
     <string name="choose_market_title">Регион</string>
+    <string name="choose_market_enter_region">Введите регион…</string>
+    <string name="choose_model_title">Модель</string>
+    <string name="bottom_sheet_vin">VIN</string>
+    <string name="botom_sheet_model">model</string>
 </resources>

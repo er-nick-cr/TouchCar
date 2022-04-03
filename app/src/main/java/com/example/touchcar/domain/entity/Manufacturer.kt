@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Manufacturer(val type: ManufacturerType, val mark: String, val market: List<Market>) : Parcelable
+data class Manufacturer(val type: ManufacturerType, val mark: String, val url: String, val market: List<Market>) : Parcelable
 
 enum class ManufacturerType {
     TOYOTA,

@@ -5,4 +5,5 @@ import com.example.touchcar.domain.entity.Manufacturer
 interface TouchCarNavigator {
 
     fun openChooseMarket(manufacturer: Manufacturer)
+    fun openChooseModel(url: String)
 }

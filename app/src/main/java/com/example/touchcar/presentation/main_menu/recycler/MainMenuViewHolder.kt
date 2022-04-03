@@ -18,7 +18,6 @@ class MainMenuViewHolder constructor(
         }
     }
 
-
     fun bind(manufacturer: Manufacturer) {
         binding.carManufacturerTextSearch.text = manufacturer.mark
         binding.carMarkets.text = manufacturer.market.joinToString(separator = " ") { market ->  market.marketName}
