@@ -1,5 +1,6 @@
 package com.example.touchcar.data.datasource.network
 
+import com.example.touchcar.BuildConfig
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.ManufacturerType
 import com.example.touchcar.domain.entity.Market
@@ -14,7 +15,7 @@ class NetworkService @Inject constructor() {
 
     fun getManufacturers(): Single<List<Manufacturer>> {
         return Single.fromCallable {
-            val document: Document = Jsoup.connect("https://www.epcdata.ru").get()
+            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).get()
             val containers: Elements = document.select("tbody:first-of-type")
             containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()

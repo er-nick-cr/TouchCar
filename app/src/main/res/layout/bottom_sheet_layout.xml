@@ -14,9 +14,6 @@
     app:behavior_peekHeight="229dp"
     app:behavior_hideable="false">
 
-    <!-- В данном layout содержится разметка для развёрнутого состояния фрагмента
-    Изначально она находится в состоянии invisible и располагается под layout_top как и layout_collapsed-->
-
     <TextView
         android:id="@+id/type_search_heading"
         android:layout_width="wrap_content"

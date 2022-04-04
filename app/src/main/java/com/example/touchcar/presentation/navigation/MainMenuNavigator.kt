@@ -1,8 +1,8 @@
-package com.example.touchcar.presentation
+package com.example.touchcar.presentation.navigation
 
 import com.example.touchcar.domain.entity.Manufacturer
 
-interface TouchCarNavigator {
+interface MainMenuNavigator {
 
     fun openChooseMarket(manufacturer: Manufacturer)
     fun openChooseModel(url: String)

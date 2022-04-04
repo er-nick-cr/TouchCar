@@ -1,16 +1,17 @@
 package com.example.touchcar.presentation.choose_model
 
+import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Model
-import com.example.touchcar.domain.usecase.GetModelsFromNetworkUseCase
+import com.example.touchcar.domain.usecase.GetModelsUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 class ChooseModelViewModel @Inject constructor(
-    private val getModelsFromNetworkUseCase: GetModelsFromNetworkUseCase
+    private val getModelsUseCase: GetModelsUseCase
 ) : ViewModel() {
 
     val modelLiveData: MutableLiveData<List<Model>> = MutableLiveData<List<Model>>()
@@ -18,12 +19,21 @@ class ChooseModelViewModel @Inject constructor(
 
     fun getModels(url: String) {
         disposable.add(
-            getModelsFromNetworkUseCase.getModels(url)
+            getModelsUseCase.getModels(url)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { value -> modelLiveData.postValue(value) },
-                    { error -> println(error) })
+                    { error -> error.printStackTrace()})
         )
+    }
+
+    fun searchModel(models: List<Model>, s: Editable): List<Model> {
+        return models.filter {
+            it.modelName.contains(
+                s.toString(),
+                ignoreCase = true
+            )
+        }
     }
 
     override fun onCleared() {

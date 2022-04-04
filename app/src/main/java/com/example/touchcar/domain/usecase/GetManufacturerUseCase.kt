@@ -5,14 +5,14 @@ import com.example.touchcar.domain.repository.CarRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-interface GetManufacturerFromNetworkUseCase {
+interface GetManufacturerUseCase {
 
     fun getManufacturer(): Single<List<Manufacturer>>
 }
 
-class GetManufacturerFromNetworkUseCaseImpl @Inject constructor(
+class GetManufacturerUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
-) : GetManufacturerFromNetworkUseCase {
+) : GetManufacturerUseCase {
 
     override fun getManufacturer(): Single<List<Manufacturer>> {
         return carRepository.getManufacturers()

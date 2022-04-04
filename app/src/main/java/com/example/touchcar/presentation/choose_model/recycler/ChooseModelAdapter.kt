@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.ModelRecyclerItemBinding
 import com.example.touchcar.domain.entity.Model
 
-class ChooseModelAdapter() : RecyclerView.Adapter<ChooseModelViewHolder>() {
+class ChooseModelAdapter : RecyclerView.Adapter<ChooseModelViewHolder>() {
 
     var models: List<Model> = emptyList()
         set(value) {

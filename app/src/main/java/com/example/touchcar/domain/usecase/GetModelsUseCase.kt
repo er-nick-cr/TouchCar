@@ -6,13 +6,13 @@ import com.example.touchcar.domain.repository.CarRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-interface GetModelsFromNetworkUseCase {
+interface GetModelsUseCase {
     fun getModels(url: String): Single<List<Model>>
 }
 
-class GetModelsFromNetworkUseCaseImpl @Inject constructor(
+class GetModelsUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
-    ) : GetModelsFromNetworkUseCase {
+    ) : GetModelsUseCase {
 
     override fun getModels(url: String): Single<List<Model>> {
         return carRepository.getModels(url)

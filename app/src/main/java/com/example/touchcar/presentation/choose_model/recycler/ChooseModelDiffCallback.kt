@@ -5,8 +5,10 @@ import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.domain.entity.Model
 
-class ChooseModelDiffCallback(private val oldList: List<Model>, private val newList: List<Model>) :
-    DiffUtil.Callback() {
+class ChooseModelDiffCallback(
+    private val oldList: List<Model>,
+    private val newList: List<Model>
+    ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldList.size

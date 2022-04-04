@@ -8,7 +8,7 @@ import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.presentation.utils.getLogo
 
-class ChooseMarketViewHolder constructor(
+class ChooseMarketViewHolder(
     private val binding: MarketRecyclerItemBinding,
     private val onItemClickListener: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {

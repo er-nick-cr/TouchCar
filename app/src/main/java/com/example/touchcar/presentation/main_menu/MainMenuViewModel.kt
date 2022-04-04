@@ -3,14 +3,13 @@ package com.example.touchcar.presentation.main_menu
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.Market
-import com.example.touchcar.domain.usecase.GetManufacturerFromNetworkUseCase
+import com.example.touchcar.domain.usecase.GetManufacturerUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainMenuViewModel @Inject constructor(
-    private val getManufacturerFromNetworkUseCase: GetManufacturerFromNetworkUseCase
+    private val getManufacturerUseCase: GetManufacturerUseCase
 ) : ViewModel() {
 
     val manufacturerLiveData: MutableLiveData<List<Manufacturer>> =
@@ -20,11 +19,11 @@ class MainMenuViewModel @Inject constructor(
 
     fun getManufacturers() {
         disposable.add(
-            getManufacturerFromNetworkUseCase.getManufacturer()
+            getManufacturerUseCase.getManufacturer()
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { value -> manufacturerLiveData.postValue(value) },
-                    { error -> println(error) })
+                    { error -> error.printStackTrace() })
         )
     }
 

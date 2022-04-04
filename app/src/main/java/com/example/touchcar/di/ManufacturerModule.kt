@@ -2,10 +2,7 @@ package com.example.touchcar.di
 
 import com.example.touchcar.data.repository.CarRepositoryImpl
 import com.example.touchcar.domain.repository.CarRepository
-import com.example.touchcar.domain.usecase.GetManufacturerFromNetworkUseCase
-import com.example.touchcar.domain.usecase.GetManufacturerFromNetworkUseCaseImpl
-import com.example.touchcar.domain.usecase.GetModelsFromNetworkUseCase
-import com.example.touchcar.domain.usecase.GetModelsFromNetworkUseCaseImpl
+import com.example.touchcar.domain.usecase.*
 import com.example.touchcar.presentation.main_menu.MainMenuFragment
 import dagger.Binds
 import dagger.Module
@@ -23,8 +20,8 @@ abstract class ManufacturerModule {
     abstract fun bindManufacturerRepository(carRepositoryImpl: CarRepositoryImpl): CarRepository
 
     @Binds
-    abstract fun bindGetManufacturerFromNetworkUseCase(getManufacturerFromNetworkUseCaseImpl: GetManufacturerFromNetworkUseCaseImpl): GetManufacturerFromNetworkUseCase
+    abstract fun bindGetManufacturerUseCase(getManufacturerFromNetworkUseCaseImpl: GetManufacturerUseCaseImpl): GetManufacturerUseCase
 
     @Binds
-    abstract fun bindGetModelFromNetworkUseCase(getModelsFromNetworkUseCaseImpl: GetModelsFromNetworkUseCaseImpl): GetModelsFromNetworkUseCase
+    abstract fun bindGetModelUseCase(getModelsFromNetworkUseCaseImpl: GetModelsUseCaseImpl): GetModelsUseCase
 }
