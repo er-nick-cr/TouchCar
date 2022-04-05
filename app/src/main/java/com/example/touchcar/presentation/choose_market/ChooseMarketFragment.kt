@@ -46,10 +46,15 @@ class ChooseMarketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var manufacturer: Manufacturer = arguments?.get(ARG_MANUFACTURER) as Manufacturer
+        val manufacturer: Manufacturer = arguments?.get(ARG_MANUFACTURER) as Manufacturer
         val chooseMarketAdapter = ChooseMarketAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.market_search_recycler)!!
-        chooseMarketAdapter.markets = manufacturer.market
+
+        chooseMarketViewModel.setUpMarkets(manufacturer.market)
+        chooseMarketViewModel.marketLiveData.observe(this) { markets ->
+            chooseMarketAdapter.markets = markets
+        }
+
         recyclerView.adapter = chooseMarketAdapter
 //       Divider decoration
         val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
@@ -59,8 +64,7 @@ class ChooseMarketFragment : Fragment() {
 //      Search
         binding.searchBar.addTextChangedListener(
             afterTextChanged = { s: Editable ->
-                chooseMarketAdapter.markets =
-                    chooseMarketViewModel.searchMarket(manufacturer.market, s)
+                chooseMarketViewModel.searchMarket(s)
             }
         )
     }

@@ -51,13 +51,12 @@ class ChooseModelFragment : Fragment() {
         chooseModelViewModel.modelLiveData
             .observe(this) { models ->
                 chooseModelAdapter.models = models
-                binding.searchModelBar.addTextChangedListener(
-                    afterTextChanged = { s: Editable ->
-                        chooseModelAdapter.models = chooseModelViewModel.searchModel(models, s)
-                    })
             }
         recyclerView.adapter = chooseModelAdapter
         chooseModelViewModel.getModels(modelUrl)
+        binding.searchModelBar.addTextChangedListener(
+            afterTextChanged = { s: Editable -> chooseModelViewModel.searchModel(s) }
+        )
     }
 
     companion object {

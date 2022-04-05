@@ -7,7 +7,6 @@ import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.domain.usecase.GetModelsUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class ChooseModelViewModel @Inject constructor(
@@ -15,6 +14,7 @@ class ChooseModelViewModel @Inject constructor(
 ) : ViewModel() {
 
     val modelLiveData: MutableLiveData<List<Model>> = MutableLiveData<List<Model>>()
+    private var models: List<Model> = emptyList()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun getModels(url: String) {
@@ -22,18 +22,21 @@ class ChooseModelViewModel @Inject constructor(
             getModelsUseCase.getModels(url)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                    { value -> modelLiveData.postValue(value) },
+                    { value ->
+                        modelLiveData.postValue(value)
+                        models = value
+                    },
                     { error -> error.printStackTrace()})
         )
     }
 
-    fun searchModel(models: List<Model>, s: Editable): List<Model> {
-        return models.filter {
+    fun searchModel(s: Editable) {
+        modelLiveData.postValue(models.filter {
             it.modelName.contains(
                 s.toString(),
                 ignoreCase = true
             )
-        }
+        })
     }
 
     override fun onCleared() {
