@@ -14,9 +14,6 @@
     app:behavior_peekHeight="229dp"
     app:behavior_hideable="false">
 
-    <!-- В данном layout содержится разметка для развёрнутого состояния фрагмента
-    Изначально она находится в состоянии invisible и располагается под layout_top как и layout_collapsed-->
-
     <TextView
         android:id="@+id/type_search_heading"
         android:layout_width="wrap_content"
@@ -45,7 +42,8 @@
             android:background="@drawable/vin_icon"
             android:layout_marginStart="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/bottom_sheet_vin" />
 
         <TextView
             android:id="@+id/VIN_search_heading"
@@ -78,7 +76,8 @@
             android:background="@drawable/model_icon"
             android:layout_marginStart="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/botom_sheet_model" />
 
         <TextView
             android:id="@+id/model_search_heading"
@@ -89,7 +88,7 @@
             android:textColor="@color/text_main"
             android:textSize="18sp"
             android:layout_marginStart="16dp"
-            app:layout_constraintLeft_toRightOf="@+id/model_search_icon"
+            app:layout_constraintStart_toEndOf="@id/model_search_icon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

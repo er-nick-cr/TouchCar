@@ -1,12 +1,13 @@
-package com.example.touchcar.presentation.main_menu.recycler
+package com.example.touchcar.presentation.choose_market.recycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.touchcar.domain.entity.Manufacturer
+import com.example.touchcar.domain.entity.Market
 
-class MainMenuDiffCallback(
-    private val oldList: List<Manufacturer>,
-    private val newList: List<Manufacturer>
-) : DiffUtil.Callback() {
+class ChooseMarketDiffCallback(
+    private val oldList: List<Market>,
+    private val newList: List<Market>
+    ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldList.size
@@ -17,7 +18,7 @@ class MainMenuDiffCallback(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].mark == newList[newItemPosition].mark
+        return oldList[oldItemPosition].marketName == newList[newItemPosition].marketName
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
