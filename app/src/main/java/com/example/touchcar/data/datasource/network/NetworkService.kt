@@ -1,10 +1,8 @@
 package com.example.touchcar.data.datasource.network
 
+import android.util.Log
 import com.example.touchcar.BuildConfig
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.ManufacturerType
-import com.example.touchcar.domain.entity.Market
-import com.example.touchcar.domain.entity.Model
+import com.example.touchcar.domain.entity.*
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -15,7 +13,7 @@ class NetworkService @Inject constructor() {
 
     fun getManufacturers(): Single<List<Manufacturer>> {
         return Single.fromCallable {
-            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).get()
+            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).timeout(10 * 10000).get()
             val containers: Elements = document.select("tbody:first-of-type")
             containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()
@@ -38,7 +36,7 @@ class NetworkService @Inject constructor() {
 
     fun getModels(url: String): Single<List<Model>> {
         return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).get()
+            val document: Document = Jsoup.connect(url).timeout(10 * 10000).get()
             val containers: Elements = document.select(".category2")
             containers.map { container ->
                 val name: String = container.select("a").text()
@@ -46,11 +44,27 @@ class NetworkService @Inject constructor() {
 
                 Model(
                     modelName = name,
-                    modelUrl = newUrl
+                    bodyUrl = url+newUrl
                 )
             }
         }
     }
+
+    fun getBodyList(url: String): Single<List<Body>> {
+        return Single.fromCallable {
+            val document: Document = Jsoup.connect(url).timeout(10 * 10000).get()
+            val containers: Elements = document.select(".category2")
+            containers.map { container ->
+                val name: String = container.select("a").text()
+                val newUrl: String = container.select("a").attr("href")
+                Body(
+                    bodyName = name,
+                    equipmentUrl = url+newUrl
+                )
+            }
+        }
+    }
+
 
     private fun getManufacturerType(manufacturerName: String): ManufacturerType {
         return when (manufacturerName) {

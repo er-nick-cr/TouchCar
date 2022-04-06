@@ -1,5 +1,6 @@
 package com.example.touchcar.data.datasource.network
 
+import com.example.touchcar.domain.entity.Body
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Model
 import io.reactivex.Single
@@ -13,5 +14,9 @@ class NetworkDataSource @Inject constructor(private val networkService: NetworkS
 
     fun getModels(url: String): Single<List<Model>> {
         return networkService.getModels(url)
+    }
+
+    fun getBodyList(url: String): Single<List<Body>> {
+        return networkService.getBodyList(url)
     }
 }

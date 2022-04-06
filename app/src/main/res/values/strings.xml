@@ -16,4 +16,6 @@
     <string name="choose_model_title">Модель</string>
     <string name="bottom_sheet_vin">VIN</string>
     <string name="botom_sheet_model">model</string>
+    <string name="choose_body_fragment">Марка кузова</string>
+    <string name="choose_body_hint">Введите марку кузова…</string>
 </resources>

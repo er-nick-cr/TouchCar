@@ -4,14 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.touchcar.R
 import com.example.touchcar.domain.entity.Manufacturer
+import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
 import com.example.touchcar.presentation.main_menu.MainMenuFragment
+import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
+import com.example.touchcar.presentation.navigation.ChooseModelNavigator
 import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainMenuActivity : AppCompatActivity(), MainMenuNavigator {
+class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator, ChooseModelNavigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,14 @@ class MainMenuActivity : AppCompatActivity(), MainMenuNavigator {
         val chooseModelFragment = ChooseModelFragment.newInstance(url)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, chooseModelFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun openChooseBody(url: String) {
+        val chooseBodyFragment = ChooseBodyFragment.newInstance(url)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, chooseBodyFragment)
             .addToBackStack(null)
             .commit()
     }
