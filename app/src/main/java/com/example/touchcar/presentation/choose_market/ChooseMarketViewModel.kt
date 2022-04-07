@@ -19,10 +19,10 @@ class ChooseMarketViewModel @Inject constructor(
     }
 
 
-    fun searchMarket(s: Editable) {
+    fun searchMarket(searchValue: String) {
         marketLiveData.postValue(markets.filter {
             it.marketName.contains(
-                s.toString(),
+                searchValue,
                 ignoreCase = true
             )
         })

@@ -17,7 +17,7 @@ class ChooseModelViewModel @Inject constructor(
     private var models: List<Model> = emptyList()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    fun getModels(url: String) {
+    fun requestModels(url: String) {
         disposable.add(
             getModelsUseCase.getModels(url)
                 .subscribeOn(Schedulers.io())
@@ -30,10 +30,10 @@ class ChooseModelViewModel @Inject constructor(
         )
     }
 
-    fun searchModel(s: Editable) {
+    fun searchModel(searchValue: String) {
         modelLiveData.postValue(models.filter {
             it.modelName.contains(
-                s.toString(),
+                searchValue,
                 ignoreCase = true
             )
         })

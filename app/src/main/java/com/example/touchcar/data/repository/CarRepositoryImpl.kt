@@ -1,6 +1,7 @@
 package com.example.touchcar.data.repository
 
 import com.example.touchcar.data.datasource.network.NetworkDataSource
+import com.example.touchcar.domain.entity.Body
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.domain.repository.CarRepository
@@ -17,5 +18,9 @@ class CarRepositoryImpl @Inject constructor(
 
     override fun getModels(url: String): Single<List<Model>> {
         return networkDataSource.getModels(url)
+    }
+
+    override fun getBodyList(url: String): Single<List<Body>> {
+        return networkDataSource.getBodyList(url)
     }
 }

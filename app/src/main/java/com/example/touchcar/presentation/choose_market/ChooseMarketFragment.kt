@@ -16,6 +16,7 @@ import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
+import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class ChooseMarketFragment : Fragment() {
 
     @Inject
-    lateinit var chooseMarketViewModel: ChooseMarketViewModel
+    lateinit var viewModel: ChooseMarketViewModel
     lateinit var binding: ChooseMarketFragmentBinding
 
 
@@ -50,33 +51,32 @@ class ChooseMarketFragment : Fragment() {
         val chooseMarketAdapter = ChooseMarketAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.market_search_recycler)!!
 
-        chooseMarketViewModel.setUpMarkets(manufacturer.market)
-        chooseMarketViewModel.marketLiveData.observe(this) { markets ->
-            chooseMarketAdapter.markets = markets
-        }
-
+        viewModel.setUpMarkets(manufacturer.market)
+        viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.markets = markets }
         recyclerView.adapter = chooseMarketAdapter
-//       Divider decoration
-        val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.divider_drawable, null)
-            ?.let { dividerItemDecoration.setDrawable(it) }
-        recyclerView.addItemDecoration(dividerItemDecoration)
-//      Search
+        setDividerDecoration(recyclerView)
         binding.searchBar.addTextChangedListener(
-            afterTextChanged = { s: Editable ->
-                chooseMarketViewModel.searchMarket(s)
-            }
+            afterTextChanged = { searchValue: Editable -> viewModel.searchMarket(searchValue.toString()) }
         )
     }
 
     private fun onItemClick(market: Market) {
-        val navigator = activity as MainMenuNavigator
+        val navigator = activity as ChooseMarketNavigator
         navigator.openChooseModel(market.marketUrl)
+    }
+
+    private fun setDividerDecoration(recyclerView: RecyclerView) {
+        val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
+
+        ResourcesCompat.getDrawable(resources, R.drawable.divider_drawable, null)
+            ?.let { dividerItemDecoration.setDrawable(it) }
+        recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     companion object {
 
         private const val ARG_MANUFACTURER = "manufacturer"
+
         fun newInstance(manufacturer: Manufacturer): ChooseMarketFragment {
             return ChooseMarketFragment().apply {
                 arguments = bundleOf(ARG_MANUFACTURER to manufacturer)

@@ -23,7 +23,7 @@ class MainMenuFragment : Fragment() {
 
 
     @Inject
-    lateinit var mainMenuViewModel: MainMenuViewModel
+    lateinit var viewModel: MainMenuViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,12 +44,10 @@ class MainMenuFragment : Fragment() {
         val mainMenuAdapter = MainMenuAdapter(::onItemClick);
         val recyclerView: RecyclerView = view?.findViewById(R.id.manufacturer_search_recycler)!!
 
-        mainMenuViewModel.manufacturerLiveData
-            .observe(this) { manufacturers ->
-                mainMenuAdapter.manufacturers = manufacturers
-            }
+        viewModel.manufacturerLiveData
+            .observe(this) { manufacturers -> mainMenuAdapter.manufacturers = manufacturers }
         recyclerView.adapter = mainMenuAdapter
-        mainMenuViewModel.getManufacturers();
+        viewModel.getManufacturers();
         childFragmentManager.setFragmentResultListener(REQUEST_KEY, this) { _, bundle ->
             val result = bundle.getString(BUNDLE_KEY)
             if (result == REQUEST_RESULT) {
@@ -61,15 +59,15 @@ class MainMenuFragment : Fragment() {
 
     private fun moveToMarketFragment() {
         val navigator = activity as MainMenuNavigator
-        if (mainMenuViewModel.currentManufacturer.market.isEmpty()) {
-            navigator.openChooseModel(mainMenuViewModel.currentManufacturer.url)
+        if (viewModel.currentManufacturer.market.isEmpty()) {
+            navigator.openChooseModel(viewModel.currentManufacturer.url)
         } else {
-            navigator.openChooseMarket(mainMenuViewModel.currentManufacturer)
+            navigator.openChooseMarket(viewModel.currentManufacturer)
         }
     }
 
     private fun onItemClick(manufacturer: Manufacturer) {
-        mainMenuViewModel.currentManufacturer = manufacturer
+        viewModel.currentManufacturer = manufacturer
         val bottomSheetFragment = BottomSheetFragment()
         childFragmentManager.beginTransaction()
             .add(bottomSheetFragment, BOTTOM_SHEET_TAG)

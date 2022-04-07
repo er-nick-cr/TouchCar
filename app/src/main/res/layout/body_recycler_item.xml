@@ -9,10 +9,10 @@
     android:paddingVertical="14dp">
 
     <TextView
-        android:id="@+id/market_search_heading"
+        android:id="@+id/body_search_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Япония (правый руль)"
+        tools:text="GXE10"
         android:fontFamily="@font/google_sans_regular"
         android:textSize="18sp"
         android:textColor="@color/text_main"
