@@ -8,12 +8,14 @@ import com.example.touchcar.databinding.ModelRecyclerItemBinding
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.domain.entity.Model
 
-class ChooseModelAdapter(private val onItemClickListener: (Model) -> Unit) : RecyclerView.Adapter<ChooseModelViewHolder>() {
+class ChooseModelAdapter(
+    private val onItemClickListener: (Model) -> Unit
+) : RecyclerView.Adapter<ChooseModelViewHolder>() {
 
     var models: List<Model> = emptyList()
         set(value) {
             val callback = ChooseModelDiffCallback(field, value)
-            val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(callback)
+            val diffResult = DiffUtil.calculateDiff(callback)
             field = value
             diffResult.dispatchUpdatesTo(this)
         }

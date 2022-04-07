@@ -17,7 +17,7 @@ class ChooseBodyViewModel @Inject constructor(
     private var bodyList: List<Body> = emptyList()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    fun getBodyList(url: String) {
+    fun requestBodyList(url: String) {
         disposable.add(
             getBodyListUseCase.getBodyList(url)
                 .subscribeOn(Schedulers.io())
@@ -31,10 +31,10 @@ class ChooseBodyViewModel @Inject constructor(
         )
     }
 
-    fun searchMarket(s: Editable) {
+    fun searchMarket(searchValue: String) {
         bodyLiveData.postValue(bodyList.filter {
             it.bodyName.contains(
-                s.toString(),
+                searchValue,
                 ignoreCase = true
             )
         })

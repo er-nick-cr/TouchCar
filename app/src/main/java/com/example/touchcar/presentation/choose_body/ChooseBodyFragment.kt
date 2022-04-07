@@ -23,7 +23,7 @@ import javax.inject.Inject
 class ChooseBodyFragment : Fragment() {
 
     @Inject
-    lateinit var chooseBodyViewModel: ChooseBodyViewModel
+    lateinit var viewModel: ChooseBodyViewModel
     lateinit var binding: ChooseBodyFragmentBinding
 
     override fun onCreateView(
@@ -47,20 +47,13 @@ class ChooseBodyFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.body_search_recycler)!!
         val bodyUrl: String = arguments?.get(ARG_URL) as String
 
-        chooseBodyViewModel.bodyLiveData
-            .observe(this) { models ->
-                chooseBodyAdapter.bodyList = models
-            }
+        viewModel.bodyLiveData
+            .observe(this) { models -> chooseBodyAdapter.bodyList = models }
         recyclerView.adapter = chooseBodyAdapter
-        val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.divider_drawable, null)
-            ?.let { dividerItemDecoration.setDrawable(it) }
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        chooseBodyViewModel.getBodyList(bodyUrl)
+        setDividerDecoration(recyclerView)
+        viewModel.requestBodyList(bodyUrl)
         binding.searchBodyBar.addTextChangedListener(
-            afterTextChanged = { s: Editable ->
-                chooseBodyViewModel.searchMarket(s)
-            }
+            afterTextChanged = { searchValue: Editable -> viewModel.searchMarket(searchValue.toString()) }
         )
     }
 
@@ -68,9 +61,18 @@ class ChooseBodyFragment : Fragment() {
         Log.d("tag", body.equipmentUrl)
     }
 
+    private fun setDividerDecoration(recyclerView: RecyclerView) {
+        val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
+
+        ResourcesCompat.getDrawable(resources, R.drawable.divider_drawable, null)
+            ?.let { dividerItemDecoration.setDrawable(it) }
+        recyclerView.addItemDecoration(dividerItemDecoration)
+    }
+
     companion object {
 
         private const val ARG_URL = "url"
+
         fun newInstance(url: String): ChooseBodyFragment {
             return ChooseBodyFragment().apply {
                 arguments = bundleOf(ARG_URL to url)

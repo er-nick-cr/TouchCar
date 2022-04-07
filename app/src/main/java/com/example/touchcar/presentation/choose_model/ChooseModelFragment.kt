@@ -29,7 +29,7 @@ import javax.inject.Inject
 class ChooseModelFragment : Fragment() {
 
     @Inject
-    lateinit var chooseModelViewModel: ChooseModelViewModel
+    lateinit var viewModel: ChooseModelViewModel
     lateinit var binding: ChooseModelFragmentBinding
 
 
@@ -54,18 +54,13 @@ class ChooseModelFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.model_search_recycler)!!
         val modelUrl: String = arguments?.get(ARG_URL) as String
 
-        chooseModelViewModel.modelLiveData
-            .observe(this) { models ->
-                chooseModelAdapter.models = models
-            }
+        viewModel.modelLiveData
+            .observe(this) { models -> chooseModelAdapter.models = models }
         recyclerView.adapter = chooseModelAdapter
-        val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.divider_drawable, null)
-            ?.let { dividerItemDecoration.setDrawable(it) }
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        chooseModelViewModel.getModels(modelUrl)
+        setDividerDecoration(recyclerView)
+        viewModel.requestModels(modelUrl)
         binding.searchModelBar.addTextChangedListener(
-            afterTextChanged = { s: Editable -> chooseModelViewModel.searchModel(s) }
+            afterTextChanged = { searchValue: Editable -> viewModel.searchModel(searchValue.toString()) }
         )
     }
 
@@ -74,9 +69,18 @@ class ChooseModelFragment : Fragment() {
         navigator.openChooseBody(model.bodyUrl)
     }
 
+    private fun setDividerDecoration(recyclerView: RecyclerView) {
+        val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
+
+        ResourcesCompat.getDrawable(resources, R.drawable.divider_drawable, null)
+            ?.let { dividerItemDecoration.setDrawable(it) }
+        recyclerView.addItemDecoration(dividerItemDecoration)
+    }
+
     companion object {
 
         private const val ARG_URL = "url"
+
         fun newInstance(url: String): ChooseModelFragment {
             return ChooseModelFragment().apply {
                 arguments = bundleOf(ARG_URL to url)

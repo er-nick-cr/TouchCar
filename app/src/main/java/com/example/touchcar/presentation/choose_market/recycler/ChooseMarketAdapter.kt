@@ -9,13 +9,14 @@ import com.example.touchcar.databinding.MarketRecyclerItemBinding
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 
-class ChooseMarketAdapter(private val onItemClickListener: (Market) -> Unit) :
-    RecyclerView.Adapter<ChooseMarketViewHolder>() {
+class ChooseMarketAdapter(
+    private val onItemClickListener: (Market) -> Unit
+) : RecyclerView.Adapter<ChooseMarketViewHolder>() {
 
     var markets: List<Market> = emptyList()
         set(value) {
             val callback = ChooseMarketDiffCallback(field, value)
-            val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(callback)
+            val diffResult = DiffUtil.calculateDiff(callback)
             field = value
             diffResult.dispatchUpdatesTo(this)
         }

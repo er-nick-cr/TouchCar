@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/market_item"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@drawable/ripple">
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple"
+    android:paddingVertical="14dp">
 
     <TextView
         android:id="@+id/market_search_heading"
@@ -16,7 +17,6 @@
         android:textSize="18sp"
         android:textColor="@color/text_main"
         android:textStyle="normal"
-        android:layout_marginTop="14dp"
         android:layout_marginStart="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -13,7 +13,7 @@ class NetworkService @Inject constructor() {
 
     fun getManufacturers(): Single<List<Manufacturer>> {
         return Single.fromCallable {
-            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).timeout(10 * 10000).get()
+            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).timeout(TIMEOUT).get()
             val containers: Elements = document.select("tbody:first-of-type")
             containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()
@@ -36,7 +36,7 @@ class NetworkService @Inject constructor() {
 
     fun getModels(url: String): Single<List<Model>> {
         return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).timeout(10 * 10000).get()
+            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
             val containers: Elements = document.select(".category2")
             containers.map { container ->
                 val name: String = container.select("a").text()
@@ -52,7 +52,7 @@ class NetworkService @Inject constructor() {
 
     fun getBodyList(url: String): Single<List<Body>> {
         return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).timeout(10 * 10000).get()
+            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
             val containers: Elements = document.select(".category2")
             containers.map { container ->
                 val name: String = container.select("a").text()
@@ -80,5 +80,9 @@ class NetworkService @Inject constructor() {
             "Renault" -> ManufacturerType.RENAULT
             else -> ManufacturerType.OTHER
         }
+    }
+
+    companion object {
+        private const val TIMEOUT = 10 * 10000
     }
 }
