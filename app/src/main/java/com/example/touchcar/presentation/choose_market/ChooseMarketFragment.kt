@@ -16,6 +16,7 @@ import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
+import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +63,8 @@ class ChooseMarketFragment : Fragment() {
 
     private fun onItemClick(market: Market) {
         val navigator = activity as ChooseMarketNavigator
-        navigator.openChooseModel(market.marketUrl)
+        val source = NetworkSource(market.marketUrl, "")
+        navigator.openChooseModel(source)
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

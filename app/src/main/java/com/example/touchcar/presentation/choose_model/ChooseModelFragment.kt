@@ -19,6 +19,7 @@ import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.recycler.ChooseModelAdapter
+import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
 import com.example.touchcar.presentation.navigation.ChooseModelNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
@@ -31,6 +32,7 @@ class ChooseModelFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChooseModelViewModel
     lateinit var binding: ChooseModelFragmentBinding
+    lateinit var source: NetworkSource
 
 
     override fun onCreateView(
@@ -52,13 +54,13 @@ class ChooseModelFragment : Fragment() {
 
         val chooseModelAdapter = ChooseModelAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.model_search_recycler)!!
-        val modelUrl: String = arguments?.get(ARG_URL) as String
+        source = arguments?.get(SOURCE) as NetworkSource
 
         viewModel.modelLiveData
             .observe(this) { models -> chooseModelAdapter.models = models }
         recyclerView.adapter = chooseModelAdapter
         setDividerDecoration(recyclerView)
-        viewModel.requestModels(modelUrl)
+        viewModel.requestModels(source.url)
         binding.searchModelBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchModel(searchValue.toString()) }
         )
@@ -66,7 +68,7 @@ class ChooseModelFragment : Fragment() {
 
     private fun onItemClick(model: Model) {
         val navigator = activity as ChooseModelNavigator
-        navigator.openChooseBody(model.bodyUrl)
+        navigator.openChooseBody(source.copy(innerUrl = model.bodyUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {
@@ -79,11 +81,11 @@ class ChooseModelFragment : Fragment() {
 
     companion object {
 
-        private const val ARG_URL = "url"
+        private const val SOURCE = "source"
 
-        fun newInstance(url: String): ChooseModelFragment {
+        fun newInstance(source: NetworkSource): ChooseModelFragment {
             return ChooseModelFragment().apply {
-                arguments = bundleOf(ARG_URL to url)
+                arguments = bundleOf(SOURCE to source)
             }
         }
     }
