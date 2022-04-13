@@ -8,6 +8,7 @@ import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
 import com.example.touchcar.presentation.main_menu.MainMenuFragment
+import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
 import com.example.touchcar.presentation.navigation.ChooseModelNavigator
 import com.example.touchcar.presentation.navigation.MainMenuNavigator
@@ -34,16 +35,16 @@ class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNav
             .commit()
     }
 
-    override fun openChooseModel(url: String) {
-        val chooseModelFragment = ChooseModelFragment.newInstance(url)
+    override fun openChooseModel(source: NetworkSource) {
+        val chooseModelFragment = ChooseModelFragment.newInstance(source)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, chooseModelFragment)
             .addToBackStack(null)
             .commit()
     }
 
-    override fun openChooseBody(url: String) {
-        val chooseBodyFragment = ChooseBodyFragment.newInstance(url)
+    override fun openChooseBody(source: NetworkSource) {
+        val chooseBodyFragment = ChooseBodyFragment.newInstance(source)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, chooseBodyFragment)
             .addToBackStack(null)

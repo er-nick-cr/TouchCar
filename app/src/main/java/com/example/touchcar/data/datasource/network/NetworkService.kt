@@ -44,7 +44,7 @@ class NetworkService @Inject constructor() {
 
                 Model(
                     modelName = name,
-                    bodyUrl = url+newUrl
+                    bodyUrl = newUrl
                 )
             }
         }
@@ -59,7 +59,7 @@ class NetworkService @Inject constructor() {
                 val newUrl: String = container.select("a").attr("href")
                 Body(
                     bodyName = name,
-                    equipmentUrl = url+newUrl
+                    equipmentUrl = newUrl
                 )
             }
         }

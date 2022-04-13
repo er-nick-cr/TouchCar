@@ -13,6 +13,7 @@ import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import com.example.touchcar.presentation.main_menu.bottom_sheet.BottomSheetFragment
 import com.example.touchcar.presentation.main_menu.recycler.MainMenuAdapter
+import com.example.touchcar.presentation.model.NetworkSource
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -59,8 +60,9 @@ class MainMenuFragment : Fragment() {
 
     private fun moveToMarketFragment() {
         val navigator = activity as MainMenuNavigator
+        val source = NetworkSource(viewModel.currentManufacturer.url, "")
         if (viewModel.currentManufacturer.market.isEmpty()) {
-            navigator.openChooseModel(viewModel.currentManufacturer.url)
+            navigator.openChooseModel(source)
         } else {
             navigator.openChooseMarket(viewModel.currentManufacturer)
         }

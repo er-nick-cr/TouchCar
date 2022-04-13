@@ -15,6 +15,7 @@ import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseBodyFragmentBinding
 import com.example.touchcar.domain.entity.Body
 import com.example.touchcar.presentation.choose_body.recycler.ChooseBodyAdapter
+import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,6 +26,7 @@ class ChooseBodyFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChooseBodyViewModel
     lateinit var binding: ChooseBodyFragmentBinding
+    lateinit var source: NetworkSource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,20 +47,20 @@ class ChooseBodyFragment : Fragment() {
 
         val chooseBodyAdapter = ChooseBodyAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.body_search_recycler)!!
-        val bodyUrl: String = arguments?.get(ARG_URL) as String
+        source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.bodyLiveData
             .observe(this) { models -> chooseBodyAdapter.bodyList = models }
         recyclerView.adapter = chooseBodyAdapter
         setDividerDecoration(recyclerView)
-        viewModel.requestBodyList(bodyUrl)
+        viewModel.requestBodyList(source.url)
         binding.searchBodyBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchMarket(searchValue.toString()) }
         )
     }
 
     private fun onItemClick(body: Body) {
-        Log.d("tag", body.equipmentUrl)
+        Log.d("tag", source.copy(innerUrl = body.equipmentUrl).url)
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {
@@ -71,11 +73,11 @@ class ChooseBodyFragment : Fragment() {
 
     companion object {
 
-        private const val ARG_URL = "url"
+        private const val SOURCE_ARG = "source"
 
-        fun newInstance(url: String): ChooseBodyFragment {
+        fun newInstance(source: NetworkSource): ChooseBodyFragment {
             return ChooseBodyFragment().apply {
-                arguments = bundleOf(ARG_URL to url)
+                arguments = bundleOf(SOURCE_ARG to source)
             }
         }
     }
