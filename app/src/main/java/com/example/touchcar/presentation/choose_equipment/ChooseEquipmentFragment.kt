@@ -1,32 +1,64 @@
 package com.example.touchcar.presentation.choose_equipment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import com.example.touchcar.R
+import com.example.touchcar.databinding.ChooseEquipmentFragmentBinding
+import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
+import com.example.touchcar.presentation.model.NetworkSource
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ChooseEquipmentFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ChooseEquipmentFragment()
-    }
-
-    private lateinit var viewModel: ChooseEquipmentViewModel
+    @Inject
+    lateinit var viewModel: ChooseEquipmentViewModel
+    lateinit var binding: ChooseEquipmentFragmentBinding
+    lateinit var source: NetworkSource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.choose_equipment_fragment, container, false)
+        binding = ChooseEquipmentFragmentBinding.bind(
+            inflater.inflate(
+                R.layout.choose_equipment_fragment,
+                container,
+                false
+            )
+        )
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChooseEquipmentViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        source = arguments?.get(SOURCE_ARG) as NetworkSource
+
+        viewModel.equipmentLiveData
+            .observe(this) {equipments -> Log.d("eq", equipments[0].equipmentName)}
+
+        viewModel.equipments
+
+        viewModel.requestEquipments(source.url)
+        Log.d("url", source.url)
+    }
+
+    companion object {
+
+        private const val SOURCE_ARG = "source"
+
+        fun newInstance(source: NetworkSource): ChooseEquipmentFragment {
+            return ChooseEquipmentFragment().apply {
+                arguments = bundleOf(SOURCE_ARG to source)
+            }
+        }
     }
 
 }

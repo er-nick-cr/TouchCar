@@ -27,4 +27,7 @@ abstract class ManufacturerModule {
 
     @Binds
     abstract fun bindGetModelUseCase(getModelsFromNetworkUseCaseImpl: GetModelsUseCaseImpl): GetModelsUseCase
+
+    @Binds
+    abstract fun bindGetEquipmentUseCase(getEquipmentUseCaseImpl: GetEquipmentUseCaseImpl): GetEquipmentUseCase
 }

@@ -16,6 +16,7 @@ import com.example.touchcar.databinding.ChooseBodyFragmentBinding
 import com.example.touchcar.domain.entity.Body
 import com.example.touchcar.presentation.choose_body.recycler.ChooseBodyAdapter
 import com.example.touchcar.presentation.model.NetworkSource
+import com.example.touchcar.presentation.navigation.ChooseBodyNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -47,7 +48,7 @@ class ChooseBodyFragment : Fragment() {
 
         val chooseBodyAdapter = ChooseBodyAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.body_search_recycler)!!
-        source = arguments?.get(SOURCE) as NetworkSource
+        source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.bodyLiveData
             .observe(this) { models -> chooseBodyAdapter.bodyList = models }
@@ -60,7 +61,8 @@ class ChooseBodyFragment : Fragment() {
     }
 
     private fun onItemClick(body: Body) {
-        Log.d("tag", source.copy(innerUrl = body.equipmentUrl).url)
+        val navigator = activity as ChooseBodyNavigator
+        navigator.openChooseEquipment(source.copy(innerUrl = body.equipmentUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {
@@ -73,11 +75,11 @@ class ChooseBodyFragment : Fragment() {
 
     companion object {
 
-        private const val SOURCE = "source"
+        private const val SOURCE_ARG = "source"
 
         fun newInstance(source: NetworkSource): ChooseBodyFragment {
             return ChooseBodyFragment().apply {
-                arguments = bundleOf(SOURCE to source)
+                arguments = bundleOf(SOURCE_ARG to source)
             }
         }
     }

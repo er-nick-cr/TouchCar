@@ -14,7 +14,6 @@ import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseMarketFragmentBinding
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
-import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
@@ -63,7 +62,7 @@ class ChooseMarketFragment : Fragment() {
 
     private fun onItemClick(market: Market) {
         val navigator = activity as ChooseMarketNavigator
-        val source = NetworkSource(market.marketUrl, "")
+        val source = NetworkSource(baseUrl = market.marketUrl, innerUrl = "")
         navigator.openChooseModel(source)
     }
 

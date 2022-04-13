@@ -5,17 +5,19 @@ import android.os.Bundle
 import com.example.touchcar.R
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
+import com.example.touchcar.presentation.choose_equipment.ChooseEquipmentFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
 import com.example.touchcar.presentation.main_menu.MainMenuFragment
 import com.example.touchcar.presentation.model.NetworkSource
+import com.example.touchcar.presentation.navigation.ChooseBodyNavigator
 import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
 import com.example.touchcar.presentation.navigation.ChooseModelNavigator
 import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator, ChooseModelNavigator {
+class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator, ChooseModelNavigator, ChooseBodyNavigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,14 @@ class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNav
         val chooseBodyFragment = ChooseBodyFragment.newInstance(source)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, chooseBodyFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun openChooseEquipment(source: NetworkSource) {
+        val chooseEquipmentFragment = ChooseEquipmentFragment.newInstance(source)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, chooseEquipmentFragment)
             .addToBackStack(null)
             .commit()
     }

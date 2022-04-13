@@ -67,19 +67,19 @@ class NetworkService @Inject constructor() {
 
     fun getEquipment(url: String): Single<List<Equipment>> {
         return Single.fromCallable {
-            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).timeout(TIMEOUT).get()
-            val containers: Elements = document.select("tbody:first-of-type")
+            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
+            val containers: Elements = document.select(".table tr")
             containers.map { container ->
-                val name: String = container.select("a").text()
-                val parameters: Elements = container.select("th")
+                val name: String = container.select("td a").text()
+                val parameters: Elements = container.select("th:first-of-type")
                 Equipment(
                     equipmentName = name,
                     parameters = parameters.map { parameter ->
-                        Parameter(parameterName = parameter.text(), parameter.select("a").text())
+                        Parameter(parameterName = parameter.text(), parameterValue = parameter.select("span").text())
                     }
                 )
-
             }
+                .filter { equipment -> equipment.equipmentName != "" }
         }
     }
 

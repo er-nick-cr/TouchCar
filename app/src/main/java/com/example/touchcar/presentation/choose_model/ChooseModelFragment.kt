@@ -54,7 +54,7 @@ class ChooseModelFragment : Fragment() {
 
         val chooseModelAdapter = ChooseModelAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.model_search_recycler)!!
-        source = arguments?.get(SOURCE) as NetworkSource
+        source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.modelLiveData
             .observe(this) { models -> chooseModelAdapter.models = models }
@@ -81,11 +81,11 @@ class ChooseModelFragment : Fragment() {
 
     companion object {
 
-        private const val SOURCE = "source"
+        private const val SOURCE_ARG = "source"
 
         fun newInstance(source: NetworkSource): ChooseModelFragment {
             return ChooseModelFragment().apply {
-                arguments = bundleOf(SOURCE to source)
+                arguments = bundleOf(SOURCE_ARG to source)
             }
         }
     }
