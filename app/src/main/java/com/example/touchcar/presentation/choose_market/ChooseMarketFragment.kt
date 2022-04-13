@@ -63,7 +63,7 @@ class ChooseMarketFragment : Fragment() {
 
     private fun onItemClick(market: Market) {
         val navigator = activity as ChooseMarketNavigator
-        val source = NetworkSource(market.marketUrl, "")
+        val source = NetworkSource(baseUrl = market.marketUrl, innerUrl = "")
         navigator.openChooseModel(source)
     }
 
