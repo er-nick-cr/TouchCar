@@ -65,6 +65,23 @@ class NetworkService @Inject constructor() {
         }
     }
 
+    fun getEquipment(url: String): Single<List<Equipment>> {
+        return Single.fromCallable {
+            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).timeout(TIMEOUT).get()
+            val containers: Elements = document.select("tbody:first-of-type")
+            containers.map { container ->
+                val name: String = container.select("a").text()
+                val parameters: Elements = container.select("th")
+                Equipment(
+                    equipmentName = name,
+                    parameters = parameters.map { parameter ->
+                        Parameter(parameterName = parameter.text(), parameter.select("a").text())
+                    }
+                )
+
+            }
+        }
+    }
 
     private fun getManufacturerType(manufacturerName: String): ManufacturerType {
         return when (manufacturerName) {
