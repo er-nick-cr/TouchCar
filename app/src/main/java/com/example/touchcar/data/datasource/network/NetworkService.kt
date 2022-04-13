@@ -69,13 +69,15 @@ class NetworkService @Inject constructor() {
         return Single.fromCallable {
             val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
             val containers: Elements = document.select(".table tr")
+            val parametersName: Elements = document.select(".table")
             containers.map { container ->
                 val name: String = container.select("td a").text()
-                val parameters: Elements = container.select("th:first-of-type")
+                val parameters: Elements = containers.select("th")
+                val parametersNorm: List<String> = parameters.map { parameter -> parameter.text() }.filter { parameter -> parameter != "Характеристики"}
                 Equipment(
                     equipmentName = name,
-                    parameters = parameters.map { parameter ->
-                        Parameter(parameterName = parameter.text(), parameterValue = parameter.select("span").text())
+                    parameters = parametersNorm.mapIndexed { ind, parameter ->
+                        Parameter(parameterName = parameter, parameterValue = container.select("td:nth-child(${ind + 1})").text())
                     }
                 )
             }
