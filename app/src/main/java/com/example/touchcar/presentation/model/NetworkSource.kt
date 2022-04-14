@@ -1,6 +1,8 @@
 package com.example.touchcar.presentation.model
 
 import android.os.Parcelable
+import com.example.touchcar.domain.entity.ManufacturerType
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -9,10 +11,6 @@ data class NetworkSource(
     val innerUrl: String,
 ) : Parcelable {
 
-    val url: String by lazy {
-        StringBuilder().apply {
-            append(baseUrl)
-            append(innerUrl)
-        }.toString()
-    }
+    @IgnoredOnParcel
+    val url: String = baseUrl + innerUrl
 }

@@ -3,6 +3,7 @@ package com.example.touchcar.data.datasource.network
 import android.util.Log
 import com.example.touchcar.BuildConfig
 import com.example.touchcar.domain.entity.*
+import com.example.touchcar.presentation.model.NetworkSource
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -66,22 +67,60 @@ class NetworkService @Inject constructor() {
     }
 
     fun getEquipment(url: String): Single<List<Equipment>> {
+        return when {
+            url.contains("toyota") -> getToyotaEquipment(url)
+            url.contains("nissan") -> getNissanEquipment(url)
+            else -> {
+                getToyotaEquipment(url)
+            }
+        }
+    }
+
+    private fun getToyotaEquipment(url: String): Single<List<Equipment>> {
         return Single.fromCallable {
             val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
             val containers: Elements = document.select(".table tr")
-            val parametersName: Elements = document.select(".table")
             containers.map { container ->
                 val name: String = container.select("td a").text()
-                val parameters: Elements = containers.select("th")
-                val parametersNorm: List<String> = parameters.map { parameter -> parameter.text() }.filter { parameter -> parameter != "Характеристики"}
+                val nameUrl: String = container.select("td a").attr("href")
+                val parameters: List<String> = containers.select("th")
+                    .map { parameter -> parameter.text() }
+                    .filter { parameter -> parameter != "Характеристики" }
                 Equipment(
                     equipmentName = name,
-                    parameters = parametersNorm.mapIndexed { ind, parameter ->
-                        Parameter(parameterName = parameter, parameterValue = container.select("td:nth-child(${ind + 1})").text())
+                    equipmentUrl = nameUrl,
+                    parameters = parameters.mapIndexed { ind, parameter ->
+                        Parameter(
+                            parameterName = parameter,
+                            parameterValue = container.select("td:nth-child(${ind + 1})").text()
+                        )
                     }
                 )
             }
                 .filter { equipment -> equipment.equipmentName != "" }
+        }
+    }
+
+    private fun getNissanEquipment(url: String): Single<List<Equipment>> {
+        return Single.fromCallable {
+            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
+            val containers: Elements = document.select(".table tr")
+            containers.drop(2).map { container ->
+                val parameters: List<String> = containers[1].select("th")
+                    .map { parameter -> parameter.text() }
+                val nameUrl = container.select("td a").attr("href")
+                Equipment(
+                    equipmentName = "",
+                    equipmentUrl = nameUrl,
+                    parameters = parameters.mapIndexed() { indParam, parameter ->
+                        Parameter(
+                            parameterName = parameter,
+                            parameterValue = container.select("td:nth-child(${indParam + 1})")
+                                .text()
+                        )
+                    }
+                )
+            }
         }
     }
 
