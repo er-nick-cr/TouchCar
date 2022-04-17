@@ -68,6 +68,9 @@ class ChooseModelFragment : Fragment() {
 
     private fun onItemClick(model: Model) {
         val navigator = activity as ChooseModelNavigator
+        if (source.baseUrl.contains("suzuki")) {
+            navigator.openChooseEquipment(source.copy(innerUrl = model.bodyUrl))
+        }
         navigator.openChooseBody(source.copy(innerUrl = model.bodyUrl))
     }
 

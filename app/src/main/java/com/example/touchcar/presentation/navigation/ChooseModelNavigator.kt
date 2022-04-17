@@ -5,4 +5,5 @@ import com.example.touchcar.presentation.model.NetworkSource
 interface ChooseModelNavigator {
 
     fun openChooseBody(source: NetworkSource)
+    fun openChooseEquipment(source: NetworkSource)
 }
