@@ -1,9 +1,7 @@
 package com.example.touchcar.data.datasource.network
 
-import com.example.touchcar.domain.entity.Body
-import com.example.touchcar.domain.entity.Equipment
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.Model
+import com.example.touchcar.data.datasource.network.network_service.NetworkService
+import com.example.touchcar.domain.entity.*
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -21,7 +19,7 @@ class NetworkDataSource @Inject constructor(private val networkService: NetworkS
         return networkService.getBodyList(url)
     }
 
-    fun getEquipment(url: String): Single<List<Equipment>> {
-        return networkService.getEquipment(url)
+    fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>> {
+        return networkService.getEquipment(url, manufacturerType)
     }
 }

@@ -22,7 +22,7 @@ class CarRepositoryImpl @Inject constructor(
         return networkDataSource.getBodyList(url)
     }
 
-    override fun getEquipment(url: String): Single<List<Equipment>> {
-        return networkDataSource.getEquipment(url)
+    override fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>> {
+        return networkDataSource.getEquipment(url, manufacturerType)
     }
 }

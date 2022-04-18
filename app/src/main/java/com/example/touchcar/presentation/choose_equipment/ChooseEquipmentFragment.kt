@@ -46,7 +46,7 @@ class ChooseEquipmentFragment : Fragment() {
 
         viewModel.equipments
 
-        viewModel.requestEquipments(source.url)
+        viewModel.requestEquipments(source.url, source.type)
         Log.d("url", source.url)
     }
 

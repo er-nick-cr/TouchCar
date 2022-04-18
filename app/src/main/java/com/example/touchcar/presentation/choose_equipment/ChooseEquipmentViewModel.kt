@@ -3,6 +3,7 @@ package com.example.touchcar.presentation.choose_equipment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.touchcar.domain.entity.Equipment
+import com.example.touchcar.domain.entity.ManufacturerType
 import com.example.touchcar.domain.usecase.GetEquipmentUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -16,9 +17,9 @@ class ChooseEquipmentViewModel @Inject constructor(
     var equipments: List<Equipment> = emptyList()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    fun requestEquipments(url: String) {
+    fun requestEquipments(url: String, manufacturerType: ManufacturerType) {
         disposable.add(
-            getEquipmentUseCase.getEquipment(url)
+            getEquipmentUseCase.getEquipment(url, manufacturerType)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {value ->

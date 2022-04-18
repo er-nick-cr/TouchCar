@@ -60,7 +60,7 @@ class MainMenuFragment : Fragment() {
 
     private fun moveToMarketFragment() {
         val navigator = activity as MainMenuNavigator
-        val source = NetworkSource(viewModel.currentManufacturer.url, "")
+        val source = NetworkSource(viewModel.currentManufacturer.type, viewModel.currentManufacturer.url, "")
         if (viewModel.currentManufacturer.market.isEmpty()) {
             navigator.openChooseModel(source)
         } else {

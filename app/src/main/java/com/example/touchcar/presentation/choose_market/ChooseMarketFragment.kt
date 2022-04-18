@@ -27,6 +27,7 @@ class ChooseMarketFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChooseMarketViewModel
     lateinit var binding: ChooseMarketFragmentBinding
+    lateinit var manufacturer: Manufacturer
 
 
     override fun onCreateView(
@@ -47,7 +48,7 @@ class ChooseMarketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val manufacturer: Manufacturer = arguments?.get(ARG_MANUFACTURER) as Manufacturer
+        manufacturer = arguments?.get(ARG_MANUFACTURER) as Manufacturer
         val chooseMarketAdapter = ChooseMarketAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.market_search_recycler)!!
 
@@ -62,7 +63,7 @@ class ChooseMarketFragment : Fragment() {
 
     private fun onItemClick(market: Market) {
         val navigator = activity as ChooseMarketNavigator
-        val source = NetworkSource(baseUrl = market.marketUrl, innerUrl = "")
+        val source = NetworkSource(type = manufacturer.type, baseUrl = market.marketUrl, innerUrl = "")
         navigator.openChooseModel(source)
     }
 

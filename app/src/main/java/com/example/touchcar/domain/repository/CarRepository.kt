@@ -8,5 +8,5 @@ interface CarRepository {
     fun getManufacturers(): Single<List<Manufacturer>>
     fun getModels(url: String): Single<List<Model>>
     fun getBodyList(url: String): Single<List<Body>>
-    fun getEquipment(url: String): Single<List<Equipment>>
+    fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>>
 }
