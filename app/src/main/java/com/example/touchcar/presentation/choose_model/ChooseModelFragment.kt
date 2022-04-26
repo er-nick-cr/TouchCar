@@ -17,6 +17,8 @@ import com.example.touchcar.databinding.ChooseModelFragmentBinding
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.domain.entity.Model
+import com.example.touchcar.presentation.CarSearchRouter
+import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.recycler.ChooseModelAdapter
 import com.example.touchcar.presentation.model.NetworkSource
@@ -31,14 +33,16 @@ class ChooseModelFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ChooseModelViewModel
-    lateinit var binding: ChooseModelFragmentBinding
-    lateinit var source: NetworkSource
+    private lateinit var binding: ChooseModelFragmentBinding
+    private lateinit var source: NetworkSource
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ChooseModelFragmentBinding.bind(
             inflater.inflate(
                 R.layout.choose_model_fragment,
@@ -67,11 +71,7 @@ class ChooseModelFragment : Fragment() {
     }
 
     private fun onItemClick(model: Model) {
-        val navigator = activity as ChooseModelNavigator
-        if (source.baseUrl.contains("suzuki")) {
-            navigator.openChooseEquipment(source.copy(innerUrl = model.bodyUrl))
-        }
-        navigator.openChooseBody(source.copy(innerUrl = model.bodyUrl))
+        router.next(this, source.copy(innerUrl = model.bodyUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

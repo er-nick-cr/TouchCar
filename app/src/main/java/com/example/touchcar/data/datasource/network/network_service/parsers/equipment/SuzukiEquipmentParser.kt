@@ -5,36 +5,32 @@ import com.example.touchcar.domain.entity.Parameter
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class SuzukiEquipmentParser @Inject constructor() {
+class SuzukiEquipmentParser @Inject constructor() : EquipmentParser {
 
-    fun getSuzukiEquipment(url: String): Single<List<Equipment>> {
-        return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
+    override fun parse(document: Document): List<Equipment> {
             val containers: Elements = document.select(".table tbody tr")
-            containers.drop(1).map { container ->
-                val parameters: List<String> = containers[0].select("th")
-                    .map { parameter -> parameter.text() }
-                val nameUrl = container.select("td a").attr("href")
-                Equipment(
-                    equipmentName = "",
-                    equipmentUrl = nameUrl,
-                    parameters = parameters.mapIndexed() { indParam, parameter ->
-                        Parameter(
-                            parameterName = parameter,
-                            parameterValue = container.select("td:nth-child(${indParam + 1})")
-                                .text()
-                        )
-                    }
-                        .filter { parameter -> parameter.parameterName != "#" }
-                )
-            }
-        }
+            return containers.drop(1).map { container -> getEquipment(container, containers) }
     }
 
-    companion object {
-        private const val TIMEOUT = 10 * 10000
+    private fun getEquipment(container: Element, containers: Elements): Equipment {
+        val parameters: List<String> = containers[0].select("th")
+            .map { parameter -> parameter.text() }
+        val nameUrl = container.select("td a").attr("href")
+        return Equipment(
+            equipmentName = "",
+            equipmentUrl = nameUrl,
+            parameters = parameters.mapIndexed() { indParam, parameter ->
+                Parameter(
+                    parameterName = parameter,
+                    parameterValue = container.select("td:nth-child(${indParam + 1})")
+                        .text()
+                )
+            }
+                .filter { parameter -> parameter.parameterName != "#" }
+        )
     }
 }

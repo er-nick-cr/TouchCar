@@ -19,13 +19,13 @@ class ChooseEquipmentFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ChooseEquipmentViewModel
-    lateinit var binding: ChooseEquipmentFragmentBinding
-    lateinit var source: NetworkSource
+    private lateinit var binding: ChooseEquipmentFragmentBinding
+    private lateinit var source: NetworkSource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ChooseEquipmentFragmentBinding.bind(
             inflater.inflate(
                 R.layout.choose_equipment_fragment,

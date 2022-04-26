@@ -17,7 +17,15 @@ import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator, ChooseModelNavigator, ChooseBodyNavigator {
+class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator,
+    ChooseModelNavigator, ChooseBodyNavigator, CarSearchRouterProvider {
+
+    override val router: CarSearchRouter = CarSearchRouter(
+        this,
+        this,
+        this,
+        this,
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

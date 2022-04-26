@@ -13,11 +13,9 @@ import javax.inject.Inject
 
 class ManufacturerParser @Inject constructor() {
 
-    fun getManufacturers(): Single<List<Manufacturer>> {
-        return Single.fromCallable {
-            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).timeout(TIMEOUT).get()
+    fun getManufacturers(document: Document): List<Manufacturer> {
             val containers: Elements = document.select("tbody:first-of-type")
-            containers.map { container ->
+            return containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()
                 val manufacturerUrl: String = container.select("h1:first-of-type a").attr("href")
                 val manufacturerMarkets: Elements = container.select("p:first-of-type a")
@@ -33,7 +31,6 @@ class ManufacturerParser @Inject constructor() {
             }
                 .filter { model -> model.mark.isNotEmpty() }
                 .drop(1)
-        }
     }
 
     private fun getManufacturerType(manufacturerName: String): ManufacturerType {
@@ -50,9 +47,5 @@ class ManufacturerParser @Inject constructor() {
             "Renault" -> ManufacturerType.RENAULT
             else -> ManufacturerType.OTHER
         }
-    }
-
-    companion object {
-        private const val TIMEOUT = 10 * 10000
     }
 }

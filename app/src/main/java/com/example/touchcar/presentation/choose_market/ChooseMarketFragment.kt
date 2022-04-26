@@ -14,6 +14,8 @@ import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseMarketFragmentBinding
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
+import com.example.touchcar.presentation.CarSearchRouter
+import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
@@ -26,14 +28,16 @@ class ChooseMarketFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ChooseMarketViewModel
-    lateinit var binding: ChooseMarketFragmentBinding
-    lateinit var manufacturer: Manufacturer
+    private lateinit var binding: ChooseMarketFragmentBinding
+    private lateinit var manufacturer: Manufacturer
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             ChooseMarketFragmentBinding.bind(
                 inflater.inflate(
@@ -62,9 +66,8 @@ class ChooseMarketFragment : Fragment() {
     }
 
     private fun onItemClick(market: Market) {
-        val navigator = activity as ChooseMarketNavigator
         val source = NetworkSource(type = manufacturer.type, baseUrl = market.marketUrl, innerUrl = "")
-        navigator.openChooseModel(source)
+        router.next(this, source)
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

@@ -5,34 +5,30 @@ import com.example.touchcar.domain.entity.Parameter
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class MitsubishiEquipmentParser @Inject constructor() {
+class MitsubishiEquipmentParser @Inject constructor() : EquipmentParser {
 
-    fun getMitsubishiEquipment(url: String): Single<List<Equipment>> {
-        return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
+    override fun parse(document: Document): List<Equipment> {
             val containers: Elements = document.select("tbody ul")
-            containers.map { container ->
-                val element: Elements = container.select("li")
-                val elementName = element.select("h4 a").text()
-                val elementUrl = element.select("h4 a").attr("href")
-                Equipment(
-                    equipmentName = elementName,
-                    equipmentUrl = elementUrl,
-                    parameters = element.map {
-                        Parameter(
-                            parameterName = element.text().replace(elementName, ""),
-                            parameterValue = ""
-                        )
-                    }
-                )
-            }
-        }
+            return containers.map { container -> getEquipment(container) }
     }
 
-    companion object {
-        private const val TIMEOUT = 10 * 10000
+    private fun getEquipment(container: Element): Equipment {
+        val element: Elements = container.select("li")
+        val elementName = element.select("h4 a").text()
+        val elementUrl = element.select("h4 a").attr("href")
+        return Equipment(
+            equipmentName = elementName,
+            equipmentUrl = elementUrl,
+            parameters = element.map {
+                Parameter(
+                    parameterName = element.text().replace(elementName, ""),
+                    parameterValue = ""
+                )
+            }
+        )
     }
 }

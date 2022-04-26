@@ -10,11 +10,9 @@ import javax.inject.Inject
 
 class ModelsParser @Inject constructor() {
 
-    fun getModels(url: String): Single<List<Model>> {
-        return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
+    fun getModels(document: Document): List<Model> {
             val containers: Elements = document.select(".category2")
-            containers.map { container ->
+            return containers.map { container ->
                 val name: String = container.select("a").text()
                 val newUrl: String = container.select("a").attr("href")
 
@@ -23,10 +21,5 @@ class ModelsParser @Inject constructor() {
                     bodyUrl = newUrl
                 )
             }
-        }
-    }
-
-    companion object {
-        private const val TIMEOUT = 10 * 10000
     }
 }
