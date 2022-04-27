@@ -71,7 +71,8 @@ class ChooseModelFragment : Fragment() {
     }
 
     private fun onItemClick(model: Model) {
-        router.next(this, source.copy(innerUrl = model.bodyUrl))
+        val chooseModelNavigator = activity as ChooseModelNavigator
+        chooseModelNavigator.continueCarSearch(this, source.copy(innerUrl = model.bodyUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

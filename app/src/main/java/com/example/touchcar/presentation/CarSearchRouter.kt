@@ -7,16 +7,10 @@ import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.ChooseBodyNavigator
-import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
-import com.example.touchcar.presentation.navigation.ChooseModelNavigator
-import com.example.touchcar.presentation.navigation.MainMenuNavigator
+import com.example.touchcar.presentation.navigation.*
 
 class CarSearchRouter constructor(
-    private val mainMenuNavigator: MainMenuNavigator,
-    private val chooseMarketNavigator: ChooseMarketNavigator,
-    private val chooseModelNavigator: ChooseModelNavigator,
-    private val chooseBodyNavigator: ChooseBodyNavigator,
+    private val carSearchNavigator: CarSearchNavigator,
 ) {
 
 
@@ -26,26 +20,26 @@ class CarSearchRouter constructor(
 
     fun next(currentFragment: Fragment, source: NetworkSource) {
         when(currentFragment) {
-            is ChooseMarketFragment -> chooseMarketNavigator.openChooseModel(source)
+            is ChooseMarketFragment -> carSearchNavigator.openChooseModel(source)
             is ChooseModelFragment -> openNextFragmentInChooseModelFragment(source)
-            is ChooseBodyFragment -> chooseBodyNavigator.openChooseEquipment(source)
+            is ChooseBodyFragment -> carSearchNavigator.openChooseEquipment(source)
             else -> source.baseUrl
         }
     }
 
     private fun openNextFragmentInMainMenuFragment(manufacturer: Manufacturer, source: NetworkSource) {
         if (manufacturer.market.isNotEmpty()) {
-            mainMenuNavigator.openChooseMarket(manufacturer)
+            carSearchNavigator.openChooseMarket(manufacturer)
         } else {
-            mainMenuNavigator.openChooseModel(source)
+            carSearchNavigator.openChooseModel(source)
         }
     }
 
     private fun openNextFragmentInChooseModelFragment(source: NetworkSource) {
         if (source.type == ManufacturerType.SUZUKI) {
-            chooseModelNavigator.openChooseEquipment(source)
+            carSearchNavigator.openChooseEquipment(source)
         } else {
-            chooseModelNavigator.openChooseBody(source)
+            carSearchNavigator.openChooseBody(source)
         }
     }
 }

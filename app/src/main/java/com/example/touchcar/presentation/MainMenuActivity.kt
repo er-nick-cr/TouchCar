@@ -2,6 +2,7 @@ package com.example.touchcar.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.touchcar.R
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
@@ -10,22 +11,14 @@ import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
 import com.example.touchcar.presentation.main_menu.MainMenuFragment
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.ChooseBodyNavigator
-import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
-import com.example.touchcar.presentation.navigation.ChooseModelNavigator
-import com.example.touchcar.presentation.navigation.MainMenuNavigator
+import com.example.touchcar.presentation.navigation.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator,
+class MainMenuActivity : CarSearchNavigator, AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator,
     ChooseModelNavigator, ChooseBodyNavigator, CarSearchRouterProvider {
 
-    override val router: CarSearchRouter = CarSearchRouter(
-        this,
-        this,
-        this,
-        this,
-    )
+    override val router: CarSearchRouter = CarSearchRouter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,5 +60,13 @@ class MainMenuActivity : AppCompatActivity(), MainMenuNavigator, ChooseMarketNav
             .replace(R.id.fragment_container_view, chooseEquipmentFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun openCarSearchByModel(manufacturer: Manufacturer, source: NetworkSource) {
+        router.start(manufacturer, source)
+    }
+
+    override fun continueCarSearch(currentFragment: Fragment, source: NetworkSource) {
+        router.next(currentFragment, source)
     }
 }

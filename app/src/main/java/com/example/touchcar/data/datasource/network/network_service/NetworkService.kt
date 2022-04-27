@@ -13,39 +13,30 @@ class NetworkService @Inject constructor(
 ) {
 
     fun getManufacturers(): Single<List<Manufacturer>> {
-        return Single.fromCallable {
-            val document = getDocument(BuildConfig.BASE_URL)
-            commonParser.getManufacturers(document)
-        }
+        return requestDocument(BuildConfig.BASE_URL)
+            .map { document -> commonParser.getManufacturers(document) }
 
     }
 
     fun getModels(url: String): Single<List<Model>> {
-        return Single.fromCallable {
-            val document = getDocument(url)
-            commonParser.getModels(document)
-        }
+        return requestDocument(url)
+            .map { document -> commonParser.getModels(document) }
 
     }
 
     fun getBodyList(url: String): Single<List<Body>> {
-        return Single.fromCallable {
-            val document = getDocument(url)
-            commonParser.getBodyList(document)
-        }
-
+        return requestDocument(url)
+            .map { document -> commonParser.getBodyList(document) }
     }
-
     fun getEquipment(url:String, manufacturerType: ManufacturerType): Single<List<Equipment>> {
-        return Single.fromCallable {
-            val document = getDocument(url)
-            commonParser.getEquipment(document, manufacturerType)
-        }
-
+        return requestDocument(url)
+            .map { document -> commonParser.getEquipment(document, manufacturerType) }
     }
 
-    private fun getDocument(url: String): Document {
-        return Jsoup.connect(url).timeout(TIMEOUT).get()
+    private fun requestDocument(url: String): Single<Document> {
+        return Single.fromCallable {
+            Jsoup.connect(url).timeout(TIMEOUT).get()
+        }
     }
 
     companion object {

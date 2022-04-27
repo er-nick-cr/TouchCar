@@ -5,6 +5,5 @@ import com.example.touchcar.presentation.model.NetworkSource
 
 interface MainMenuNavigator {
 
-    fun openChooseMarket(manufacturer: Manufacturer)
-    fun openChooseModel(source: NetworkSource)
+    fun openCarSearchByModel(manufacturer: Manufacturer, source: NetworkSource)
 }

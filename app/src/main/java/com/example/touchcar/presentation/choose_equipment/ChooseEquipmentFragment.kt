@@ -44,8 +44,6 @@ class ChooseEquipmentFragment : Fragment() {
         viewModel.equipmentLiveData
             .observe(this) {equipments -> Log.d("eq", equipments[0].equipmentName)}
 
-        viewModel.equipments
-
         viewModel.requestEquipments(source.url, source.type)
         Log.d("url", source.url)
     }

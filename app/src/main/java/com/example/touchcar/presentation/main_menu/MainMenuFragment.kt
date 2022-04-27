@@ -26,8 +26,6 @@ class MainMenuFragment : Fragment() {
     @Inject
     lateinit var viewModel: MainMenuViewModel
     private lateinit var binding: MainMenuFragmentBinding
-    private val router:CarSearchRouter
-        get() = (activity as CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,18 +53,19 @@ class MainMenuFragment : Fragment() {
         childFragmentManager.setFragmentResultListener(REQUEST_KEY, this) { _, bundle ->
             val result = bundle.getString(BUNDLE_KEY)
             if (result == REQUEST_RESULT) {
-                moveToNextFragment()
+                startSearchByModel()
             }
         }
     }
 
-    private fun moveToNextFragment() {
+    private fun startSearchByModel() {
         val source = NetworkSource(
             type = viewModel.currentManufacturer.type,
             baseUrl = viewModel.currentManufacturer.url,
             innerUrl = ""
         )
-        router.start(viewModel.currentManufacturer, source)
+        val mainMenuNavigator = activity as MainMenuNavigator
+        mainMenuNavigator.openCarSearchByModel(viewModel.currentManufacturer, source)
     }
 
     private fun onItemClick(manufacturer: Manufacturer) {

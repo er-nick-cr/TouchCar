@@ -20,6 +20,7 @@ class MitsubishiEquipmentParser @Inject constructor() : EquipmentParser {
         val element: Elements = container.select("li")
         val elementName = element.select("h4 a").text()
         val elementUrl = element.select("h4 a").attr("href")
+
         return Equipment(
             equipmentName = elementName,
             equipmentUrl = elementUrl,

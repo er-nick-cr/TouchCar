@@ -14,7 +14,7 @@ class ChooseEquipmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     val equipmentLiveData: MutableLiveData<List<Equipment>> = MutableLiveData<List<Equipment>>()
-    var equipments: List<Equipment> = emptyList()
+    private var equipments: List<Equipment> = emptyList()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun requestEquipments(url: String, manufacturerType: ManufacturerType) {

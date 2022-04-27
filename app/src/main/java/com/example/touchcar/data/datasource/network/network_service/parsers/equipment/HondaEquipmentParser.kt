@@ -16,20 +16,23 @@ class HondaEquipmentParser @Inject constructor() : EquipmentParser {
     }
 
     private fun getEquipment(container: Element, containers: Elements): Equipment {
-        val parameters: List<String> = containers[0].select("th")
-            .map { parameter -> parameter.text() }
         val nameUrl = container.select("td a").attr("href")
-        return Equipment(
-            equipmentName = "",
-            equipmentUrl = nameUrl,
-            parameters = parameters.mapIndexed() { indParam, parameter ->
+
+        val parameters: List<Parameter> = containers[0].select("th")
+            .map { parameter -> parameter.text() }
+            .mapIndexed { indParam, parameter ->
                 Parameter(
                     parameterName = parameter,
                     parameterValue = container.select("td:nth-child(${indParam + 1})")
                         .text()
                 )
             }
-                .filter { parameter -> parameter.parameterName != "#" }
+            .filter { parameter -> parameter.parameterName != "#" }
+
+        return Equipment(
+            equipmentName = "",
+            equipmentUrl = nameUrl,
+            parameters = parameters,
         )
     }
 }

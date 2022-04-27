@@ -12,27 +12,30 @@ import javax.inject.Inject
 class LexusEquipmentParser @Inject constructor() : EquipmentParser {
 
     override fun parse(document: Document): List<Equipment> {
-            val containers: Elements = document.select(".table tr")
-            return containers.map { container -> getEquipment(container, containers)}
-                .filter { equipment -> equipment.equipmentName != "" }
+        val containers: Elements = document.select(".table tr")
+        return containers.map { container -> getEquipment(container, containers) }
+            .filter { equipment -> equipment.equipmentName != "" }
     }
 
     private fun getEquipment(container: Element, containers: Elements): Equipment {
         val name: String = container.select("td a").text()
         val nameUrl: String = container.select("td a").attr("href")
-        val parameters: List<String> = containers.select("th")
+
+        val parameters: List<Parameter> = containers.select("th")
             .map { parameter -> parameter.text() }
             .filter { parameter -> parameter != "Характеристики" }
-        return Equipment(
-            equipmentName = name,
-            equipmentUrl = nameUrl,
-            parameters = parameters.mapIndexed { ind, parameter ->
+            .mapIndexed { ind, parameter ->
                 Parameter(
                     parameterName = parameter,
                     parameterValue = container.select("td:nth-child(${ind + 1})").text()
                 )
             }
-                .drop(1)
+            .drop(1)
+
+        return Equipment(
+            equipmentName = name,
+            equipmentUrl = nameUrl,
+            parameters = parameters,
         )
     }
 }

@@ -36,11 +36,11 @@ class CommonParser @Inject constructor(
         document: Document,
         type: ManufacturerType,
     ): List<Equipment> {
-        val parser = getParser(type)
+        val parser = getEquipmentParser(type)
         return parser.parse(document)
     }
 
-    private fun getParser(type: ManufacturerType): EquipmentParser {
+    private fun getEquipmentParser(type: ManufacturerType): EquipmentParser {
         return when (type) {
             ManufacturerType.TOYOTA -> toyotaEquipmentParser
             ManufacturerType.NISSAN -> nissanEquipmentParser
@@ -50,9 +50,7 @@ class CommonParser @Inject constructor(
             ManufacturerType.LEXUS -> lexusEquipmentParser
             ManufacturerType.SUBARU -> subaruEquipmentParser
             ManufacturerType.SUZUKI -> suzukiEquipmentParser
-            else -> {
-                toyotaEquipmentParser
-            }
+            else -> toyotaEquipmentParser
         }
     }
 }

@@ -33,25 +33,4 @@ abstract class ManufacturerModule {
 
     @Binds
     abstract fun bindHondaEquipmentParser(hondaEquipmentParser: HondaEquipmentParser): EquipmentParser
-
-    @Binds
-    abstract fun bindLexusEquipmentParser(lexusEquipmentParser: LexusEquipmentParser): EquipmentParser
-
-    @Binds
-    abstract fun bindMazdaEquipmentParser(mazdaEquipmentParser: MazdaEquipmentParser): EquipmentParser
-
-    @Binds
-    abstract fun bindMitsubishiEquipmentParser(mitsubishiEquipmentParser: MitsubishiEquipmentParser): EquipmentParser
-
-    @Binds
-    abstract fun bindNissanEquipmentParser(nissanEquipmentParser: NissanEquipmentParser): EquipmentParser
-
-    @Binds
-    abstract fun bindSubaruEquipmentParser(subaruEquipmentParser: SubaruEquipmentParser): EquipmentParser
-
-    @Binds
-    abstract fun bindSuzukiEquipmentParser(suzukiEquipmentParser: SuzukiEquipmentParser): EquipmentParser
-
-    @Binds
-    abstract fun bindToyotaEquipmentParser(toyotaEquipmentParser: ToyotaEquipmentParser): EquipmentParser
 }

@@ -65,7 +65,8 @@ class ChooseBodyFragment : Fragment() {
     }
 
     private fun onItemClick(body: Body) {
-        router.next(this, source.copy(innerUrl = body.equipmentUrl))
+        val chooseBodyNavigator = activity as ChooseBodyNavigator
+        chooseBodyNavigator.continueCarSearch(this, source.copy(innerUrl = body.equipmentUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {
