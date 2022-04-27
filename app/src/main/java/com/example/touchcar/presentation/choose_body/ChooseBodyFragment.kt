@@ -2,7 +2,6 @@ package com.example.touchcar.presentation.choose_body
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,6 @@ import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_body.recycler.ChooseBodyAdapter
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.ChooseBodyNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -65,8 +63,7 @@ class ChooseBodyFragment : Fragment() {
     }
 
     private fun onItemClick(body: Body) {
-        val chooseBodyNavigator = activity as ChooseBodyNavigator
-        chooseBodyNavigator.continueCarSearch(this, source.copy(innerUrl = body.equipmentUrl))
+        router.next(this, source.copy(innerUrl = body.equipmentUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

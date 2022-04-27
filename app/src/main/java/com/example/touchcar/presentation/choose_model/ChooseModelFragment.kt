@@ -2,28 +2,21 @@ package com.example.touchcar.presentation.choose_model
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseModelFragmentBinding
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
-import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.recycler.ChooseModelAdapter
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
-import com.example.touchcar.presentation.navigation.ChooseModelNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -71,8 +64,7 @@ class ChooseModelFragment : Fragment() {
     }
 
     private fun onItemClick(model: Model) {
-        val chooseModelNavigator = activity as ChooseModelNavigator
-        chooseModelNavigator.continueCarSearch(this, source.copy(innerUrl = model.bodyUrl))
+        router.next(this, source.copy(innerUrl = model.bodyUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

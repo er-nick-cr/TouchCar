@@ -23,7 +23,6 @@ class CarSearchRouter constructor(
             is ChooseMarketFragment -> carSearchNavigator.openChooseModel(source)
             is ChooseModelFragment -> openNextFragmentInChooseModelFragment(source)
             is ChooseBodyFragment -> carSearchNavigator.openChooseEquipment(source)
-            else -> source.baseUrl
         }
     }
 

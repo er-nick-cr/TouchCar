@@ -18,8 +18,6 @@ import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
-import com.example.touchcar.presentation.navigation.ChooseModelNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -67,9 +65,8 @@ class ChooseMarketFragment : Fragment() {
     }
 
     private fun onItemClick(market: Market) {
-        val chooseModelNavigator = activity as ChooseModelNavigator
         val source = NetworkSource(type = manufacturer.type, baseUrl = market.marketUrl, innerUrl = "")
-        chooseModelNavigator.continueCarSearch(this, source)
+        router.next(this, source)
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

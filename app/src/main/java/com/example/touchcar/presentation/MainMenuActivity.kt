@@ -15,8 +15,7 @@ import com.example.touchcar.presentation.navigation.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainMenuActivity : CarSearchNavigator, AppCompatActivity(), MainMenuNavigator, ChooseMarketNavigator,
-    ChooseModelNavigator, ChooseBodyNavigator, CarSearchRouterProvider {
+class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNavigator, CarSearchRouterProvider {
 
     override val router: CarSearchRouter = CarSearchRouter(this)
 
@@ -64,9 +63,5 @@ class MainMenuActivity : CarSearchNavigator, AppCompatActivity(), MainMenuNaviga
 
     override fun openCarSearchByModel(manufacturer: Manufacturer, source: NetworkSource) {
         router.start(manufacturer, source)
-    }
-
-    override fun continueCarSearch(currentFragment: Fragment, source: NetworkSource) {
-        router.next(currentFragment, source)
     }
 }

@@ -30,7 +30,4 @@ abstract class ManufacturerModule {
 
     @Binds
     abstract fun bindGetEquipmentUseCase(getEquipmentUseCaseImpl: GetEquipmentUseCaseImpl): GetEquipmentUseCase
-
-    @Binds
-    abstract fun bindHondaEquipmentParser(hondaEquipmentParser: HondaEquipmentParser): EquipmentParser
 }
