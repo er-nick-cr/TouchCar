@@ -2,7 +2,6 @@ package com.example.touchcar.presentation.choose_body
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseBodyFragmentBinding
 import com.example.touchcar.domain.entity.Body
+import com.example.touchcar.presentation.CarSearchRouter
+import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_body.recycler.ChooseBodyAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.utils.addTextChangedListener
@@ -25,13 +26,15 @@ class ChooseBodyFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ChooseBodyViewModel
-    lateinit var binding: ChooseBodyFragmentBinding
-    lateinit var source: NetworkSource
+    private lateinit var binding: ChooseBodyFragmentBinding
+    private lateinit var source: NetworkSource
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ChooseBodyFragmentBinding.bind(
             inflater.inflate(
                 R.layout.choose_body_fragment,
@@ -60,7 +63,7 @@ class ChooseBodyFragment : Fragment() {
     }
 
     private fun onItemClick(body: Body) {
-        Log.d("tag", source.copy(innerUrl = body.equipmentUrl).url)
+        router.next(this, source.copy(innerUrl = body.equipmentUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

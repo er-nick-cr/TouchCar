@@ -1,9 +1,7 @@
 package com.example.touchcar.data.repository
 
 import com.example.touchcar.data.datasource.network.NetworkDataSource
-import com.example.touchcar.domain.entity.Body
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.Model
+import com.example.touchcar.domain.entity.*
 import com.example.touchcar.domain.repository.CarRepository
 import io.reactivex.Single
 import javax.inject.Inject
@@ -22,5 +20,9 @@ class CarRepositoryImpl @Inject constructor(
 
     override fun getBodyList(url: String): Single<List<Body>> {
         return networkDataSource.getBodyList(url)
+    }
+
+    override fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>> {
+        return networkDataSource.getEquipment(url, manufacturerType)
     }
 }

@@ -1,13 +1,16 @@
 package com.example.touchcar.presentation.model
 
 import android.os.Parcelable
+import com.example.touchcar.domain.entity.ManufacturerType
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class NetworkSource(
-    private val baseUrl: String,
-    private val innerUrl: String,
+    val type: ManufacturerType,
+    val baseUrl: String,
+    val innerUrl: String,
+
 ) : Parcelable {
 
     @IgnoredOnParcel

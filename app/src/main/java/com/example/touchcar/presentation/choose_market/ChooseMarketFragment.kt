@@ -14,10 +14,10 @@ import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseMarketFragmentBinding
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
-import com.example.touchcar.presentation.navigation.MainMenuNavigator
+import com.example.touchcar.presentation.CarSearchRouter
+import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -27,13 +27,16 @@ class ChooseMarketFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ChooseMarketViewModel
-    lateinit var binding: ChooseMarketFragmentBinding
+    private lateinit var binding: ChooseMarketFragmentBinding
+    private lateinit var manufacturer: Manufacturer
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             ChooseMarketFragmentBinding.bind(
                 inflater.inflate(
@@ -48,7 +51,7 @@ class ChooseMarketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val manufacturer: Manufacturer = arguments?.get(ARG_MANUFACTURER) as Manufacturer
+        manufacturer = arguments?.get(ARG_MANUFACTURER) as Manufacturer
         val chooseMarketAdapter = ChooseMarketAdapter(::onItemClick)
         val recyclerView: RecyclerView = view.findViewById(R.id.market_search_recycler)!!
 
@@ -62,9 +65,8 @@ class ChooseMarketFragment : Fragment() {
     }
 
     private fun onItemClick(market: Market) {
-        val navigator = activity as ChooseMarketNavigator
-        val source = NetworkSource(baseUrl = market.marketUrl, innerUrl = "")
-        navigator.openChooseModel(source)
+        val source = NetworkSource(type = manufacturer.type, baseUrl = market.marketUrl, innerUrl = "")
+        router.next(this, source)
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

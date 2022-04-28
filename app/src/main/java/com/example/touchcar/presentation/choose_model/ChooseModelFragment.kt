@@ -2,26 +2,21 @@ package com.example.touchcar.presentation.choose_model
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseModelFragmentBinding
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.domain.entity.Model
-import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
+import com.example.touchcar.presentation.CarSearchRouter
+import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_model.recycler.ChooseModelAdapter
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.ChooseMarketNavigator
-import com.example.touchcar.presentation.navigation.ChooseModelNavigator
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,14 +26,16 @@ class ChooseModelFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ChooseModelViewModel
-    lateinit var binding: ChooseModelFragmentBinding
-    lateinit var source: NetworkSource
+    private lateinit var binding: ChooseModelFragmentBinding
+    private lateinit var source: NetworkSource
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ChooseModelFragmentBinding.bind(
             inflater.inflate(
                 R.layout.choose_model_fragment,
@@ -67,8 +64,7 @@ class ChooseModelFragment : Fragment() {
     }
 
     private fun onItemClick(model: Model) {
-        val navigator = activity as ChooseModelNavigator
-        navigator.openChooseBody(source.copy(innerUrl = model.bodyUrl))
+        router.next(this, source.copy(innerUrl = model.bodyUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

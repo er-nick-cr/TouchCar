@@ -1,21 +1,21 @@
-package com.example.touchcar.data.datasource.network
+package com.example.touchcar.data.datasource.network.network_service.parsers
 
-import android.util.Log
 import com.example.touchcar.BuildConfig
-import com.example.touchcar.domain.entity.*
+import com.example.touchcar.data.datasource.network.network_service.NetworkService
+import com.example.touchcar.domain.entity.Manufacturer
+import com.example.touchcar.domain.entity.ManufacturerType
+import com.example.touchcar.domain.entity.Market
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class NetworkService @Inject constructor() {
+class ManufacturerParser @Inject constructor() {
 
-    fun getManufacturers(): Single<List<Manufacturer>> {
-        return Single.fromCallable {
-            val document: Document = Jsoup.connect(BuildConfig.BASE_URL).timeout(TIMEOUT).get()
+    fun getManufacturers(document: Document): List<Manufacturer> {
             val containers: Elements = document.select("tbody:first-of-type")
-            containers.map { container ->
+            return containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()
                 val manufacturerUrl: String = container.select("h1:first-of-type a").attr("href")
                 val manufacturerMarkets: Elements = container.select("p:first-of-type a")
@@ -31,40 +31,7 @@ class NetworkService @Inject constructor() {
             }
                 .filter { model -> model.mark.isNotEmpty() }
                 .drop(1)
-        }
     }
-
-    fun getModels(url: String): Single<List<Model>> {
-        return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
-            val containers: Elements = document.select(".category2")
-            containers.map { container ->
-                val name: String = container.select("a").text()
-                val newUrl: String = container.select("a").attr("href")
-
-                Model(
-                    modelName = name,
-                    bodyUrl = newUrl
-                )
-            }
-        }
-    }
-
-    fun getBodyList(url: String): Single<List<Body>> {
-        return Single.fromCallable {
-            val document: Document = Jsoup.connect(url).timeout(TIMEOUT).get()
-            val containers: Elements = document.select(".category2")
-            containers.map { container ->
-                val name: String = container.select("a").text()
-                val newUrl: String = container.select("a").attr("href")
-                Body(
-                    bodyName = name,
-                    equipmentUrl = newUrl
-                )
-            }
-        }
-    }
-
 
     private fun getManufacturerType(manufacturerName: String): ManufacturerType {
         return when (manufacturerName) {
@@ -80,9 +47,5 @@ class NetworkService @Inject constructor() {
             "Renault" -> ManufacturerType.RENAULT
             else -> ManufacturerType.OTHER
         }
-    }
-
-    companion object {
-        private const val TIMEOUT = 10 * 10000
     }
 }

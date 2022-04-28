@@ -19,7 +19,7 @@ class MainMenuViewModel @Inject constructor(
 
     fun getManufacturers() {
         disposable.add(
-            getManufacturerUseCase.getManufacturer()
+                getManufacturerUseCase.getManufacturer()
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { value -> manufacturerLiveData.postValue(value) },

@@ -18,4 +18,5 @@
     <string name="botom_sheet_model">model</string>
     <string name="choose_body_fragment">Марка кузова</string>
     <string name="choose_body_hint">Введите марку кузова…</string>
+    <string name="choose_equipment_title">Комплектация</string>
 </resources>
