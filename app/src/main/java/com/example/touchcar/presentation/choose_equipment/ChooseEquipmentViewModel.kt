@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.touchcar.domain.entity.Equipment
 import com.example.touchcar.domain.entity.ManufacturerType
+import com.example.touchcar.domain.entity.Parameter
 import com.example.touchcar.domain.usecase.GetEquipmentUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,12 +24,24 @@ class ChooseEquipmentViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {value ->
-                        equipmentLiveData.postValue(value)
-                        equipments = value
+                        val mappedValue = value.map { equipment -> mapEquipmentValues(equipment) }
+                        equipmentLiveData.postValue(mappedValue)
+                        equipments = mappedValue
                     },
                     { error -> error.printStackTrace()}
                 )
         )
+    }
+
+    private fun mapEquipmentValues(equipment: Equipment): Equipment {
+        equipment.parameters.map { parameter ->
+            if (parameter.parameterValue.isBlank()) {
+                parameter.parameterValue = "Нет"
+            } else if (parameter.parameterValue == "*") {
+                parameter.parameterValue = "Да"
+            }
+        }
+        return equipment
     }
 
     override fun onCleared() {

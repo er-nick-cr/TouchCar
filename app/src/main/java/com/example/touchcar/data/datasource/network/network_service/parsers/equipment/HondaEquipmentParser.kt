@@ -33,7 +33,6 @@ class HondaEquipmentParser @Inject constructor() : EquipmentParser {
                 )
             }
             .filter { parameter -> parameter.parameterName != "#" }
-            .filter { parameter -> parameter.parameterValue.isNotEmpty() }
 
         return Equipment(
             equipmentName = "",
