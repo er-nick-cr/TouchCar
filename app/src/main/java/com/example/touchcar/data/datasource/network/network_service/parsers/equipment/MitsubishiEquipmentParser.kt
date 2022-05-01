@@ -7,13 +7,14 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import java.util.*
 import javax.inject.Inject
 
 class MitsubishiEquipmentParser @Inject constructor() : EquipmentParser {
 
     override fun parse(document: Document): List<Equipment> {
-            val containers: Elements = document.select("tbody ul")
-            return containers.map { container -> getEquipment(container) }
+        val containers: Elements = document.select("tbody ul")
+        return containers.map { container -> getEquipment(container) }
     }
 
     private fun getEquipment(container: Element): Equipment {
@@ -26,10 +27,15 @@ class MitsubishiEquipmentParser @Inject constructor() : EquipmentParser {
             equipmentUrl = elementUrl,
             parameters = element.map {
                 Parameter(
-                    parameterName = element.text().replace(elementName, ""),
+                    parameterName = element.text().replace(elementName, "").replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    },
                     parameterValue = ""
                 )
             }
+                .filter { parameter -> parameter.parameterValue.isNotEmpty() }
         )
     }
 }

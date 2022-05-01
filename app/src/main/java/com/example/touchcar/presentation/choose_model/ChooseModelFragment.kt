@@ -15,6 +15,7 @@ import com.example.touchcar.databinding.ChooseModelFragmentBinding
 import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
+import com.example.touchcar.presentation.choose_model.recycler.ChooseEquipmentAdapter
 import com.example.touchcar.presentation.choose_model.recycler.ChooseModelAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.utils.addTextChangedListener

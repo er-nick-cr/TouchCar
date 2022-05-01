@@ -19,4 +19,5 @@
     <string name="choose_body_fragment">Марка кузова</string>
     <string name="choose_body_hint">Введите марку кузова…</string>
     <string name="choose_equipment_title">Комплектация</string>
+    <string name="equipment_search_hint">Введите комплектацию</string>
 </resources>
