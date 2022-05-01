@@ -10,6 +10,7 @@ data class NetworkSource(
     val type: ManufacturerType,
     val baseUrl: String,
     val innerUrl: String,
+
 ) : Parcelable {
 
     @IgnoredOnParcel
