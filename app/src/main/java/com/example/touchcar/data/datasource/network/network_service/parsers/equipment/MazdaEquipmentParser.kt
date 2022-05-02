@@ -7,13 +7,14 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import java.util.*
 import javax.inject.Inject
 
 class MazdaEquipmentParser @Inject constructor() : EquipmentParser {
 
     override fun parse(document: Document): List<Equipment> {
-            val containers: Elements = document.select("tbody ul")
-            return containers.map { container -> getEquipment(container) }
+        val containers: Elements = document.select("tbody ul")
+        return containers.map { container -> getEquipment(container) }
     }
 
     private fun getEquipment(container: Element): Equipment {
@@ -30,6 +31,7 @@ class MazdaEquipmentParser @Inject constructor() : EquipmentParser {
                     parameterValue = element.select("h4 a").text()
                 )
             }
+                .filter { parameter -> parameter.parameterValue.isNotEmpty() }
         )
     }
 }

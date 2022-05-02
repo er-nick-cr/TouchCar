@@ -7,6 +7,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import java.util.*
 import javax.inject.Inject
 
 class LexusEquipmentParser @Inject constructor() : EquipmentParser {
@@ -26,11 +27,15 @@ class LexusEquipmentParser @Inject constructor() : EquipmentParser {
             .filter { parameter -> parameter != "Характеристики" }
             .mapIndexed { ind, parameter ->
                 Parameter(
-                    parameterName = parameter,
+                    parameterName = parameter.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(Locale.getDefault())
+                        else it.toString()
+                    },
                     parameterValue = container.select("td:nth-child(${ind + 1})").text()
                 )
             }
             .drop(1)
+            .filter { parameter -> parameter.parameterValue.isNotEmpty() }
 
         return Equipment(
             equipmentName = name,
