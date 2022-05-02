@@ -25,7 +25,7 @@ class ChooseEquipmentViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { value ->
-                        val mappedValue = value.map { equipment -> equipment.copy(parameters = equipmentMapper.mapParametersValues(equipment.parameters)) }
+                        val mappedValue = equipmentMapper.mapEquipmentValues(value)
                         equipmentLiveData.postValue(mappedValue)
                         equipments = mappedValue
                     },

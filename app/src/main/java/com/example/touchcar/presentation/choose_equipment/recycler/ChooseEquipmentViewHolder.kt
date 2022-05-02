@@ -12,17 +12,21 @@ import com.example.touchcar.presentation.choose_equipment.recycler.parameters_re
 class ChooseEquipmentViewHolder(
     private val binding: EquipmentRecyclerItemBinding,
     private val onItemClickListener: (Int) -> Unit,
-    private val equipmentParametersAdapter: EquipmentParametersAdapter = EquipmentParametersAdapter(),
-    val recyclerView: RecyclerView = binding.equipmentParametersSearchRecycler
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private val equipmentParametersAdapter: EquipmentParametersAdapter = EquipmentParametersAdapter()
 
     init {
         binding.root.setOnClickListener {
             val position: Int = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) onItemClickListener.invoke(position)
         }
+
+        val recyclerView: RecyclerView = binding.equipmentParametersSearchRecycler
         recyclerView.adapter = equipmentParametersAdapter
     }
+
+
 
     fun bind(equipment: Equipment) {
 
@@ -31,6 +35,6 @@ class ChooseEquipmentViewHolder(
         } else {
             binding.equipmentSearchHeading.isVisible = false
         }
-        equipmentParametersAdapter.parameters = equipment.parameters
+       equipmentParametersAdapter.parameters = equipment.parameters
     }
 }
