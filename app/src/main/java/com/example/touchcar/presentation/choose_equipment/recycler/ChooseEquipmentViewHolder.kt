@@ -1,6 +1,7 @@
 package com.example.touchcar.presentation.choose_model.recycler
 
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.view.marginStart
 import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,9 @@ import com.example.touchcar.presentation.choose_equipment.recycler.parameters_re
 
 class ChooseEquipmentViewHolder(
     private val binding: EquipmentRecyclerItemBinding,
-    private val onItemClickListener: (Int) -> Unit
+    private val onItemClickListener: (Int) -> Unit,
+    private val equipmentParametersAdapter: EquipmentParametersAdapter = EquipmentParametersAdapter(),
+    val recyclerView: RecyclerView = binding.equipmentParametersSearchRecycler
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
@@ -18,18 +21,16 @@ class ChooseEquipmentViewHolder(
             val position: Int = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) onItemClickListener.invoke(position)
         }
+        recyclerView.adapter = equipmentParametersAdapter
     }
 
     fun bind(equipment: Equipment) {
-        val equipmentParametersAdapter = EquipmentParametersAdapter()
-        val recyclerView: RecyclerView = binding.equipmentParametersSearchRecycler
 
         if (equipment.equipmentName.isNotEmpty()) {
             binding.equipmentSearchHeading.text = equipment.equipmentName
         } else {
-            binding.equipmentSearchHeading.visibility = View.GONE
+            binding.equipmentSearchHeading.isVisible = false
         }
-        recyclerView.adapter = equipmentParametersAdapter
         equipmentParametersAdapter.parameters = equipment.parameters
     }
 }

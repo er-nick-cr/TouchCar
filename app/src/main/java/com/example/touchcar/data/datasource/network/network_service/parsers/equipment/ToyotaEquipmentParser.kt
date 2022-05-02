@@ -28,9 +28,8 @@ class ToyotaEquipmentParser @Inject constructor() : EquipmentParser {
             .mapIndexed { ind, parameter ->
                 Parameter(
                     parameterName = parameter.replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase(
-                            Locale.getDefault()
-                        ) else it.toString()
+                        if (it.isLowerCase()) it.titlecase(Locale.getDefault())
+                        else it.toString()
                     },
                     parameterValue = container.select("td:nth-child(${ind + 1})").text()
 

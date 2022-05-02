@@ -13,7 +13,7 @@ class ChooseEquipmentAdapter(
     private val onItemClickListener: (Equipment) -> Unit
 ) : RecyclerView.Adapter<ChooseEquipmentViewHolder>() {
 
-    private val parametersAdapter = RecyclerView.RecycledViewPool()
+    private val parametersRecyclerPool = RecyclerView.RecycledViewPool()
 
     var equipments: List<Equipment> = emptyList()
         set(value) {
@@ -26,7 +26,7 @@ class ChooseEquipmentAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseEquipmentViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val binding = EquipmentRecyclerItemBinding.inflate(inflater, parent, false)
-        binding.equipmentParametersSearchRecycler.setRecycledViewPool(parametersAdapter)
+        binding.equipmentParametersSearchRecycler.setRecycledViewPool(parametersRecyclerPool)
         return ChooseEquipmentViewHolder(binding, ::onItemClickListener)
     }
 

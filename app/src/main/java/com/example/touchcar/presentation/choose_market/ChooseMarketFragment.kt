@@ -53,7 +53,7 @@ class ChooseMarketFragment : Fragment() {
 
         manufacturer = arguments?.get(ARG_MANUFACTURER) as Manufacturer
         val chooseMarketAdapter = ChooseMarketAdapter(::onItemClick)
-        val recyclerView: RecyclerView = view.findViewById(R.id.market_search_recycler)!!
+        val recyclerView: RecyclerView = binding.marketSearchRecycler
 
         viewModel.setUpMarkets(manufacturer.market)
         viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.markets = markets }

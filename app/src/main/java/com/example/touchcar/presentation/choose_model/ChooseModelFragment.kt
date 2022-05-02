@@ -51,7 +51,7 @@ class ChooseModelFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val chooseModelAdapter = ChooseModelAdapter(::onItemClick)
-        val recyclerView: RecyclerView = view.findViewById(R.id.model_search_recycler)!!
+        val recyclerView: RecyclerView = binding.modelSearchRecycler
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.modelLiveData

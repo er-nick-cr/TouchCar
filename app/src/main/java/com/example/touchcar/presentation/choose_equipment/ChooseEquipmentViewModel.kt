@@ -11,7 +11,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ChooseEquipmentViewModel @Inject constructor(
-    private val getEquipmentUseCase: GetEquipmentUseCase
+    private val getEquipmentUseCase: GetEquipmentUseCase,
+    private val equipmentMapper: EquipmentMapper,
 ) : ViewModel() {
 
     val equipmentLiveData: MutableLiveData<List<Equipment>> = MutableLiveData<List<Equipment>>()
@@ -23,26 +24,17 @@ class ChooseEquipmentViewModel @Inject constructor(
             getEquipmentUseCase.getEquipment(url, manufacturerType)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                    {value ->
-                        val mappedValue = value.map { equipment -> mapEquipmentValues(equipment) }
+                    { value ->
+                        val mappedValue = value.map { equipment -> equipment.copy(parameters = equipmentMapper.mapParametersValues(equipment.parameters)) }
                         equipmentLiveData.postValue(mappedValue)
                         equipments = mappedValue
                     },
-                    { error -> error.printStackTrace()}
+                    { error -> error.printStackTrace() }
                 )
         )
     }
 
-    private fun mapEquipmentValues(equipment: Equipment): Equipment {
-        equipment.parameters.map { parameter ->
-            if (parameter.parameterValue.isBlank()) {
-                parameter.parameterValue = "Нет"
-            } else if (parameter.parameterValue == "*") {
-                parameter.parameterValue = "Да"
-            }
-        }
-        return equipment
-    }
+
 
     override fun onCleared() {
         super.onCleared()

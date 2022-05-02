@@ -2,7 +2,6 @@ package com.example.touchcar.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.example.touchcar.R
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.presentation.choose_body.ChooseBodyFragment

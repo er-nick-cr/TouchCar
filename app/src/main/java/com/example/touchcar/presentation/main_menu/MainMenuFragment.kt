@@ -44,7 +44,7 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
         val mainMenuAdapter = MainMenuAdapter(::onItemClick)
-        val recyclerView: RecyclerView = view?.findViewById(R.id.manufacturer_search_recycler)!!
+        val recyclerView: RecyclerView = binding.manufacturerSearchRecycler
 
         viewModel.manufacturerLiveData
             .observe(this) { manufacturers -> mainMenuAdapter.manufacturers = manufacturers }

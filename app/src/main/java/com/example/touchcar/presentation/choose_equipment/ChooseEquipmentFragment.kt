@@ -50,7 +50,7 @@ class ChooseEquipmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val chooseEquipmentAdapter = ChooseEquipmentAdapter(::onItemClick)
-        val recyclerView: RecyclerView = view.findViewById(R.id.equipment_search_recycler)!!
+        val recyclerView: RecyclerView = binding.equipmentSearchRecycler
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
 

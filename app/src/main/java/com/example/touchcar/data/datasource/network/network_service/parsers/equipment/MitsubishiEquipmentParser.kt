@@ -28,14 +28,12 @@ class MitsubishiEquipmentParser @Inject constructor() : EquipmentParser {
             parameters = element.map {
                 Parameter(
                     parameterName = element.text().replace(elementName, "").replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase(
-                            Locale.getDefault()
-                        ) else it.toString()
+                        if (it.isLowerCase()) it.titlecase(Locale.getDefault())
+                        else it.toString()
                     },
                     parameterValue = ""
                 )
             }
-                .filter { parameter -> parameter.parameterValue.isNotEmpty() }
         )
     }
 }

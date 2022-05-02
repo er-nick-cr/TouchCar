@@ -25,9 +25,8 @@ class SuzukiEquipmentParser @Inject constructor() : EquipmentParser {
             .mapIndexed() { indParam, parameter ->
                 Parameter(
                     parameterName = parameter.replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase(
-                            Locale.getDefault()
-                        ) else it.toString()
+                        if (it.isLowerCase()) it.titlecase(Locale.getDefault())
+                        else it.toString()
                     },
                     parameterValue = container.select("td:nth-child(${indParam + 1})")
                         .text()
