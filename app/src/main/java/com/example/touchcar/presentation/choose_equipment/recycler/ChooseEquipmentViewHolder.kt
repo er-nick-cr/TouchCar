@@ -14,7 +14,8 @@ class ChooseEquipmentViewHolder(
     private val onItemClickListener: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private val equipmentParametersAdapter: EquipmentParametersAdapter = EquipmentParametersAdapter()
+    private val equipmentParametersAdapter: EquipmentParametersAdapter =
+        EquipmentParametersAdapter()
 
     init {
         binding.root.setOnClickListener {
@@ -26,15 +27,12 @@ class ChooseEquipmentViewHolder(
         recyclerView.adapter = equipmentParametersAdapter
     }
 
-
-
     fun bind(equipment: Equipment) {
-
         if (equipment.equipmentName.isNotEmpty()) {
             binding.equipmentSearchHeading.text = equipment.equipmentName
         } else {
             binding.equipmentSearchHeading.isVisible = false
         }
-       equipmentParametersAdapter.parameters = equipment.parameters
+        equipmentParametersAdapter.parameters = equipment.parameters
     }
 }

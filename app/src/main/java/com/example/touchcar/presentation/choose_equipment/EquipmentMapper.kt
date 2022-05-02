@@ -17,7 +17,7 @@ class EquipmentMapper @Inject constructor(
 
     private fun mapParametersValues(parameters: List<Parameter>): List<Parameter> {
         return parameters.map { parameter ->
-            when(true) {
+            when {
                 parameter.parameterValue.isBlank() -> parameter.copy(parameterValue = context.resources.getString(R.string.equipment_search_parameter_no))
                 parameter.parameterValue == "*" -> parameter.copy(parameterValue = context.resources.getString(R.string.equipment_search_parameter_yes))
                 else -> parameter
