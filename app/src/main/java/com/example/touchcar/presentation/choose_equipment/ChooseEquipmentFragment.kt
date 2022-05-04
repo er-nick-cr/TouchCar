@@ -31,6 +31,8 @@ class ChooseEquipmentFragment : Fragment() {
     lateinit var viewModel: ChooseEquipmentViewModel
     private lateinit var binding: ChooseEquipmentFragmentBinding
     private lateinit var source: NetworkSource
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +64,7 @@ class ChooseEquipmentFragment : Fragment() {
     }
 
     private fun onItemClick(equipment: Equipment) {
-        Log.d("sl eq", equipment.equipmentUrl)
+        router.next(this, source.copy(innerUrl = equipment.equipmentUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

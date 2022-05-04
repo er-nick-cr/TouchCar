@@ -22,4 +22,8 @@ class NetworkDataSource @Inject constructor(private val networkService: NetworkS
     fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>> {
         return networkService.getEquipment(url, manufacturerType)
     }
+
+    fun getCar(url: String, type: ManufacturerType): Single<Car> {
+        return networkService.getCar(url, type)
+    }
 }

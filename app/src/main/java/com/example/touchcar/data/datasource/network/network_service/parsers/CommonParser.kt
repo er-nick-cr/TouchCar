@@ -1,5 +1,6 @@
 package com.example.touchcar.data.datasource.network.network_service.parsers
 
+import com.example.touchcar.data.datasource.network.network_service.parsers.car.*
 import com.example.touchcar.data.datasource.network.network_service.parsers.equipment.*
 import com.example.touchcar.domain.entity.*
 import io.reactivex.Single
@@ -18,6 +19,11 @@ class CommonParser @Inject constructor(
     private val lexusEquipmentParser: LexusEquipmentParser,
     private val subaruEquipmentParser: SubaruEquipmentParser,
     private val suzukiEquipmentParser: SuzukiEquipmentParser,
+    private val toyotaCarParser: ToyotaCarParser,
+    private val nissanCarParser: NissanCarParser,
+    private val mitsubishiCarParser: MitsubishiCarParser,
+    private val hondaCarParser: HondaCarParser,
+    private val lexusCarParser: LexusCarParser
 ) {
 
     fun getManufacturers(document: Document): List<Manufacturer> {
@@ -40,6 +46,11 @@ class CommonParser @Inject constructor(
         return parser.parse(document)
     }
 
+    fun getCar(document: Document, type: ManufacturerType): Car {
+        val parser = getCarParser(type)
+        return parser.parse(document)
+    }
+
     private fun getEquipmentParser(type: ManufacturerType): EquipmentParser {
         return when (type) {
             ManufacturerType.TOYOTA -> toyotaEquipmentParser
@@ -51,6 +62,17 @@ class CommonParser @Inject constructor(
             ManufacturerType.SUBARU -> subaruEquipmentParser
             ManufacturerType.SUZUKI -> suzukiEquipmentParser
             else -> toyotaEquipmentParser
+        }
+    }
+
+    private fun getCarParser(type: ManufacturerType): CarParser {
+        return when (type) {
+            ManufacturerType.TOYOTA -> toyotaCarParser
+            ManufacturerType.NISSAN -> nissanCarParser
+            ManufacturerType.MITSUBISHI -> mitsubishiCarParser
+            ManufacturerType.HONDA -> hondaCarParser
+            ManufacturerType.LEXUS -> lexusCarParser
+            else -> toyotaCarParser
         }
     }
 }

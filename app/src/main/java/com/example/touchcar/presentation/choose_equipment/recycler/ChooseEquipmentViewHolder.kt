@@ -24,6 +24,7 @@ class ChooseEquipmentViewHolder(
 
         val recyclerView: RecyclerView = binding.equipmentParametersSearchRecycler
         recyclerView.adapter = equipmentParametersAdapter
+        recyclerView.suppressLayout(true);
     }
 
     fun bind(equipment: Equipment) {

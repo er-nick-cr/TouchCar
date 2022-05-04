@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.touchcar.R
 import com.example.touchcar.domain.entity.Manufacturer
+import com.example.touchcar.presentation.car.CarFragment
 import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
 import com.example.touchcar.presentation.choose_equipment.ChooseEquipmentFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
@@ -56,6 +57,14 @@ class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNaviga
         val chooseEquipmentFragment = ChooseEquipmentFragment.newInstance(source)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, chooseEquipmentFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun openCarFragment(source: NetworkSource) {
+        val carFragment = CarFragment.newInstance(source)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, carFragment)
             .addToBackStack(null)
             .commit()
     }

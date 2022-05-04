@@ -7,6 +7,10 @@ import com.example.touchcar.databinding.ModelRecyclerItemBinding
 import com.example.touchcar.domain.entity.Equipment
 import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.domain.entity.Parameter
+import android.view.MotionEvent
+
+
+
 
 class EquipmentParametersViewHolder(
     private val binding: EquipmentParametersRecyclerItemBinding,

@@ -9,4 +9,5 @@ interface CarSearchNavigator {
     fun openChooseModel(source: NetworkSource)
     fun openChooseBody(source: NetworkSource)
     fun openChooseEquipment(source: NetworkSource)
+    fun openCarFragment(source: NetworkSource)
 }

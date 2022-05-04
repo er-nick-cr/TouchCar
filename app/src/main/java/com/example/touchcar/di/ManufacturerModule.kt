@@ -11,6 +11,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.migration.DisableInstallInCheck
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,4 +31,7 @@ abstract class ManufacturerModule {
 
     @Binds
     abstract fun bindGetEquipmentUseCase(getEquipmentUseCaseImpl: GetEquipmentUseCaseImpl): GetEquipmentUseCase
+
+    @Binds
+    abstract fun bindGetCarUseCase(getCarUseCaseImpl: GetCarUseCaseImpl): GetCarUseCase
 }

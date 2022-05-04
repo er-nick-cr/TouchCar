@@ -3,9 +3,12 @@ package com.example.touchcar.presentation
 import androidx.fragment.app.Fragment
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.ManufacturerType
+import com.example.touchcar.presentation.car.CarFragment
 import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
+import com.example.touchcar.presentation.choose_equipment.ChooseEquipmentFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
+import com.example.touchcar.presentation.choose_model.recycler.ChooseEquipmentAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.*
 
@@ -23,6 +26,7 @@ class CarSearchRouter constructor(
             is ChooseMarketFragment -> carSearchNavigator.openChooseModel(source)
             is ChooseModelFragment -> openNextFragmentInChooseModelFragment(source)
             is ChooseBodyFragment -> carSearchNavigator.openChooseEquipment(source)
+            is ChooseEquipmentFragment -> carSearchNavigator.openCarFragment(source)
         }
     }
 

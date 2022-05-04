@@ -33,6 +33,10 @@ class NetworkService @Inject constructor(
             .map { document -> commonParser.getEquipment(document, manufacturerType) }
     }
 
+    fun getCar(url: String, type: ManufacturerType): Single<Car> {
+        return requestDocument(url).map { document -> commonParser.getCar(document, type) }
+    }
+
     private fun requestDocument(url: String): Single<Document> {
         return Single.fromCallable {
             Jsoup.connect(url).timeout(TIMEOUT).get()

@@ -8,8 +8,13 @@ import com.example.touchcar.databinding.EquipmentParametersRecyclerItemBinding
 import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
 import com.example.touchcar.domain.entity.Equipment
 import com.example.touchcar.domain.entity.Parameter
+import android.view.MotionEvent
 
-class EquipmentParametersAdapter : RecyclerView.Adapter<EquipmentParametersViewHolder>() {
+
+
+
+class EquipmentParametersAdapter(
+) : RecyclerView.Adapter<EquipmentParametersViewHolder>() {
 
     var parameters: List<Parameter> = emptyList()
         set(value) {

@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manufacturer_item"
+    android:layout_width="match_parent"
+    android:layout_height="83dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingVertical="14dp">
+    android:background="@drawable/ripple_rounded_corners"
+    android:elevation="18dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp">
 
     <TextView
-        android:id="@+id/equipment_search_heading"
+        android:id="@+id/car_manufacturer_text_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        tools:text="GXE10W-AWFVK"
+        tools:text="Двигатель, топливная система и инструменты"
         android:fontFamily="@font/google_sans_regular"
         android:textSize="18sp"
         android:textColor="@color/text_main"
         android:textStyle="bold"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
+
 
     <ImageView
         android:id="@+id/next"
@@ -30,17 +36,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/next" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/equipment_parameters_search_recycler"
-        android:nestedScrollingEnabled="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/equipment_search_heading"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        android:contentDescription="@string/next" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

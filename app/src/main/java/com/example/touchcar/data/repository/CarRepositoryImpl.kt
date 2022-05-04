@@ -25,4 +25,8 @@ class CarRepositoryImpl @Inject constructor(
     override fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>> {
         return networkDataSource.getEquipment(url, manufacturerType)
     }
+
+    override fun getCar(url: String, type: ManufacturerType): Single<Car> {
+        return networkDataSource.getCar(url,type)
+    }
 }
