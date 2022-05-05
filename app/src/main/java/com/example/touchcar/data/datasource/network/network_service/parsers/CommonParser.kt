@@ -22,8 +22,11 @@ class CommonParser @Inject constructor(
     private val toyotaCarParser: ToyotaCarParser,
     private val nissanCarParser: NissanCarParser,
     private val mitsubishiCarParser: MitsubishiCarParser,
+    private val mazdaCarParser: MazdaCarParser,
     private val hondaCarParser: HondaCarParser,
-    private val lexusCarParser: LexusCarParser
+    private val lexusCarParser: LexusCarParser,
+    private val subaruCarParser: SubaruCarParser,
+    private val suzukiCarParser: SuzukiCarParser,
 ) {
 
     fun getManufacturers(document: Document): List<Manufacturer> {
@@ -70,8 +73,11 @@ class CommonParser @Inject constructor(
             ManufacturerType.TOYOTA -> toyotaCarParser
             ManufacturerType.NISSAN -> nissanCarParser
             ManufacturerType.MITSUBISHI -> mitsubishiCarParser
+            ManufacturerType.MAZDA -> mazdaCarParser
             ManufacturerType.HONDA -> hondaCarParser
             ManufacturerType.LEXUS -> lexusCarParser
+            ManufacturerType.SUBARU -> subaruCarParser
+            ManufacturerType.SUZUKI -> suzukiCarParser
             else -> toyotaCarParser
         }
     }

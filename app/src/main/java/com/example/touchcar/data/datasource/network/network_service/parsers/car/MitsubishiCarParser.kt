@@ -12,7 +12,7 @@ class MitsubishiCarParser @Inject constructor() : CarParser {
     override fun parse(document: Document): Car {
         return Car(
             carName = getCarName(document),
-            equipmentName = getEquipmentName(document),
+            equipmentFeature = getEquipmentName(document),
             parameters = emptyList(),
             parts = getParts(document),
         )

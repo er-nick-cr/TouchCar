@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class ToyotaCarParser @Inject constructor() : CarParser {
+class SubaruCarParser @Inject constructor() : CarParser {
 
     override fun parse(document: Document): Car {
         return Car(
@@ -29,23 +29,15 @@ class ToyotaCarParser @Inject constructor() : CarParser {
     }
 
     private fun getParameters(document: Document): List<Parameter> {
-        val containers: Elements = document.select(".table tr")
-        val parameters: List<Parameter> = containers.slice(0..2).map { container ->
+        val containers: Elements = document.select(".table td")
+
+        return containers.chunked(2).map { container ->
             Parameter(
-                parameterName = container.select("td:first-of-type").text(),
-                parameterValue = container.select("td:nth-child(2)").text()
+                parameterName = container[0].text(),
+                parameterValue = container[1].text()
             )
         }
-        val characterParameters: List<Parameter> = containers[3].select("td")
-            .drop(1)
-            .mapIndexed { ind, container ->
-                Parameter(
-                    parameterName = container.text(),
-                    parameterValue = containers[4].select("td:nth-child(${ind+1})").text()
-
-                )
-            }
-        return parameters + characterParameters
+            .filter { parameter -> parameter.parameterValue.isNotEmpty() }
     }
 
     private fun getParts(document: Document): List<Part> {

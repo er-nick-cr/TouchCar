@@ -42,7 +42,7 @@ class CarFragment : Fragment() {
 
     private fun setCarValues(car: Car) {
         binding.carNameHeading.text = car.carName
-        binding.carEquipmentName.text = car.equipmentName
+        binding.carEquipmentName.text = car.equipmentFeature
     }
 
     companion object {

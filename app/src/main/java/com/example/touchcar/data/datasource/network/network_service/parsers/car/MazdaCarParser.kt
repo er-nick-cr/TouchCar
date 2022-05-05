@@ -1,19 +1,18 @@
 package com.example.touchcar.data.datasource.network.network_service.parsers.car
 
 import com.example.touchcar.domain.entity.Car
-import com.example.touchcar.domain.entity.Parameter
 import com.example.touchcar.domain.entity.Part
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class NissanCarParser @Inject constructor() : CarParser {
+class MazdaCarParser @Inject constructor() : CarParser {
 
     override fun parse(document: Document): Car {
         return Car(
             carName = getCarName(document),
             equipmentFeature = getEquipmentName(document),
-            parameters = getParameters(document),
+            parameters = emptyList(),
             parts = getParts(document),
         )
     }
@@ -30,20 +29,8 @@ class NissanCarParser @Inject constructor() : CarParser {
         return document.select(".path span:first-of-type").text()
     }
 
-    private fun getParameters(document: Document): List<Parameter> {
-        val containers: Elements = document.select(".table td")
-
-        return containers.chunked(2).map { container ->
-            Parameter(
-                parameterName = container[0].text(),
-                parameterValue = container[1].text()
-            )
-        }
-            .filter { parameter -> parameter.parameterValue.isNotEmpty() }
-    }
-
     private fun getParts(document: Document): List<Part> {
-        val containers: Elements = document.select(".top_cars:first-of-type h3")
+        val containers: Elements = document.select(".top_cars:first-of-type tr:nth-child(2) td:nth-child(2) h4")
         return containers.map { container ->
             Part(
                 partName = container.text(),
