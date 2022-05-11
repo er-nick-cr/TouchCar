@@ -45,7 +45,7 @@ class ToyotaCarParser @Inject constructor() : CarParser {
 
                 )
             }
-        return parameters + characterParameters
+        return (parameters + characterParameters).filter { parameter ->  parameter.parameterValue.isNotEmpty()}
     }
 
     private fun getParts(document: Document): List<Part> {

@@ -20,8 +20,10 @@ class SubaruCarParser @Inject constructor() : CarParser {
 
     private fun getCarName(document: Document): String {
         return document.select("h1:first-of-type").text()
-            .replaceAfterLast(" - ", "")
-            .replace(" - ", "")
+            .replaceAfterLast(" в ", "")
+            .replace(" в ", "")
+            .replaceBeforeLast(" на ", "")
+            .replace(" на ", "")
     }
 
     private fun getEquipmentName(document: Document): String {
@@ -34,7 +36,7 @@ class SubaruCarParser @Inject constructor() : CarParser {
         return containers.chunked(2).map { container ->
             Parameter(
                 parameterName = container[0].text(),
-                parameterValue = container[1].text()
+                parameterValue = container[1].text().replace(" )", ")")
             )
         }
             .filter { parameter -> parameter.parameterValue.isNotEmpty() }

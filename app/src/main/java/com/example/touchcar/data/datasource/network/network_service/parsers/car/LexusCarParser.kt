@@ -22,6 +22,7 @@ class LexusCarParser @Inject constructor() : CarParser {
         return document.select("h1:first-of-type").text()
             .replaceAfterLast(" - ", "")
             .replace(" - ", "")
+            .replace("Toyota", "Lexus")
     }
 
     private fun getEquipmentName(document: Document): String {

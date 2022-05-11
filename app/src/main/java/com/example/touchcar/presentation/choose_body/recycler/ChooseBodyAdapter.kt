@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.touchcar.databinding.BodyRecyclerItemBinding
+import com.example.touchcar.databinding.ChooseBodyFragmentBinding
 import com.example.touchcar.databinding.MarketRecyclerItemBinding
 import com.example.touchcar.domain.entity.Body
-import com.example.touchcar.domain.entity.Market
 
 class ChooseBodyAdapter(
     private val onItemClickListener: (Body) -> Unit
@@ -22,7 +23,7 @@ class ChooseBodyAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseBodyViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val binding = MarketRecyclerItemBinding.inflate(inflater, parent, false)
+        val binding = BodyRecyclerItemBinding.inflate(inflater, parent, false)
         return ChooseBodyViewHolder(binding, ::onItemClick)
     }
 
