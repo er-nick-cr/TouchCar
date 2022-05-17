@@ -22,9 +22,14 @@
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/body_recycler_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_details_heading.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_equipment_parameters_recycler_item.xml" value="0.34692028985507245" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_fragment.xml" value="0.34692028985507245" />
+        <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_fragment_feature.xml" value="0.33" />
+        <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_fragment_parts.xml" value="0.33106884057971014" />
+        <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_header.xml" value="0.5172890733056709" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_part_recycler_item.xml" value="0.34692028985507245" />
+        <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/car_parts_heading.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/choose_body_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/choose_equipment_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/AdminHome/AndroidStudioProjects/TouchCar/app/src/main/res/layout/choose_market_fragment.xml" value="0.25" />

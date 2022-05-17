@@ -7,16 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.CarFragmentBinding
 import com.example.touchcar.domain.entity.Body
-import com.example.touchcar.domain.entity.Car
-import com.example.touchcar.domain.entity.Part
-import com.example.touchcar.presentation.choose_body.recycler.CarParametersAdapter
-import com.example.touchcar.presentation.choose_body.recycler.PartsAdapter
+import com.example.touchcar.presentation.car.car_recycler.CarAdapter
+import com.example.touchcar.presentation.model.CarInfo
+import com.example.touchcar.presentation.model.CarModel
+import com.example.touchcar.presentation.model.Details
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.utils.getLogo
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -39,34 +37,23 @@ class CarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val carParametersAdapter = CarParametersAdapter()
-        val partsAdapter = PartsAdapter(::onItemClick)
-        val recyclerViewParameters: RecyclerView = binding.carParametersRecycler
-        val recyclerViewParts: RecyclerView = binding.carPartsRecycler
-
         source = arguments?.get(SOURCE_ARG) as NetworkSource
-        binding.carLabelImage.setImageResource(source.type.getLogo())
+
+        val carAdapter = CarAdapter(source.type, ::onItemClick)
+        val recyclerView = binding.carHeaderRecycler
 
         viewModel.carLiveData
-            .observe(this) { car ->
-                setCarValues(car)
-                carParametersAdapter.carParameters = car.parameters
-                partsAdapter.parts = car.parts
+            .observe(this) { carModels ->
+                carAdapter.carModelsList = carModels
             }
 
-        recyclerViewParameters.adapter = carParametersAdapter
-        recyclerViewParts.adapter = partsAdapter
+        recyclerView.adapter = carAdapter
 
         viewModel.requestCar(source.url, source.type)
     }
 
-    private fun setCarValues(car: Car) {
-        binding.carNameHeading.text = car.carName
-        binding.carEquipmentName.text = car.equipmentFeature
-    }
-
-    private fun onItemClick(part: Part) {
-        Log.d("part_url", part.partUrl)
+    private fun onItemClick(part: CarModel.DetailsModel) {
+        Log.d("url", part.details.part.partUrl)
     }
 
     companion object {

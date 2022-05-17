@@ -16,7 +16,6 @@ import com.example.touchcar.domain.entity.Body
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_body.recycler.ChooseBodyAdapter
-import com.example.touchcar.presentation.choose_body.recycler.PartsAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
