@@ -1,9 +1,6 @@
 package com.example.touchcar.data.datasource.network.network_service.parsers
 
-import com.example.touchcar.data.datasource.network.network_service.NetworkService
 import com.example.touchcar.domain.entity.Model
-import io.reactivex.Single
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject

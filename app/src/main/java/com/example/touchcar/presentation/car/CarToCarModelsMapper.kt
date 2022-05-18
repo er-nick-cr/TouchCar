@@ -1,21 +1,22 @@
 package com.example.touchcar.presentation.car
 
 import com.example.touchcar.domain.entity.Car
-import com.example.touchcar.presentation.model.CarInfo
-import com.example.touchcar.presentation.model.CarModel
-import com.example.touchcar.presentation.model.Details
+import com.example.touchcar.presentation.model.CarListItem
+import kotlin.collections.ArrayList
 
 class CarToCarModelsMapper {
 
-    fun mapCarToCarModel(car: Car) : ArrayList<CarModel> {
-        val carModels: ArrayList<CarModel> = ArrayList()
-        val carInfo: CarModel.CarInfoModel = CarModel.CarInfoModel(CarInfo(car))
-        val carDetails: List<CarModel.DetailsModel> = car.parts.map { part ->
-            CarModel.DetailsModel(Details(part))
+    fun mapCarToCarModel(car: Car) : ArrayList<CarListItem> {
+        val carListItems: ArrayList<CarListItem> = ArrayList()
+        val carInfo: CarListItem.CarInfo = CarListItem.CarInfo(car)
+        val carDetails: List<CarListItem.Detail> = car.parts.map { part ->
+            CarListItem.Detail(part)
         }
-        carModels.add(carInfo)
-        carModels.add(CarModel.CarPartsHeading)
-        carModels.addAll(carDetails)
-        return carModels
+
+        return carListItems.apply {
+            add(carInfo)
+            add(CarListItem.CarPartsHeader)
+            addAll(carDetails)
+        }
     }
 }

@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.BodyRecyclerItemBinding
-import com.example.touchcar.databinding.ChooseBodyFragmentBinding
-import com.example.touchcar.databinding.MarketRecyclerItemBinding
 import com.example.touchcar.domain.entity.Body
 
 class ChooseBodyAdapter(

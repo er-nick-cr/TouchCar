@@ -2,8 +2,6 @@ package com.example.touchcar.presentation.choose_body.recycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.touchcar.domain.entity.Body
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.Market
 
 class ChooseBodyDiffCallback(
     private val oldList: List<Body>,

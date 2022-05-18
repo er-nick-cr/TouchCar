@@ -2,7 +2,7 @@ package com.example.touchcar.presentation.car.car_recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.CarPartRecyclerItemBinding
-import com.example.touchcar.presentation.model.CarModel
+import com.example.touchcar.presentation.model.CarListItem
 
 class PartsViewHolder(
     private val binding: CarPartRecyclerItemBinding,
@@ -16,7 +16,7 @@ class PartsViewHolder(
         }
     }
 
-    fun bind(carModel: CarModel.DetailsModel) {
-        binding.partTextSearch.text = carModel.details.part.partName
+    fun bind(carListItem: CarListItem.Detail) {
+        binding.partTextSearch.text = carListItem.part.partName
     }
 }

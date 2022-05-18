@@ -1,13 +1,11 @@
-package com.example.touchcar.presentation.choose_model.recycler
+package com.example.touchcar.presentation.choose_equipment.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
-import com.example.touchcar.databinding.ModelRecyclerItemBinding
 import com.example.touchcar.domain.entity.Equipment
-import com.example.touchcar.domain.entity.Model
 
 class ChooseEquipmentAdapter(
     private val onItemClickListener: (Equipment) -> Unit

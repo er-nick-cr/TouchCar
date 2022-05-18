@@ -1,6 +1,5 @@
 package com.example.touchcar.domain.usecase
 
-import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.domain.repository.CarRepository
 import io.reactivex.Single

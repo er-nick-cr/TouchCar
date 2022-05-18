@@ -1,4 +1,4 @@
-package com.example.touchcar.presentation.choose_body.recycler
+package com.example.touchcar.presentation.car.car_recycler.parameters_recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

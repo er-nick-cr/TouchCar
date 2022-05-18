@@ -5,13 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.EquipmentParametersRecyclerItemBinding
-import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
-import com.example.touchcar.domain.entity.Equipment
 import com.example.touchcar.domain.entity.Parameter
-import android.view.MotionEvent
-
-
-
 
 class EquipmentParametersAdapter(
 ) : RecyclerView.Adapter<EquipmentParametersViewHolder>() {

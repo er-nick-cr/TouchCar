@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.touchcar.domain.entity.Equipment
 import com.example.touchcar.domain.entity.ManufacturerType
-import com.example.touchcar.domain.entity.Parameter
 import com.example.touchcar.domain.usecase.GetEquipmentUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

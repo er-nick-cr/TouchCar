@@ -6,17 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.*
-import com.example.touchcar.domain.entity.Body
 import com.example.touchcar.domain.entity.ManufacturerType
-import com.example.touchcar.presentation.choose_body.recycler.ChooseBodyDiffCallback
-import com.example.touchcar.presentation.model.CarModel
+import com.example.touchcar.presentation.model.CarListItem
 
 class CarAdapter(
     private val manufacturerType: ManufacturerType,
-    private val onItemClickListener: (CarModel.DetailsModel) -> Unit
+    private val onItemClickListener: (CarListItem.Detail) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var carModelsList : ArrayList<CarModel> = ArrayList()
+    var carModelsList : ArrayList<CarListItem> = ArrayList()
         set(value) {
             val callback = CarDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -26,9 +24,9 @@ class CarAdapter(
 
     override fun getItemViewType(position: Int) : Int {
        return when(carModelsList[position]) {
-            is CarModel.CarPartsHeading -> R.layout.car_parts_heading
-            is CarModel.CarInfoModel -> R.layout.car_fragment_feature
-            is CarModel.DetailsModel -> R.layout.car_part_recycler_item
+            is CarListItem.CarPartsHeader -> R.layout.car_parts_heading
+            is CarListItem.CarInfo -> R.layout.car_fragment_feature
+            is CarListItem.Detail -> R.layout.car_part_recycler_item
         }
     }
 
@@ -45,14 +43,14 @@ class CarAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = carModelsList[position]
         when(holder) {
-            is CarFeatureViewHolder -> holder.bind(item as CarModel.CarInfoModel, manufacturerType)
-            is PartsViewHolder -> holder.bind(item as CarModel.DetailsModel)
+            is CarFeatureViewHolder -> holder.bind(item as CarListItem.CarInfo, manufacturerType)
+            is PartsViewHolder -> holder.bind(item as CarListItem.Detail)
         }
     }
 
     override fun getItemCount(): Int {
         return carModelsList.size
     }
-    private fun onItemClick(position: Int) = onItemClickListener.invoke(carModelsList[position] as CarModel.DetailsModel)
+    private fun onItemClick(position: Int) = onItemClickListener.invoke(carModelsList[position] as CarListItem.Detail)
 
 }

@@ -1,10 +1,7 @@
-package com.example.touchcar.presentation.choose_model.recycler
+package com.example.touchcar.presentation.choose_equipment.recycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.touchcar.domain.entity.Equipment
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.domain.entity.Market
-import com.example.touchcar.domain.entity.Model
 
 class ChooseEquipmentDiffCallback(
     private val oldList: List<Equipment>,

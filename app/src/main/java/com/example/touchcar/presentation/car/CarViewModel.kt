@@ -2,10 +2,9 @@ package com.example.touchcar.presentation.car
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.touchcar.domain.entity.Car
 import com.example.touchcar.domain.entity.ManufacturerType
 import com.example.touchcar.domain.usecase.GetCarUseCase
-import com.example.touchcar.presentation.model.CarModel
+import com.example.touchcar.presentation.model.CarListItem
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -14,7 +13,7 @@ class CarViewModel @Inject constructor(
     private val getCarUseCase: GetCarUseCase,
 ) : ViewModel() {
 
-    val carLiveData: MutableLiveData<ArrayList<CarModel>> = MutableLiveData<ArrayList<CarModel>>()
+    val carLiveData: MutableLiveData<ArrayList<CarListItem>> = MutableLiveData<ArrayList<CarListItem>>()
     private val disposable: CompositeDisposable = CompositeDisposable()
     private val mapper: CarToCarModelsMapper = CarToCarModelsMapper()
 

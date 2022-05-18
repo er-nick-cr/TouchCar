@@ -9,11 +9,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.example.touchcar.R
 import com.example.touchcar.databinding.CarFragmentBinding
-import com.example.touchcar.domain.entity.Body
 import com.example.touchcar.presentation.car.car_recycler.CarAdapter
-import com.example.touchcar.presentation.model.CarInfo
-import com.example.touchcar.presentation.model.CarModel
-import com.example.touchcar.presentation.model.Details
+import com.example.touchcar.presentation.model.CarListItem
 import com.example.touchcar.presentation.model.NetworkSource
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,7 +26,7 @@ class CarFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = CarFragmentBinding.bind(inflater.inflate(R.layout.car_fragment, container, false))
         return binding.root
     }
@@ -40,20 +37,19 @@ class CarFragment : Fragment() {
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         val carAdapter = CarAdapter(source.type, ::onItemClick)
-        val recyclerView = binding.carHeaderRecycler
 
         viewModel.carLiveData
             .observe(this) { carModels ->
                 carAdapter.carModelsList = carModels
             }
 
-        recyclerView.adapter = carAdapter
+        binding.carHeaderRecycler.adapter = carAdapter
 
         viewModel.requestCar(source.url, source.type)
     }
 
-    private fun onItemClick(part: CarModel.DetailsModel) {
-        Log.d("url", part.details.part.partUrl)
+    private fun onItemClick(partItem: CarListItem.Detail) {
+        Log.d("url", partItem.part.partUrl)
     }
 
     companion object {

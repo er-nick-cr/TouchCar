@@ -46,7 +46,7 @@ class NissanCarParser @Inject constructor() : CarParser {
         val containers: Elements = document.select(".top_cars:first-of-type h3")
         return containers.map { container ->
             Part(
-                partName = container.text(),
+                partName = container.select("a").text(),
                 partUrl = container.select("a").attr("href")
             )
         }
