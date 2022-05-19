@@ -11,7 +11,7 @@ class ChooseModelAdapter(
     private val onItemClickListener: (Model) -> Unit
 ) : RecyclerView.Adapter<ChooseModelViewHolder>() {
 
-    var models: List<Model> = emptyList()
+    var items: List<Model> = emptyList()
         set(value) {
             val callback = ChooseModelDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -26,12 +26,12 @@ class ChooseModelAdapter(
     }
 
     override fun onBindViewHolder(holder: ChooseModelViewHolder, position: Int) {
-        holder.bind(models[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return models.size
+        return items.size
     }
 
-    private fun onItemClickListener(position: Int) = onItemClickListener.invoke(models[position])
+    private fun onItemClickListener(position: Int) = onItemClickListener.invoke(items[position])
 }

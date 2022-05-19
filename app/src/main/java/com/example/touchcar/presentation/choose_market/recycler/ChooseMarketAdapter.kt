@@ -11,7 +11,7 @@ class ChooseMarketAdapter(
     private val onItemClickListener: (Market) -> Unit
 ) : RecyclerView.Adapter<ChooseMarketViewHolder>() {
 
-    var markets: List<Market> = emptyList()
+    var items: List<Market> = emptyList()
         set(value) {
             val callback = ChooseMarketDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -26,12 +26,12 @@ class ChooseMarketAdapter(
     }
 
     override fun onBindViewHolder(holder: ChooseMarketViewHolder, position: Int) {
-        holder.bind(markets[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return markets.size
+        return items.size
     }
 
-    private fun onItemClick(position: Int) = onItemClickListener.invoke(markets[position])
+    private fun onItemClick(position: Int) = onItemClickListener.invoke(items[position])
 }

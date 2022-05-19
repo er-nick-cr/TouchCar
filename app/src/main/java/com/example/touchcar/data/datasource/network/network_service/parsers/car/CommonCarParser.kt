@@ -1,6 +1,8 @@
 package com.example.touchcar.data.datasource.network.network_service.parsers.car
 
+import com.example.touchcar.domain.entity.Car
 import com.example.touchcar.domain.entity.ManufacturerType
+import org.jsoup.nodes.Document
 import javax.inject.Inject
 
 class CommonCarParser @Inject constructor(
@@ -14,7 +16,12 @@ class CommonCarParser @Inject constructor(
     private val suzukiCarParser: SuzukiCarParser,
 ) {
 
-    fun getCarParser(type: ManufacturerType): CarParser {
+    fun parse(document: Document, type: ManufacturerType): Car {
+        val parser = getCarParser(type)
+        return parser.parse(document)
+    }
+
+    private fun getCarParser(type: ManufacturerType): CarParser {
         return when (type) {
             ManufacturerType.TOYOTA -> toyotaCarParser
             ManufacturerType.NISSAN -> nissanCarParser

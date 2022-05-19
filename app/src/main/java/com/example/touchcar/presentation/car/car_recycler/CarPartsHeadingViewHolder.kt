@@ -5,5 +5,4 @@ import com.example.touchcar.databinding.CarPartsHeadingBinding
 
 class CarPartsHeadingViewHolder(
     private val binding: CarPartsHeadingBinding
-) : RecyclerView.ViewHolder(binding.root) {
-}
+) : RecyclerView.ViewHolder(binding.root)

@@ -27,20 +27,11 @@ class CommonParser @Inject constructor(
         return bodyListParser.getBodyList(document)
     }
 
-    fun getEquipment(
-        document: Document,
-        type: ManufacturerType,
-    ): List<Equipment> {
-        val parser = commonEquipmentParser.getEquipmentParser(type)
-        return parser.parse(document)
+    fun getEquipment(document: Document, type: ManufacturerType): List<Equipment> {
+        return commonEquipmentParser.parse(document, type)
     }
 
     fun getCar(document: Document, type: ManufacturerType): Car {
-        val parser = commonCarParser.getCarParser(type)
-        return parser.parse(document)
+        return commonCarParser.parse(document, type)
     }
-
-
-
-
 }

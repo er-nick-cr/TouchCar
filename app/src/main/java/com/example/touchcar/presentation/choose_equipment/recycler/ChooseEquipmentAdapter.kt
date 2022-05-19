@@ -13,7 +13,7 @@ class ChooseEquipmentAdapter(
 
     private val parametersRecyclerPool = RecyclerView.RecycledViewPool()
 
-    var equipments: List<Equipment> = emptyList()
+    var items: List<Equipment> = emptyList()
         set(value) {
             val callback = ChooseEquipmentDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -29,12 +29,12 @@ class ChooseEquipmentAdapter(
     }
 
     override fun onBindViewHolder(holder: ChooseEquipmentViewHolder, position: Int) {
-        holder.bind(equipments[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return equipments.size
+        return items.size
     }
 
-    private fun onItemClickListener(position: Int) = onItemClickListener.invoke(equipments[position])
+    private fun onItemClickListener(position: Int) = onItemClickListener.invoke(items[position])
 }

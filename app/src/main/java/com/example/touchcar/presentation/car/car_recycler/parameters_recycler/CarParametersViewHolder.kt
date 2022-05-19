@@ -10,11 +10,12 @@ class CarParametersViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(parameter: Parameter, position: Int) {
-        binding.equipmentParameterName.text = parameter.parameterName
-        binding.equipmentParameterValue.text = parameter.parameterValue
-
-        if(position % 2 == 0) {
-            binding.root.setBackgroundResource(R.drawable.rounded_corners_grey)
+        with(binding) {
+            equipmentParameterName.text = parameter.parameterName
+            equipmentParameterValue.text = parameter.parameterValue
+            if(position % 2 == 0) {
+                root.setBackgroundResource(R.drawable.rounded_corners_grey)
+            }
         }
     }
 }

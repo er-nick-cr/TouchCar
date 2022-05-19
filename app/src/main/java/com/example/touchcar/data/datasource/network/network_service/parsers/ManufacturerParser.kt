@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class ManufacturerParser @Inject constructor() {
 
-    fun getManufacturers(document: Document): List<Manufacturer> {
+    fun parse(document: Document): List<Manufacturer> {
             val containers: Elements = document.select("tbody:first-of-type")
             return containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()

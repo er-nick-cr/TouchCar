@@ -14,7 +14,7 @@ class CarAdapter(
     private val onItemClickListener: (CarListItem.Detail) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var carModelsList : ArrayList<CarListItem> = ArrayList()
+    var items : List<CarListItem> = emptyList()
         set(value) {
             val callback = CarDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -23,7 +23,7 @@ class CarAdapter(
         }
 
     override fun getItemViewType(position: Int) : Int {
-       return when(carModelsList[position]) {
+       return when(items[position]) {
             is CarListItem.CarPartsHeader -> R.layout.car_parts_heading
             is CarListItem.CarInfo -> R.layout.car_fragment_feature
             is CarListItem.Detail -> R.layout.car_part_recycler_item
@@ -36,12 +36,12 @@ class CarAdapter(
             R.layout.car_parts_heading -> CarPartsHeadingViewHolder(CarPartsHeadingBinding.inflate(inflater, parent, false))
             R.layout.car_fragment_feature -> CarFeatureViewHolder(CarFragmentFeatureBinding.inflate(inflater, parent, false))
             R.layout.car_part_recycler_item -> PartsViewHolder(CarPartRecyclerItemBinding.inflate(inflater, parent, false), ::onItemClick)
-            else -> CarPartsHeadingViewHolder(CarPartsHeadingBinding.inflate(inflater, parent, false))
+            else -> throw IllegalStateException("ViewType $viewType is not registered")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = carModelsList[position]
+        val item = items[position]
         when(holder) {
             is CarFeatureViewHolder -> holder.bind(item as CarListItem.CarInfo, manufacturerType)
             is PartsViewHolder -> holder.bind(item as CarListItem.Detail)
@@ -49,8 +49,8 @@ class CarAdapter(
     }
 
     override fun getItemCount(): Int {
-        return carModelsList.size
+        return items.size
     }
-    private fun onItemClick(position: Int) = onItemClickListener.invoke(carModelsList[position] as CarListItem.Detail)
+    private fun onItemClick(position: Int) = onItemClickListener.invoke(items[position] as CarListItem.Detail)
 
 }

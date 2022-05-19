@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ModelsParser @Inject constructor() {
 
-    fun getModels(document: Document): List<Model> {
+    fun parse(document: Document): List<Model> {
             val containers: Elements = document.select(".category2")
             return containers.map { container ->
                 val name: String = container.select("a").text()

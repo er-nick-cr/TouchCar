@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.EquipmentParametersRecyclerItemBinding
 import com.example.touchcar.domain.entity.Parameter
 
-class EquipmentParametersAdapter(
-) : RecyclerView.Adapter<EquipmentParametersViewHolder>() {
+class EquipmentParametersAdapter : RecyclerView.Adapter<EquipmentParametersViewHolder>() {
 
-    var parameters: List<Parameter> = emptyList()
+    var items: List<Parameter> = emptyList()
         set(value) {
             val callback = EquipmentParametersDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -25,10 +24,10 @@ class EquipmentParametersAdapter(
     }
 
     override fun onBindViewHolder(holderParameters: EquipmentParametersViewHolder, position: Int) {
-        holderParameters.bind(parameters[position])
+        holderParameters.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return parameters.size
+        return items.size
     }
 }

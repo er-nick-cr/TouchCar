@@ -10,7 +10,7 @@ import com.example.touchcar.domain.entity.Parameter
 class CarParametersAdapter(
 ) : RecyclerView.Adapter<CarParametersViewHolder>() {
 
-    var carParameters: List<Parameter> = emptyList()
+    var items: List<Parameter> = emptyList()
         set(value) {
             val callback = CarParametersDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -25,10 +25,10 @@ class CarParametersAdapter(
     }
 
     override fun onBindViewHolder(holder: CarParametersViewHolder, position: Int) {
-        holder.bind(carParameters[position], position)
+        holder.bind(items[position], position)
     }
 
     override fun getItemCount(): Int {
-        return carParameters.size
+        return items.size
     }
 }

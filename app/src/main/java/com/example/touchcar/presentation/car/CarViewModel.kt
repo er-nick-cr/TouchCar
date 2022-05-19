@@ -10,12 +10,13 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CarViewModel @Inject constructor(
+    private val carListItemFactory: CarListItemFactory,
     private val getCarUseCase: GetCarUseCase,
 ) : ViewModel() {
 
     val carLiveData: MutableLiveData<ArrayList<CarListItem>> = MutableLiveData<ArrayList<CarListItem>>()
     private val disposable: CompositeDisposable = CompositeDisposable()
-    private val mapper: CarToCarModelsMapper = CarToCarModelsMapper()
+    private val mapper: CarListItemFactory = CarListItemFactory()
 
     fun requestCar(url: String, type: ManufacturerType) {
         disposable.add(
@@ -23,7 +24,7 @@ class CarViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { value ->
-                        val carModels = mapper.mapCarToCarModel(value)
+                        val carModels = carListItemFactory.create(value)
                         carLiveData.postValue(carModels)
                     },
                     { error -> error.printStackTrace() }
