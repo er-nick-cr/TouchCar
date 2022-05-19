@@ -1,7 +1,6 @@
 package com.example.touchcar.presentation.choose_equipment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChooseEquipmentFragmentBinding
 import com.example.touchcar.domain.entity.Equipment
-import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
-import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
-import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
-import com.example.touchcar.presentation.choose_model.recycler.ChooseEquipmentAdapter
+import com.example.touchcar.presentation.choose_equipment.recycler.ChooseEquipmentAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Collections.copy
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,6 +26,8 @@ class ChooseEquipmentFragment : Fragment() {
     lateinit var viewModel: ChooseEquipmentViewModel
     private lateinit var binding: ChooseEquipmentFragmentBinding
     private lateinit var source: NetworkSource
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +59,7 @@ class ChooseEquipmentFragment : Fragment() {
     }
 
     private fun onItemClick(equipment: Equipment) {
-        Log.d("sl eq", equipment.equipmentUrl)
+        router.next(this, source.copy(innerUrl = equipment.equipmentUrl))
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

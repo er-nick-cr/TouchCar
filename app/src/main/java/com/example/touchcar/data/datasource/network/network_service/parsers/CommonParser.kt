@@ -1,8 +1,8 @@
 package com.example.touchcar.data.datasource.network.network_service.parsers
 
+import com.example.touchcar.data.datasource.network.network_service.parsers.car.*
 import com.example.touchcar.data.datasource.network.network_service.parsers.equipment.*
 import com.example.touchcar.domain.entity.*
-import io.reactivex.Single
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
@@ -10,14 +10,9 @@ class CommonParser @Inject constructor(
     private val manufacturerParser: ManufacturerParser,
     private val modelsParser: ModelsParser,
     private val bodyListParser: BodyListParser,
-    private val toyotaEquipmentParser: ToyotaEquipmentParser,
-    private val hondaEquipmentParser: HondaEquipmentParser,
-    private val nissanEquipmentParser: NissanEquipmentParser,
-    private val mitsubishiEquipmentParser: MitsubishiEquipmentParser,
-    private val mazdaEquipmentParser: MazdaEquipmentParser,
-    private val lexusEquipmentParser: LexusEquipmentParser,
-    private val subaruEquipmentParser: SubaruEquipmentParser,
-    private val suzukiEquipmentParser: SuzukiEquipmentParser,
+    private val commonEquipmentParser: CommonEquipmentParser,
+    private val commonCarParser: CommonCarParser
+
 ) {
 
     fun getManufacturers(document: Document): List<Manufacturer> {
@@ -32,25 +27,11 @@ class CommonParser @Inject constructor(
         return bodyListParser.getBodyList(document)
     }
 
-    fun getEquipment(
-        document: Document,
-        type: ManufacturerType,
-    ): List<Equipment> {
-        val parser = getEquipmentParser(type)
-        return parser.parse(document)
+    fun getEquipment(document: Document, type: ManufacturerType): List<Equipment> {
+        return commonEquipmentParser.parse(document, type)
     }
 
-    private fun getEquipmentParser(type: ManufacturerType): EquipmentParser {
-        return when (type) {
-            ManufacturerType.TOYOTA -> toyotaEquipmentParser
-            ManufacturerType.NISSAN -> nissanEquipmentParser
-            ManufacturerType.MITSUBISHI -> mitsubishiEquipmentParser
-            ManufacturerType.MAZDA -> mazdaEquipmentParser
-            ManufacturerType.HONDA -> hondaEquipmentParser
-            ManufacturerType.LEXUS -> lexusEquipmentParser
-            ManufacturerType.SUBARU -> subaruEquipmentParser
-            ManufacturerType.SUZUKI -> suzukiEquipmentParser
-            else -> toyotaEquipmentParser
-        }
+    fun getCar(document: Document, type: ManufacturerType): Car {
+        return commonCarParser.parse(document, type)
     }
 }

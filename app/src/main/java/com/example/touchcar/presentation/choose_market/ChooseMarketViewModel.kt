@@ -1,10 +1,8 @@
 package com.example.touchcar.presentation.choose_market
 
-import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.touchcar.domain.entity.Market
-import com.example.touchcar.domain.entity.Model
 import javax.inject.Inject
 
 class ChooseMarketViewModel @Inject constructor(
@@ -17,7 +15,6 @@ class ChooseMarketViewModel @Inject constructor(
         marketLiveData.postValue(markets)
         this.markets = markets
     }
-
 
     fun searchMarket(searchValue: String) {
         marketLiveData.postValue(markets.filter {

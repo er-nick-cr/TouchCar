@@ -9,16 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.MainMenuFragmentBinding
 import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.presentation.CarSearchRouter
-import com.example.touchcar.presentation.CarSearchRouterProvider
-import com.example.touchcar.presentation.MainMenuActivity
 import com.example.touchcar.presentation.main_menu.bottom_sheet.BottomSheetFragment
 import com.example.touchcar.presentation.main_menu.recycler.MainMenuAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class MainMenuFragment : Fragment() {

@@ -14,10 +14,11 @@ class SuzukiEquipmentParser @Inject constructor() : EquipmentParser {
 
     override fun parse(document: Document): List<Equipment> {
         val containers: Elements = document.select(".table tbody tr")
-        return containers.drop(1).map { container -> getEquipment(container, containers) }
+        val modelName = document.select(".path span").text().replace(" ", "_") + "/"
+        return containers.drop(1).map { container -> getEquipment(container, containers, modelName) }
     }
 
-    private fun getEquipment(container: Element, containers: Elements): Equipment {
+    private fun getEquipment(container: Element, containers: Elements, modelName: String): Equipment {
         val nameUrl = container.select("td a").attr("href")
 
         val parameters: List<Parameter> = containers[0].select("th")
@@ -37,7 +38,7 @@ class SuzukiEquipmentParser @Inject constructor() : EquipmentParser {
 
         return Equipment(
             equipmentName = "",
-            equipmentUrl = nameUrl,
+            equipmentUrl = modelName + nameUrl,
             parameters = parameters
         )
     }

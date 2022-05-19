@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.ManufacturerType
 import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
+import com.example.touchcar.presentation.choose_equipment.ChooseEquipmentFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
 import com.example.touchcar.presentation.model.NetworkSource
@@ -22,7 +23,8 @@ class CarSearchRouter constructor(
         when(currentFragment) {
             is ChooseMarketFragment -> carSearchNavigator.openChooseModel(source)
             is ChooseModelFragment -> openNextFragmentInChooseModelFragment(source)
-            is ChooseBodyFragment -> carSearchNavigator.openChooseEquipment(source)
+            is ChooseBodyFragment -> openNextFragmentInChooseBodyFragment(source)
+            is ChooseEquipmentFragment -> carSearchNavigator.openCarFragment(source)
         }
     }
 
@@ -39,6 +41,14 @@ class CarSearchRouter constructor(
             carSearchNavigator.openChooseEquipment(source)
         } else {
             carSearchNavigator.openChooseBody(source)
+        }
+    }
+
+    private fun openNextFragmentInChooseBodyFragment(source: NetworkSource) {
+        if (source.type == ManufacturerType.MAZDA) {
+            carSearchNavigator.openCarFragment(source)
+        } else {
+            carSearchNavigator.openChooseEquipment(source)
         }
     }
 }

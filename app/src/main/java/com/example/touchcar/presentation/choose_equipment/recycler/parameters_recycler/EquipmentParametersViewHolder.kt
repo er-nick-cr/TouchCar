@@ -2,10 +2,6 @@ package com.example.touchcar.presentation.choose_equipment.recycler.parameters_r
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.EquipmentParametersRecyclerItemBinding
-import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
-import com.example.touchcar.databinding.ModelRecyclerItemBinding
-import com.example.touchcar.domain.entity.Equipment
-import com.example.touchcar.domain.entity.Model
 import com.example.touchcar.domain.entity.Parameter
 
 class EquipmentParametersViewHolder(

@@ -49,7 +49,7 @@ class ChooseBodyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val chooseBodyAdapter = ChooseBodyAdapter(::onItemClick)
-        val recyclerView: RecyclerView = view.findViewById(R.id.body_search_recycler)!!
+        val recyclerView: RecyclerView = binding.bodySearchRecycler
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.bodyLiveData

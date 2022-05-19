@@ -6,13 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.ManufacturerRecyclerItemBinding
 import com.example.touchcar.domain.entity.Manufacturer
-import java.util.*
 
 class MainMenuAdapter(
     private val onItemClickListener: (Manufacturer) -> Unit
 ) : RecyclerView.Adapter<MainMenuViewHolder>() {
 
-    var manufacturers: List<Manufacturer> = emptyList()
+    var items: List<Manufacturer> = emptyList()
     set(value) {
         val callback = MainMenuDiffCallback(field, value)
         val diffResult = DiffUtil.calculateDiff(callback)
@@ -26,12 +25,12 @@ class MainMenuAdapter(
     }
 
     override fun onBindViewHolder(holder: MainMenuViewHolder, position: Int) {
-        holder.bind(manufacturers[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return manufacturers.size
+        return items.size
     }
 
-    private fun onItemClick(position: Int) = onItemClickListener.invoke(manufacturers[position])
+    private fun onItemClick(position: Int) = onItemClickListener.invoke(items[position])
 }

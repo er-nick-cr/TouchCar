@@ -1,9 +1,6 @@
-package com.example.touchcar.presentation.choose_model.recycler
+package com.example.touchcar.presentation.choose_equipment.recycler
 
-import android.view.View
 import androidx.core.view.isVisible
-import androidx.core.view.marginStart
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
 import com.example.touchcar.domain.entity.Equipment
@@ -24,6 +21,7 @@ class ChooseEquipmentViewHolder(
 
         val recyclerView: RecyclerView = binding.equipmentParametersSearchRecycler
         recyclerView.adapter = equipmentParametersAdapter
+        recyclerView.suppressLayout(true)
     }
 
     fun bind(equipment: Equipment) {

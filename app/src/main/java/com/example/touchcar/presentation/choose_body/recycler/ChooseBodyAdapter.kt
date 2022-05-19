@@ -4,15 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.databinding.MarketRecyclerItemBinding
+import com.example.touchcar.databinding.BodyRecyclerItemBinding
 import com.example.touchcar.domain.entity.Body
-import com.example.touchcar.domain.entity.Market
 
 class ChooseBodyAdapter(
     private val onItemClickListener: (Body) -> Unit
 ) : RecyclerView.Adapter<ChooseBodyViewHolder>() {
 
-    var bodyList: List<Body> = emptyList()
+    var items: List<Body> = emptyList()
         set(value) {
             val callback = ChooseBodyDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -22,17 +21,17 @@ class ChooseBodyAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseBodyViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val binding = MarketRecyclerItemBinding.inflate(inflater, parent, false)
+        val binding = BodyRecyclerItemBinding.inflate(inflater, parent, false)
         return ChooseBodyViewHolder(binding, ::onItemClick)
     }
 
     override fun onBindViewHolder(holder: ChooseBodyViewHolder, position: Int) {
-        holder.bind(bodyList[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return bodyList.size
+        return items.size
     }
 
-    private fun onItemClick(position: Int) = onItemClickListener.invoke(bodyList[position])
+    private fun onItemClick(position: Int) = onItemClickListener.invoke(items[position])
 }

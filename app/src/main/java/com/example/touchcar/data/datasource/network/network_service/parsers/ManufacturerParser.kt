@@ -1,19 +1,15 @@
 package com.example.touchcar.data.datasource.network.network_service.parsers
 
-import com.example.touchcar.BuildConfig
-import com.example.touchcar.data.datasource.network.network_service.NetworkService
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.ManufacturerType
 import com.example.touchcar.domain.entity.Market
-import io.reactivex.Single
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
 class ManufacturerParser @Inject constructor() {
 
-    fun getManufacturers(document: Document): List<Manufacturer> {
+    fun parse(document: Document): List<Manufacturer> {
             val containers: Elements = document.select("tbody:first-of-type")
             return containers.map { container ->
                 val manufacturerName: String = container.select("h1:first-of-type a").text()

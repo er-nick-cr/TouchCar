@@ -1,13 +1,11 @@
-package com.example.touchcar.presentation.choose_model.recycler
+package com.example.touchcar.presentation.choose_equipment.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
-import com.example.touchcar.databinding.ModelRecyclerItemBinding
 import com.example.touchcar.domain.entity.Equipment
-import com.example.touchcar.domain.entity.Model
 
 class ChooseEquipmentAdapter(
     private val onItemClickListener: (Equipment) -> Unit
@@ -15,7 +13,7 @@ class ChooseEquipmentAdapter(
 
     private val parametersRecyclerPool = RecyclerView.RecycledViewPool()
 
-    var equipments: List<Equipment> = emptyList()
+    var items: List<Equipment> = emptyList()
         set(value) {
             val callback = ChooseEquipmentDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -31,12 +29,12 @@ class ChooseEquipmentAdapter(
     }
 
     override fun onBindViewHolder(holder: ChooseEquipmentViewHolder, position: Int) {
-        holder.bind(equipments[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return equipments.size
+        return items.size
     }
 
-    private fun onItemClickListener(position: Int) = onItemClickListener.invoke(equipments[position])
+    private fun onItemClickListener(position: Int) = onItemClickListener.invoke(items[position])
 }

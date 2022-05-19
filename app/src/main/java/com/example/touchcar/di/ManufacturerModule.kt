@@ -1,12 +1,8 @@
 package com.example.touchcar.di
 
-import com.example.touchcar.data.datasource.network.network_service.parsers.equipment.*
 import com.example.touchcar.data.repository.CarRepositoryImpl
 import com.example.touchcar.domain.repository.CarRepository
 import com.example.touchcar.domain.usecase.*
-import com.example.touchcar.presentation.MainMenuActivity
-import com.example.touchcar.presentation.main_menu.MainMenuFragment
-import com.example.touchcar.presentation.navigation.MainMenuNavigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -30,4 +26,7 @@ abstract class ManufacturerModule {
 
     @Binds
     abstract fun bindGetEquipmentUseCase(getEquipmentUseCaseImpl: GetEquipmentUseCaseImpl): GetEquipmentUseCase
+
+    @Binds
+    abstract fun bindGetCarUseCase(getCarUseCaseImpl: GetCarUseCaseImpl): GetCarUseCase
 }

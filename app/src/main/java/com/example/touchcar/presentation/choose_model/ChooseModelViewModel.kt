@@ -1,6 +1,5 @@
 package com.example.touchcar.presentation.choose_model
 
-import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.touchcar.domain.entity.Model

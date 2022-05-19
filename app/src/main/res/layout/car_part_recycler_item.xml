@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manufacturer_item"
+    android:layout_width="match_parent"
+    android:layout_height="83dp"
+    android:layout_marginHorizontal="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ripple_rounded_corners"
+    android:elevation="5dp"
+    android:layout_marginBottom="16dp"
+    >
+
+    <TextView
+        android:id="@+id/part_text_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Двигатель, топливная система и инструменты"
+        android:fontFamily="@font/google_sans_regular"
+        android:textSize="18sp"
+        android:textColor="@color/text_main"
+        android:textStyle="bold"
+        android:paddingStart="16dp"
+        android:paddingEnd="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/continue_icon"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/next" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

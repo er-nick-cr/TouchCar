@@ -21,4 +21,6 @@
     <string name="choose_equipment_title">Комплектация</string>
     <string name="equipment_search_parameter_yes">Да</string>
     <string name="equipment_search_parameter_no">Нет</string>
+    <string name="car_parts_heading">Запчасти</string>
+    <string name="car_image_description">car logo</string>
 </resources>
