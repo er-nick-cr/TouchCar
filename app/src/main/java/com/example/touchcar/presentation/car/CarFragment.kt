@@ -40,7 +40,7 @@ class CarFragment : Fragment() {
 
         viewModel.carLiveData
             .observe(this) { carModels ->
-                carAdapter.carModelsList = carModels
+                carAdapter.items = carModels
             }
 
         binding.carHeaderRecycler.adapter = carAdapter
