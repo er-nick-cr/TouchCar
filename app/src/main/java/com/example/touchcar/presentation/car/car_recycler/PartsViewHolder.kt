@@ -17,6 +17,6 @@ class PartsViewHolder(
     }
 
     fun bind(carListItem: CarListItem.Detail) {
-        binding.partTextSearch.text = carListItem.part.partName
+        binding.partTextSearch.text = carListItem.partSection.partName
     }
 }

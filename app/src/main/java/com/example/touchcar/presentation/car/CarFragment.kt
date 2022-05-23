@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.example.touchcar.R
 import com.example.touchcar.databinding.CarFragmentBinding
+import com.example.touchcar.presentation.CarSearchRouter
+import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.car.car_recycler.CarAdapter
 import com.example.touchcar.presentation.model.CarListItem
 import com.example.touchcar.presentation.model.NetworkSource
@@ -22,6 +24,8 @@ class CarFragment : Fragment() {
     lateinit var viewModel: CarViewModel
     private lateinit var binding: CarFragmentBinding
     private lateinit var source: NetworkSource
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +53,7 @@ class CarFragment : Fragment() {
     }
 
     private fun onItemClick(partItem: CarListItem.Detail) {
-        Log.d("url", partItem.part.partUrl)
+        router.next(this, source.copy(innerUrl = partItem.partSection.partUrl))
     }
 
     companion object {

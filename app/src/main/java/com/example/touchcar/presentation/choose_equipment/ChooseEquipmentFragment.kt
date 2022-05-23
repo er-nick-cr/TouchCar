@@ -52,7 +52,7 @@ class ChooseEquipmentFragment : Fragment() {
 
 
         viewModel.equipmentLiveData
-            .observe(this) {equipments -> chooseEquipmentAdapter.equipments = equipments }
+            .observe(this) {equipments -> chooseEquipmentAdapter.items = equipments }
         recyclerView.adapter = chooseEquipmentAdapter
         setDividerDecoration(recyclerView)
         viewModel.requestEquipments(source.url, source.type)

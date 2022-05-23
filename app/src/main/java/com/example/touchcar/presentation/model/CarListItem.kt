@@ -1,7 +1,7 @@
 package com.example.touchcar.presentation.model
 
 import com.example.touchcar.domain.entity.Car
-import com.example.touchcar.domain.entity.Part
+import com.example.touchcar.domain.entity.PartSection
 
 sealed interface CarListItem {
 
@@ -13,7 +13,7 @@ sealed interface CarListItem {
     object CarPartsHeader : CarListItem {
         override val id: String = "CarPartsHeader"
     }
-    data class Detail(val part: Part) : CarListItem {
-        override val id: String = "Parts${part.partName}"
+    data class Detail(val partSection: PartSection) : CarListItem {
+        override val id: String = "Parts${partSection.partName}"
     }
 }

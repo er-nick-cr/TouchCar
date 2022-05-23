@@ -1,3 +1,3 @@
 package com.example.touchcar.domain.entity
 
-class Part(val partName: String, val partUrl: String)
+data class Part(val partName: String, val partNumber: String, val partUrl: String)

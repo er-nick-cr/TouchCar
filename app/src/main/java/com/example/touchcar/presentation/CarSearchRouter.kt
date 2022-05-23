@@ -3,6 +3,7 @@ package com.example.touchcar.presentation
 import androidx.fragment.app.Fragment
 import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.ManufacturerType
+import com.example.touchcar.presentation.car.CarFragment
 import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
 import com.example.touchcar.presentation.choose_equipment.ChooseEquipmentFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
@@ -25,6 +26,7 @@ class CarSearchRouter constructor(
             is ChooseModelFragment -> openNextFragmentInChooseModelFragment(source)
             is ChooseBodyFragment -> openNextFragmentInChooseBodyFragment(source)
             is ChooseEquipmentFragment -> carSearchNavigator.openCarFragment(source)
+            is CarFragment -> carSearchNavigator.openChoosePartFragment(source)
         }
     }
 

@@ -30,6 +30,6 @@ class ChooseEquipmentViewHolder(
         } else {
             binding.equipmentSearchHeading.isVisible = false
         }
-        equipmentParametersAdapter.parameters = equipment.parameters
+        equipmentParametersAdapter.items = equipment.parameters
     }
 }

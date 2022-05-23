@@ -1,12 +1,12 @@
-package com.example.touchcar.presentation.choose_model.recycler
+package com.example.touchcar.presentation.choose_part.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.touchcar.domain.entity.Model
+import com.example.touchcar.domain.entity.Part
 
-class ChooseModelDiffCallback(
-    private val oldList: List<Model>,
-    private val newList: List<Model>
-    ) : DiffUtil.Callback() {
+class ChoosePartDiffCallback(
+    private val oldList: List<Part>,
+    private val newList: List<Part>
+) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldList.size
@@ -17,7 +17,7 @@ class ChooseModelDiffCallback(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].modelName == newList[newItemPosition].modelName
+        return oldList[oldItemPosition].partName == newList[newItemPosition].partName
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

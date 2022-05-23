@@ -56,7 +56,7 @@ class ChooseMarketFragment : Fragment() {
         val recyclerView: RecyclerView = binding.marketSearchRecycler
 
         viewModel.setUpMarkets(manufacturer.market)
-        viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.markets = markets }
+        viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.items = markets }
         recyclerView.adapter = chooseMarketAdapter
         setDividerDecoration(recyclerView)
         binding.searchBar.addTextChangedListener(

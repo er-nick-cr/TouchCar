@@ -54,10 +54,12 @@ class ChooseModelFragment : Fragment() {
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.modelLiveData
-            .observe(this) { models -> chooseModelAdapter.models = models }
+            .observe(this) { models -> chooseModelAdapter.items = models }
+
         recyclerView.adapter = chooseModelAdapter
         setDividerDecoration(recyclerView)
         viewModel.requestModels(source.url)
+
         binding.searchModelBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchModel(searchValue.toString()) }
         )
