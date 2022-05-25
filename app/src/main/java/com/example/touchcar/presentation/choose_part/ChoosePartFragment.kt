@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChoosePartFragmentBinding
 import com.example.touchcar.domain.entity.Part
+import com.example.touchcar.domain.entity.ToolbarHeader
+import com.example.touchcar.presentation.CarSearchRouter
+import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_part.recycler.ChoosePartAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.utils.addTextChangedListener
@@ -27,6 +30,8 @@ class ChoosePartFragment : Fragment() {
     lateinit var viewModel: ChoosePartViewModel
     private lateinit var binding: ChoosePartFragmentBinding
     private lateinit var source: NetworkSource
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,16 +57,27 @@ class ChoosePartFragment : Fragment() {
 
         viewModel.partsLiveData
             .observe(this) {parts -> chooseModelAdapter.items = parts}
+        viewModel.toolbarHeaderLiveData
+            .observe(this) {value -> setToolbarFeatures(value)}
 
         recyclerView.adapter = chooseModelAdapter
         setDividerDecoration(recyclerView)
 
         viewModel.requestParts(source.url, source.type)
+        viewModel.requestToolbarHeader(source.url)
 
         binding.searchPartBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchModel(searchValue.toString()) }
         )
+    }
 
+    private fun setToolbarFeatures(toolbarHeader: ToolbarHeader) {
+        val toolbar = binding.choosePartToolbar
+        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+        toolbar.title = toolbarHeader.text
+        toolbar.setNavigationOnClickListener {
+            router.onBackPressed()
+        }
     }
 
     private fun onItemClick(part: Part) {
@@ -75,8 +91,6 @@ class ChoosePartFragment : Fragment() {
             ?.let { dividerItemDecoration.setDrawable(it) }
         recyclerView.addItemDecoration(dividerItemDecoration)
     }
-
-
 
     companion object {
 

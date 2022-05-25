@@ -14,7 +14,17 @@
         android:background="@color/car_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toolbar_save_content_button"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/car_save_content_button" />
+
+    </android.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/car_header_recycler"

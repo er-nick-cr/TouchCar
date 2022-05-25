@@ -17,7 +17,7 @@ class HondaPartParser @Inject constructor() : PartParser {
         val containerATag = container.select("a:last-child")
         val aTagString = containerATag.text().split(" ")
         return Part(
-            partName = aTagString.drop(1).joinToString(),
+            partName = aTagString.drop(1).joinToString(" "),
             partNumber = aTagString[0],
             partUrl = containerATag.attr("href")
         )

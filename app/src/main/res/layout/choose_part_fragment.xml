@@ -13,6 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/shadow"
         android:elevation="18dp"
+        android:paddingEnd="34dp"
         tools:title="Двигатель, топливная си..."
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

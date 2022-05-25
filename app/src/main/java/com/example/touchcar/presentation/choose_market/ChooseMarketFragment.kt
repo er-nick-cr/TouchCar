@@ -55,6 +55,8 @@ class ChooseMarketFragment : Fragment() {
         val chooseMarketAdapter = ChooseMarketAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.marketSearchRecycler
 
+        setToolbarNavigationButton()
+
         viewModel.setUpMarkets(manufacturer.market)
         viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.items = markets }
         recyclerView.adapter = chooseMarketAdapter
@@ -62,6 +64,14 @@ class ChooseMarketFragment : Fragment() {
         binding.searchBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchMarket(searchValue.toString()) }
         )
+    }
+
+    private fun setToolbarNavigationButton() {
+        val toolbar = binding.chooseMarketToolbar
+        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+        toolbar.setNavigationOnClickListener {
+            router.onBackPressed()
+        }
     }
 
     private fun onItemClick(market: Market) {

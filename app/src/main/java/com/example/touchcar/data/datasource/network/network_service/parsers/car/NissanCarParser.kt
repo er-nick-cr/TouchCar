@@ -43,12 +43,24 @@ class NissanCarParser @Inject constructor() : CarParser {
     }
 
     private fun getParts(document: Document): List<PartSection> {
-        val containers: Elements = document.select(".top_cars h3")
-        return containers.map { container ->
-            PartSection(
-                partName = container.select("a").text(),
-                partUrl = container.select("a").attr("href")
-            )
+        return if(document.location().contains("europe")) {
+            val containers: Elements = document.select(".detail-list a")
+            containers.map { container ->
+                PartSection(
+                    partName = container.text()
+                        .replaceBeforeLast(": ", "")
+                        .replace(": ", ""),
+                    partUrl = container.attr("href")
+                )
+            }
+        } else {
+            val containers: Elements = document.select(".top_cars h3")
+            containers.map { container ->
+                PartSection(
+                    partName = container.select("a").text(),
+                    partUrl = container.select("a").attr("href")
+                )
+            }
         }
     }
 }

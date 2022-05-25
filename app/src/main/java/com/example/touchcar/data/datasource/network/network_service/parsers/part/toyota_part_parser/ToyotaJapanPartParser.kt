@@ -1,4 +1,4 @@
-package com.example.touchcar.data.datasource.network.network_service.parsers.part
+package com.example.touchcar.data.datasource.network.network_service.parsers.part.toyota_part_parser
 
 import com.example.touchcar.domain.entity.Part
 import org.jsoup.nodes.Document
@@ -6,7 +6,7 @@ import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class LexusPartParser @Inject constructor() : PartParser {
+class ToyotaJapanPartParser @Inject constructor() : ToyotaPartParser {
 
     override fun parse(document: Document): List<Part> {
         val containers: Elements = document.select(".col_wide div:last-child div")

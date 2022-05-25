@@ -23,11 +23,16 @@ class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNaviga
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val mainMenuFragment = MainMenuFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container_view, mainMenuFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onToolbarBackPressed() {
+        supportFragmentManager.popBackStack()
     }
 
     override fun openChooseMarket(manufacturer: Manufacturer) {

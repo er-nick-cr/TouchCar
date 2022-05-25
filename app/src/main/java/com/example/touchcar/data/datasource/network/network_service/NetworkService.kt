@@ -15,13 +15,11 @@ class NetworkService @Inject constructor(
     fun getManufacturers(): Single<List<Manufacturer>> {
         return requestDocument(BuildConfig.BASE_URL)
             .map { document -> commonParser.getManufacturers(document) }
-
     }
 
     fun getModels(url: String): Single<List<Model>> {
         return requestDocument(url)
             .map { document -> commonParser.getModels(document) }
-
     }
 
     fun getBodyList(url: String): Single<List<Body>> {
@@ -39,6 +37,10 @@ class NetworkService @Inject constructor(
 
     fun getParts(url: String, type: ManufacturerType): Single<List<Part>> {
         return requestDocument(url).map { document -> commonParser.getParts(document, type) }
+    }
+
+    fun getToolbarHeader(url: String): Single<ToolbarHeader> {
+        return requestDocument(url).map { document -> commonParser.getToolbarHeader(document) }
     }
 
     private fun requestDocument(url: String): Single<Document> {

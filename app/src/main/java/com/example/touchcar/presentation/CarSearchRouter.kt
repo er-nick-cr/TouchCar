@@ -15,7 +15,6 @@ class CarSearchRouter constructor(
     private val carSearchNavigator: CarSearchNavigator,
 ) {
 
-
     fun start(manufacturer: Manufacturer, source: NetworkSource) {
         openNextFragmentInMainMenuFragment(manufacturer, source)
     }
@@ -28,6 +27,10 @@ class CarSearchRouter constructor(
             is ChooseEquipmentFragment -> carSearchNavigator.openCarFragment(source)
             is CarFragment -> carSearchNavigator.openChoosePartFragment(source)
         }
+    }
+
+    fun onBackPressed() {
+        carSearchNavigator.onToolbarBackPressed()
     }
 
     private fun openNextFragmentInMainMenuFragment(manufacturer: Manufacturer, source: NetworkSource) {

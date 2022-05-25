@@ -33,4 +33,8 @@ class CarRepositoryImpl @Inject constructor(
     override fun getParts(url: String, type: ManufacturerType): Single<List<Part>> {
         return networkDataSource.getParts(url, type)
     }
+
+    override fun getToolbar(url: String): Single<ToolbarHeader> {
+        return networkDataSource.getToolbarHeader(url)
+    }
 }

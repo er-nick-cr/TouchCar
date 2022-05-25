@@ -32,4 +32,7 @@ abstract class ManufacturerModule {
 
     @Binds
     abstract fun bindGetPartsUseCase(getPartsUseCaseImpl: GetPartsUseCaseImpl): GetPartsUseCase
+
+    @Binds
+    abstract fun bindGetToolbarHeaderUseCase(getToolbarHeaderUseCaseImpl: GetToolbarHeaderUseCaseImpl): GetToolbarHeaderUseCase
 }

@@ -11,4 +11,5 @@ interface CarRepository {
     fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>>
     fun getCar(url: String, type: ManufacturerType): Single<Car>
     fun getParts(url: String, type: ManufacturerType): Single<List<Part>>
+    fun getToolbar(url: String): Single<ToolbarHeader>
 }

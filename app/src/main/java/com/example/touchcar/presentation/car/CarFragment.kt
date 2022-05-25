@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import com.example.touchcar.R
 import com.example.touchcar.databinding.CarFragmentBinding
@@ -39,8 +40,9 @@ class CarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         source = arguments?.get(SOURCE_ARG) as NetworkSource
-
         val carAdapter = CarAdapter(source.type, ::onItemClick)
+
+        setToolbarNavigationButton()
 
         viewModel.carLiveData
             .observe(this) { carModels ->
@@ -50,6 +52,14 @@ class CarFragment : Fragment() {
         binding.carHeaderRecycler.adapter = carAdapter
 
         viewModel.requestCar(source.url, source.type)
+    }
+
+    private fun setToolbarNavigationButton() {
+        val toolbar = binding.carToolbar
+        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button_white, null)
+        toolbar.setNavigationOnClickListener {
+            router.onBackPressed()
+        }
     }
 
     private fun onItemClick(partItem: CarListItem.Detail) {
