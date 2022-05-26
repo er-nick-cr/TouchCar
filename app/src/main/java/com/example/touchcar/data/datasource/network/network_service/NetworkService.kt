@@ -35,12 +35,8 @@ class NetworkService @Inject constructor(
         return requestDocument(url).map { document -> commonParser.getCar(document, type) }
     }
 
-    fun getParts(url: String, type: ManufacturerType): Single<List<Part>> {
-        return requestDocument(url).map { document -> commonParser.getParts(document, type) }
-    }
-
-    fun getToolbarHeader(url: String): Single<ToolbarHeader> {
-        return requestDocument(url).map { document -> commonParser.getToolbarHeader(document) }
+    fun getPartsData(url: String, type: ManufacturerType): Single<PartsData> {
+        return requestDocument(url).map { document -> commonParser.getPartsData(document, type) }
     }
 
     private fun requestDocument(url: String): Single<Document> {

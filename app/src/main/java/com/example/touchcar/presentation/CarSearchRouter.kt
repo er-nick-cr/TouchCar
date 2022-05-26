@@ -29,10 +29,6 @@ class CarSearchRouter constructor(
         }
     }
 
-    fun onBackPressed() {
-        carSearchNavigator.onToolbarBackPressed()
-    }
-
     private fun openNextFragmentInMainMenuFragment(manufacturer: Manufacturer, source: NetworkSource) {
         if (manufacturer.market.isNotEmpty()) {
             carSearchNavigator.openChooseMarket(manufacturer)

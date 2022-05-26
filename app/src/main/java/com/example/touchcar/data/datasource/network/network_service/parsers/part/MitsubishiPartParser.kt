@@ -14,7 +14,6 @@ class MitsubishiPartParser @Inject constructor() : PartParser {
     }
 
     private fun getPart(container: Element): Part {
-        val containerATag = container.select("a")
         return Part(
             partName = container.text(),
             partNumber = "",

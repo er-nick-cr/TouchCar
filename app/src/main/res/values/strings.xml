@@ -24,4 +24,6 @@
     <string name="car_parts_heading">Запчасти</string>
     <string name="car_image_description">car logo</string>
     <string name="choose_part_search_hint">Введите название агрегата…</string>
+    <string name="car_save_content_button">save content</string>
+    <string name="car_menu_save_title">save content</string>
 </resources>

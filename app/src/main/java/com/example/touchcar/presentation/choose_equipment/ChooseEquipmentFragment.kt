@@ -60,10 +60,9 @@ class ChooseEquipmentFragment : Fragment() {
     }
 
     private fun setToolbarNavigationButton() {
-        val toolbar = binding.chooseEquipmentToolbar
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
-        toolbar.setNavigationOnClickListener {
-            router.onBackPressed()
+        with(binding.chooseEquipmentToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
         }
     }
 

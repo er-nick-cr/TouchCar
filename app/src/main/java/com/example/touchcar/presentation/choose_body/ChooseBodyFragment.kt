@@ -65,10 +65,9 @@ class ChooseBodyFragment : Fragment() {
     }
 
     private fun setToolbarNavigationButton() {
-        val toolbar = binding.chooseBodyToolbar
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
-        toolbar.setNavigationOnClickListener {
-            router.onBackPressed()
+        with(binding.chooseBodyToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
         }
     }
 

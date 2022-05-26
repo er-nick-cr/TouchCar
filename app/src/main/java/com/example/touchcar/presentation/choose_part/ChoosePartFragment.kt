@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChoosePartFragmentBinding
 import com.example.touchcar.domain.entity.Part
-import com.example.touchcar.domain.entity.ToolbarHeader
+import com.example.touchcar.domain.entity.Header
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_part.recycler.ChoosePartAdapter
@@ -52,31 +52,29 @@ class ChoosePartFragment : Fragment() {
 
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
-        val chooseModelAdapter = ChoosePartAdapter(::onItemClick)
+        val choosePartAdapter = ChoosePartAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.choosePartRecycler
 
         viewModel.partsLiveData
-            .observe(this) {parts -> chooseModelAdapter.items = parts}
-        viewModel.toolbarHeaderLiveData
+            .observe(this) {parts -> choosePartAdapter.items = parts}
+        viewModel.headerLiveData
             .observe(this) {value -> setToolbarFeatures(value)}
 
-        recyclerView.adapter = chooseModelAdapter
+        recyclerView.adapter = choosePartAdapter
         setDividerDecoration(recyclerView)
 
         viewModel.requestParts(source.url, source.type)
-        viewModel.requestToolbarHeader(source.url)
 
         binding.searchPartBar.addTextChangedListener(
-            afterTextChanged = { searchValue: Editable -> viewModel.searchModel(searchValue.toString()) }
+            afterTextChanged = { searchValue: Editable -> viewModel.searchPart(searchValue.toString()) }
         )
     }
 
-    private fun setToolbarFeatures(toolbarHeader: ToolbarHeader) {
-        val toolbar = binding.choosePartToolbar
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
-        toolbar.title = toolbarHeader.text
-        toolbar.setNavigationOnClickListener {
-            router.onBackPressed()
+    private fun setToolbarFeatures(header: String) {
+        with(binding.choosePartToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
+            title = header
         }
     }
 

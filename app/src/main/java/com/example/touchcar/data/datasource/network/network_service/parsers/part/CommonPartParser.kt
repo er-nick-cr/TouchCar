@@ -3,7 +3,7 @@ package com.example.touchcar.data.datasource.network.network_service.parsers.par
 import com.example.touchcar.data.datasource.network.network_service.parsers.part.lexus_part_parser.CommonLexusPartParser
 import com.example.touchcar.data.datasource.network.network_service.parsers.part.toyota_part_parser.CommonToyotaPartParser
 import com.example.touchcar.domain.entity.ManufacturerType
-import com.example.touchcar.domain.entity.Part
+import com.example.touchcar.domain.entity.PartsData
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
@@ -21,9 +21,11 @@ class CommonPartParser @Inject constructor(
     fun parse(
         document: Document,
         type: ManufacturerType,
-    ): List<Part> {
+    ): PartsData {
         val parser = getPartParser(type)
-        return parser.parse(document)
+        return PartsData(
+            header = document.select("h1").text(),
+            parts = parser.parse(document))
     }
 
     private fun getPartParser(type: ManufacturerType): PartParser {

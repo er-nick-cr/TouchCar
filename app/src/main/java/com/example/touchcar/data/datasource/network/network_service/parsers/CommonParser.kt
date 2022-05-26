@@ -14,7 +14,6 @@ class CommonParser @Inject constructor(
     private val commonEquipmentParser: CommonEquipmentParser,
     private val commonCarParser: CommonCarParser,
     private val commonPartParser: CommonPartParser,
-    private val toolbarHeaderParser: ToolbarHeaderParser,
 ) {
 
     fun getManufacturers(document: Document): List<Manufacturer> {
@@ -37,11 +36,7 @@ class CommonParser @Inject constructor(
         return commonCarParser.parse(document, type)
     }
 
-    fun getToolbarHeader(document: Document): ToolbarHeader {
-        return toolbarHeaderParser.parse(document)
-    }
-
-    fun getParts(document: Document, type: ManufacturerType): List<Part> {
+    fun getPartsData(document: Document, type: ManufacturerType): PartsData {
         return commonPartParser.parse(document, type)
     }
 }

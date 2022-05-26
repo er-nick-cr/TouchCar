@@ -2,10 +2,9 @@ package com.example.touchcar.presentation.car
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import com.example.touchcar.R
@@ -32,13 +31,13 @@ class CarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         binding = CarFragmentBinding.bind(inflater.inflate(R.layout.car_fragment, container, false))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         source = arguments?.get(SOURCE_ARG) as NetworkSource
         val carAdapter = CarAdapter(source.type, ::onItemClick)
 
@@ -54,11 +53,18 @@ class CarFragment : Fragment() {
         viewModel.requestCar(source.url, source.type)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.car_save_content_menu, menu)
+    }
+
     private fun setToolbarNavigationButton() {
-        val toolbar = binding.carToolbar
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button_white, null)
-        toolbar.setNavigationOnClickListener {
-            router.onBackPressed()
+        activity?.setActionBar(binding.carToolbar)
+        activity?.actionBar?.setDisplayShowTitleEnabled(false)
+        activity?.actionBar?.displayOptions
+        with(binding.carToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button_white, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
         }
     }
 

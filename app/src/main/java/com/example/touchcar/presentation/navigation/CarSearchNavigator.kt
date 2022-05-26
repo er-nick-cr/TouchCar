@@ -5,7 +5,6 @@ import com.example.touchcar.presentation.model.NetworkSource
 
 interface CarSearchNavigator {
 
-    fun onToolbarBackPressed()
     fun openChooseMarket(manufacturer: Manufacturer)
     fun openChooseModel(source: NetworkSource)
     fun openChooseBody(source: NetworkSource)

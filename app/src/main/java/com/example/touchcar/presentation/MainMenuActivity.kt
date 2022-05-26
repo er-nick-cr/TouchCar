@@ -31,7 +31,7 @@ class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNaviga
             .commit()
     }
 
-    override fun onToolbarBackPressed() {
+    fun onBackBackPressed() {
         supportFragmentManager.popBackStack()
     }
 

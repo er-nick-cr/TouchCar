@@ -68,10 +68,9 @@ class ChooseModelFragment : Fragment() {
     }
 
     private fun setToolbarNavigationButton() {
-        val toolbar = binding.chooseModelToolbar
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
-        toolbar.setNavigationOnClickListener {
-            router.onBackPressed()
+        with(binding.chooseModelToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
         }
     }
 

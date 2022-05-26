@@ -1,5 +1,6 @@
 package com.example.touchcar.presentation.choose_market
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
+import com.example.touchcar.presentation.MainMenuActivity
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.utils.addTextChangedListener
@@ -67,10 +69,9 @@ class ChooseMarketFragment : Fragment() {
     }
 
     private fun setToolbarNavigationButton() {
-        val toolbar = binding.chooseMarketToolbar
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
-        toolbar.setNavigationOnClickListener {
-            router.onBackPressed()
+        with(binding.chooseMarketToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
         }
     }
 
