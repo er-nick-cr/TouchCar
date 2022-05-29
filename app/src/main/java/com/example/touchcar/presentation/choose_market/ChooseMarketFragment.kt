@@ -1,5 +1,6 @@
 package com.example.touchcar.presentation.choose_market
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.domain.entity.Market
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
+import com.example.touchcar.presentation.MainMenuActivity
 import com.example.touchcar.presentation.choose_market.recycler.ChooseMarketAdapter
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.utils.addTextChangedListener
@@ -55,13 +57,22 @@ class ChooseMarketFragment : Fragment() {
         val chooseMarketAdapter = ChooseMarketAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.marketSearchRecycler
 
+        setToolbarNavigationButton()
+
         viewModel.setUpMarkets(manufacturer.market)
-        viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.markets = markets }
+        viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.items = markets }
         recyclerView.adapter = chooseMarketAdapter
         setDividerDecoration(recyclerView)
         binding.searchBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchMarket(searchValue.toString()) }
         )
+    }
+
+    private fun setToolbarNavigationButton() {
+        with(binding.chooseMarketToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
+        }
     }
 
     private fun onItemClick(market: Market) {

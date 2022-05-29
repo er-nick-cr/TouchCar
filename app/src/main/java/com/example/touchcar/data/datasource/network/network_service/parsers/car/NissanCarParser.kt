@@ -2,7 +2,7 @@ package com.example.touchcar.data.datasource.network.network_service.parsers.car
 
 import com.example.touchcar.domain.entity.Car
 import com.example.touchcar.domain.entity.Parameter
-import com.example.touchcar.domain.entity.Part
+import com.example.touchcar.domain.entity.PartSection
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class NissanCarParser @Inject constructor() : CarParser {
             carName = getCarName(document),
             equipmentFeature = getEquipmentName(document),
             parameters = getParameters(document),
-            parts = getParts(document),
+            partSections = getParts(document),
         )
     }
 
@@ -42,13 +42,25 @@ class NissanCarParser @Inject constructor() : CarParser {
             .filter { parameter -> parameter.parameterValue.isNotEmpty() }
     }
 
-    private fun getParts(document: Document): List<Part> {
-        val containers: Elements = document.select(".top_cars h3")
-        return containers.map { container ->
-            Part(
-                partName = container.select("a").text(),
-                partUrl = container.select("a").attr("href")
-            )
+    private fun getParts(document: Document): List<PartSection> {
+        return if(document.location().contains("europe")) {
+            val containers: Elements = document.select(".detail-list a")
+            containers.map { container ->
+                PartSection(
+                    partName = container.text()
+                        .replaceBeforeLast(": ", "")
+                        .replace(": ", ""),
+                    partUrl = container.attr("href")
+                )
+            }
+        } else {
+            val containers: Elements = document.select(".top_cars h3")
+            containers.map { container ->
+                PartSection(
+                    partName = container.select("a").text(),
+                    partUrl = container.select("a").attr("href")
+                )
+            }
         }
     }
 }

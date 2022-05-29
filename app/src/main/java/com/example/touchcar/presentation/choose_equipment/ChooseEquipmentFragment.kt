@@ -50,12 +50,20 @@ class ChooseEquipmentFragment : Fragment() {
         val recyclerView: RecyclerView = binding.equipmentSearchRecycler
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
+        setToolbarNavigationButton()
 
         viewModel.equipmentLiveData
-            .observe(this) {equipments -> chooseEquipmentAdapter.equipments = equipments }
+            .observe(this) {equipments -> chooseEquipmentAdapter.items = equipments }
         recyclerView.adapter = chooseEquipmentAdapter
         setDividerDecoration(recyclerView)
         viewModel.requestEquipments(source.url, source.type)
+    }
+
+    private fun setToolbarNavigationButton() {
+        with(binding.chooseEquipmentToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
+        }
     }
 
     private fun onItemClick(equipment: Equipment) {

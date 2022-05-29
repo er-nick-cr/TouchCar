@@ -9,6 +9,7 @@ import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
 import com.example.touchcar.presentation.choose_equipment.ChooseEquipmentFragment
 import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
 import com.example.touchcar.presentation.choose_model.ChooseModelFragment
+import com.example.touchcar.presentation.choose_part.ChoosePartFragment
 import com.example.touchcar.presentation.main_menu.MainMenuFragment
 import com.example.touchcar.presentation.model.NetworkSource
 import com.example.touchcar.presentation.navigation.*
@@ -22,6 +23,7 @@ class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNaviga
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val mainMenuFragment = MainMenuFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container_view, mainMenuFragment)
@@ -65,6 +67,14 @@ class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNaviga
         val carFragment = CarFragment.newInstance(source)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, carFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun openChoosePartFragment(source: NetworkSource) {
+        val choosePartFragment = ChoosePartFragment.newInstance(source)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, choosePartFragment)
             .addToBackStack(null)
             .commit()
     }

@@ -23,7 +23,7 @@ class CarFeatureViewHolder(
         binding.carLabelImage.setImageResource(manufacturerType.getLogo())
         binding.carNameHeading.text = carListItem.car.carName
         binding.carEquipmentName.text = carListItem.car.equipmentFeature
-        carParametersAdapter.carParameters = carListItem.car.parameters
+        carParametersAdapter.items = carListItem.car.parameters
 
     }
 }

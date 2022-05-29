@@ -2,7 +2,6 @@ package com.example.touchcar.data.datasource.network.network_service.parsers.equ
 
 import com.example.touchcar.domain.entity.Equipment
 import com.example.touchcar.domain.entity.Parameter
-import io.reactivex.Single
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements

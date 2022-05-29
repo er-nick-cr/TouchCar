@@ -29,4 +29,7 @@ abstract class ManufacturerModule {
 
     @Binds
     abstract fun bindGetCarUseCase(getCarUseCaseImpl: GetCarUseCaseImpl): GetCarUseCase
+
+    @Binds
+    abstract fun bindGetPartsDataUseCase(getPartsDataUseCaseImpl: GetPartsDataUseCaseImpl): GetPartsDataUseCase
 }

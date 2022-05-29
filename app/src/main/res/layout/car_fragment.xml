@@ -7,11 +7,12 @@
     android:background="@color/white"
     tools:context=".presentation.car.CarFragment">
 
-    <android.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/car_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/car_background"
+        app:navigationIcon="@drawable/toolbar_back_button_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

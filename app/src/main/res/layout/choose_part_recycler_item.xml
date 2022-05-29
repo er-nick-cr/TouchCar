@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/choose_part_serial_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="11dp"
+        android:paddingVertical="5dp"
+        android:background="@drawable/choose_part_serial_number_background"
+        android:fontFamily="@font/google_sans_bold"
+        android:textSize="14sp"
+        android:textColor="#0054BB"
+        android:layout_marginStart="20dp"
+        tools:text="09-01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/choose_part_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/google_sans_regular"
+        android:textSize="18sp"
+        android:textColor="@color/text_main"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="40dp"
+        tools:text="Крышки двигателя перед и зад перед и зад"
+        app:layout_constraintStart_toEndOf="@id/choose_part_serial_number"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/next"
+        />
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/continue_icon"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/next" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

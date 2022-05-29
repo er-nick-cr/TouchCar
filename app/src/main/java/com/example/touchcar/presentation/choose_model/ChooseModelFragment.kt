@@ -53,14 +53,25 @@ class ChooseModelFragment : Fragment() {
         val recyclerView: RecyclerView = binding.modelSearchRecycler
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
+        setToolbarNavigationButton()
+
         viewModel.modelLiveData
-            .observe(this) { models -> chooseModelAdapter.models = models }
+            .observe(this) { models -> chooseModelAdapter.items = models }
+
         recyclerView.adapter = chooseModelAdapter
         setDividerDecoration(recyclerView)
         viewModel.requestModels(source.url)
+
         binding.searchModelBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchModel(searchValue.toString()) }
         )
+    }
+
+    private fun setToolbarNavigationButton() {
+        with(binding.chooseModelToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
+        }
     }
 
     private fun onItemClick(model: Model) {

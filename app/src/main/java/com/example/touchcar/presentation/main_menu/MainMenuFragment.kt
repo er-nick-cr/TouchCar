@@ -43,7 +43,7 @@ class MainMenuFragment : Fragment() {
         val recyclerView: RecyclerView = binding.manufacturerSearchRecycler
 
         viewModel.manufacturerLiveData
-            .observe(this) { manufacturers -> mainMenuAdapter.manufacturers = manufacturers }
+            .observe(this) { manufacturers -> mainMenuAdapter.items = manufacturers }
         recyclerView.adapter = mainMenuAdapter
         viewModel.getManufacturers()
         childFragmentManager.setFragmentResultListener(REQUEST_KEY, this) { _, bundle ->

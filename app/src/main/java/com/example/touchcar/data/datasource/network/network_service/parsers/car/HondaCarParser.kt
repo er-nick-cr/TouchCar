@@ -2,7 +2,7 @@ package com.example.touchcar.data.datasource.network.network_service.parsers.car
 
 import com.example.touchcar.domain.entity.Car
 import com.example.touchcar.domain.entity.Parameter
-import com.example.touchcar.domain.entity.Part
+import com.example.touchcar.domain.entity.PartSection
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class HondaCarParser @Inject constructor() : CarParser {
             carName = getCarName(document),
             equipmentFeature = getEquipmentName(document),
             parameters = getParameters(document),
-            parts = getParts(document),
+            partSections = getParts(document),
         )
     }
 
@@ -40,10 +40,10 @@ class HondaCarParser @Inject constructor() : CarParser {
             .filter { parameter -> parameter.parameterValue.isNotEmpty() }
     }
 
-    private fun getParts(document: Document): List<Part> {
+    private fun getParts(document: Document): List<PartSection> {
         val containers: Elements = document.select(".top_cars h3")
         return containers.map { container ->
-            Part(
+            PartSection(
                 partName = container.select("a").text(),
                 partUrl = container.select("a").attr("href")
             )

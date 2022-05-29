@@ -52,14 +52,23 @@ class ChooseBodyFragment : Fragment() {
         val recyclerView: RecyclerView = binding.bodySearchRecycler
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
+        setToolbarNavigationButton()
+
         viewModel.bodyLiveData
-            .observe(this) { models -> chooseBodyAdapter.bodyList = models }
+            .observe(this) { models -> chooseBodyAdapter.items = models }
         recyclerView.adapter = chooseBodyAdapter
         setDividerDecoration(recyclerView)
         viewModel.requestBodyList(source.url)
         binding.searchBodyBar.addTextChangedListener(
             afterTextChanged = { searchValue: Editable -> viewModel.searchMarket(searchValue.toString()) }
         )
+    }
+
+    private fun setToolbarNavigationButton() {
+        with(binding.chooseBodyToolbar) {
+            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            setNavigationOnClickListener { activity?.onBackPressed() }
+        }
     }
 
     private fun onItemClick(body: Body) {

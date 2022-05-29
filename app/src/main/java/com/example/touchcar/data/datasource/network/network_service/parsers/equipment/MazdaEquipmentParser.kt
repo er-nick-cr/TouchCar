@@ -2,12 +2,9 @@ package com.example.touchcar.data.datasource.network.network_service.parsers.equ
 
 import com.example.touchcar.domain.entity.Equipment
 import com.example.touchcar.domain.entity.Parameter
-import io.reactivex.Single
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
-import java.util.*
 import javax.inject.Inject
 
 class MazdaEquipmentParser @Inject constructor() : EquipmentParser {
