@@ -13,7 +13,7 @@
         android:paddingHorizontal="11dp"
         android:paddingVertical="5dp"
         android:background="@drawable/choose_part_serial_number_background"
-        android:fontFamily="@font/google_sans_regular"
+        android:fontFamily="@font/google_sans_bold"
         android:textSize="14sp"
         android:textColor="#0054BB"
         android:layout_marginStart="20dp"
