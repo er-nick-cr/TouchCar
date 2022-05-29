@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChoosePartFragmentBinding
 import com.example.touchcar.domain.entity.Part
-import com.example.touchcar.domain.entity.Header
 import com.example.touchcar.presentation.CarSearchRouter
 import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_part.recycler.ChoosePartAdapter

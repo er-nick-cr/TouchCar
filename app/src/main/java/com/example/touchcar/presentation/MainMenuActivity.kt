@@ -31,10 +31,6 @@ class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNaviga
             .commit()
     }
 
-    fun onBackBackPressed() {
-        supportFragmentManager.popBackStack()
-    }
-
     override fun openChooseMarket(manufacturer: Manufacturer) {
         val chooseMarketFragment = ChooseMarketFragment.newInstance(manufacturer)
         supportFragmentManager.beginTransaction()

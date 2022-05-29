@@ -16,7 +16,6 @@
         android:fontFamily="@font/google_sans_regular"
         android:textSize="14sp"
         android:textColor="#0054BB"
-        android:textStyle="bold"
         android:layout_marginStart="20dp"
         tools:text="09-01"
         app:layout_constraintStart_toStartOf="parent"

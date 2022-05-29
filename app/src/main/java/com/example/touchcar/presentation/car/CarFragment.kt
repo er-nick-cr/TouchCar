@@ -12,7 +12,7 @@ import com.example.touchcar.presentation.CarSearchRouterProvider
 import com.example.touchcar.presentation.car.car_recycler.CarAdapter
 import com.example.touchcar.presentation.model.CarListItem
 import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.utils.setOnMenuItemClickListener
+import com.example.touchcar.presentation.utils.setOnMenuItemListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -55,13 +55,11 @@ class CarFragment : Fragment() {
     private fun setToolbarNavigationButton() {
         with(binding.carToolbar) {
             inflateMenu(R.menu.car_save_content_menu)
-            setOnMenuItemClickListener(
-                menuItem = { menuItem: MenuItem ->
+            setOnMenuItemListener{ menuItem: MenuItem ->
                     if (menuItem.itemId == R.id.car_save_content_menu) {
                         Log.d("menu", "it's alive")
                     }
                 }
-            )
             setNavigationOnClickListener { activity?.onBackPressed() }
         }
     }
