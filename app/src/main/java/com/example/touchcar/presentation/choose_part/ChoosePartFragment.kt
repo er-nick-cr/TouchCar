@@ -13,12 +13,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.ChoosePartFragmentBinding
-import com.example.touchcar.domain.entity.Part
-import com.example.touchcar.presentation.CarSearchRouter
-import com.example.touchcar.presentation.CarSearchRouterProvider
+import com.example.core_data.domain.entity.Part
+import com.example.core_common_navigation.CarSearchRouter
+import com.example.core_common_navigation.CarSearchRouterProvider
 import com.example.touchcar.presentation.choose_part.recycler.ChoosePartAdapter
-import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.utils.addTextChangedListener
+import com.example.core_common.NetworkSource
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,9 +27,9 @@ class ChoosePartFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChoosePartViewModel
     private lateinit var binding: ChoosePartFragmentBinding
-    private lateinit var source: NetworkSource
-    private val router: CarSearchRouter
-        get() = (activity as CarSearchRouterProvider).router
+    private lateinit var source: com.example.core_common.NetworkSource
+    private val router: com.example.core_common_navigation.CarSearchRouter
+        get() = (activity as com.example.core_common_navigation.CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +48,7 @@ class ChoosePartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        source = arguments?.get(SOURCE_ARG) as NetworkSource
+        source = arguments?.get(SOURCE_ARG) as com.example.core_common.NetworkSource
 
         val choosePartAdapter = ChoosePartAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.choosePartRecycler
@@ -93,7 +92,7 @@ class ChoosePartFragment : Fragment() {
 
         private const val SOURCE_ARG = "source"
 
-        fun newInstance(source: NetworkSource): ChoosePartFragment {
+        fun newInstance(source: com.example.core_common.NetworkSource): ChoosePartFragment {
             return ChoosePartFragment().apply {
                 arguments = bundleOf(SOURCE_ARG to source)
             }

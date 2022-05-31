@@ -1,11 +1,11 @@
 package com.example.touchcar.presentation.car.car_recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.touchcar.presentation.model.CarListItem
+import com.example.core_common.CarListItem
 
 class CarDiffCallback (
-    private val oldList: List<CarListItem>,
-    private val newList: List<CarListItem>
+    private val oldList: List<com.example.core_common.CarListItem>,
+    private val newList: List<com.example.core_common.CarListItem>
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int {

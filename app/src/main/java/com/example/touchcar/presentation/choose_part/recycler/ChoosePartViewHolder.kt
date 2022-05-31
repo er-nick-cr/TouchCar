@@ -2,7 +2,7 @@ package com.example.touchcar.presentation.choose_part.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.ChoosePartRecyclerItemBinding
-import com.example.touchcar.domain.entity.Part
+import com.example.core_data.domain.entity.Part
 
 class ChoosePartViewHolder(
     private val binding: ChoosePartRecyclerItemBinding,

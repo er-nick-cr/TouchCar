@@ -2,7 +2,7 @@ package com.example.touchcar.presentation.main_menu
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.touchcar.domain.entity.Manufacturer
+import com.example.core_data.domain.entity.Manufacturer
 import com.example.touchcar.domain.usecase.GetManufacturerUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

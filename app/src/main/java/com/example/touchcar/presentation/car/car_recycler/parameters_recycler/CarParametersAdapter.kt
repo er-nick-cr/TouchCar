@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.CarEquipmentParametersRecyclerItemBinding
-import com.example.touchcar.domain.entity.Parameter
+import com.example.core_data.domain.entity.Parameter
 
 class CarParametersAdapter(
 ) : RecyclerView.Adapter<CarParametersViewHolder>() {

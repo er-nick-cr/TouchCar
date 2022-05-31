@@ -16,8 +16,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField 'String', 'BASE_URL', '"https://www.epcdata.ru"'
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -85,7 +83,9 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
 
-
+    implementation project(":core-data")
+    implementation project(":feature-car-search")
+    implementation project(":core-common-navigation")
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

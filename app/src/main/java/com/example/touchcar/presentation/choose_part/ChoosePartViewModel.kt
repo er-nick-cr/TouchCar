@@ -2,9 +2,9 @@ package com.example.touchcar.presentation.choose_part
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.touchcar.domain.entity.ManufacturerType
-import com.example.touchcar.domain.entity.Part
-import com.example.touchcar.domain.usecase.GetPartsDataUseCase
+import com.example.core_data.domain.entity.ManufacturerType
+import com.example.core_data.domain.entity.Part
+import com.example.core_data.domain.usecase.GetPartsDataUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

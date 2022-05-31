@@ -1,7 +1,7 @@
 package com.example.touchcar.presentation.main_menu.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.touchcar.domain.entity.Manufacturer
+import com.example.core_data.domain.entity.Manufacturer
 
 class MainMenuDiffCallback(
     private val oldList: List<Manufacturer>,

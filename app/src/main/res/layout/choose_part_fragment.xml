@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.choose_model.ChooseModelFragment">
+    tools:context="com.example.feature_car_search.presentation.choose_model.ChooseModelFragment">
 
     <android.widget.Toolbar
         android:id="@+id/choose_part_toolbar"

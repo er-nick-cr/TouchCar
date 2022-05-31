@@ -2,8 +2,8 @@ package com.example.touchcar.presentation.main_menu.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
+import com.example.core_data.domain.entity.Manufacturer
 import com.example.touchcar.databinding.ManufacturerRecyclerItemBinding
-import com.example.touchcar.domain.entity.Manufacturer
 import com.example.touchcar.presentation.utils.getLogo
 
 class MainMenuViewHolder(

@@ -1,7 +1,7 @@
 package com.example.touchcar.presentation.car.car_recycler.parameters_recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.touchcar.domain.entity.Parameter
+import com.example.core_data.domain.entity.Parameter
 
 class CarParametersDiffCallback(
     private val oldList: List<Parameter>,

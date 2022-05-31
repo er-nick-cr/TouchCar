@@ -3,7 +3,7 @@ package com.example.touchcar.presentation.car.car_recycler.parameters_recycler
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.CarEquipmentParametersRecyclerItemBinding
-import com.example.touchcar.domain.entity.Parameter
+import com.example.core_data.domain.entity.Parameter
 
 class CarParametersViewHolder(
     private val binding: CarEquipmentParametersRecyclerItemBinding

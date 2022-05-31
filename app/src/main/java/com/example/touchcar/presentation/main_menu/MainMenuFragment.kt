@@ -8,11 +8,11 @@ import androidx.fragment.app.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.R
 import com.example.touchcar.databinding.MainMenuFragmentBinding
-import com.example.touchcar.domain.entity.Manufacturer
+import com.example.core_data.domain.entity.Manufacturer
 import com.example.touchcar.presentation.main_menu.bottom_sheet.BottomSheetFragment
 import com.example.touchcar.presentation.main_menu.recycler.MainMenuAdapter
-import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.MainMenuNavigator
+import com.example.core_common.NetworkSource
+import com.example.core_common_navigation.navigation.MainMenuNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -55,12 +55,12 @@ class MainMenuFragment : Fragment() {
     }
 
     private fun startSearchByModel() {
-        val source = NetworkSource(
+        val source = com.example.core_common.NetworkSource(
             type = viewModel.currentManufacturer.type,
             baseUrl = viewModel.currentManufacturer.url,
             innerUrl = ""
         )
-        val mainMenuNavigator = activity as MainMenuNavigator
+        val mainMenuNavigator = activity as com.example.core_common_navigation.navigation.MainMenuNavigator
         mainMenuNavigator.openCarSearchByModel(viewModel.currentManufacturer, source)
     }
 

@@ -8,3 +8,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TouchCar"
 include ':app'
+include ':core-data'
+include ':core-common'
+include ':feature-car-search'
+include ':core-common-navigation'

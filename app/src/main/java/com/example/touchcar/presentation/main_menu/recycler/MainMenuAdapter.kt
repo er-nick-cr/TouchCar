@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.ManufacturerRecyclerItemBinding
-import com.example.touchcar.domain.entity.Manufacturer
+import com.example.core_data.domain.entity.Manufacturer
 
 class MainMenuAdapter(
     private val onItemClickListener: (Manufacturer) -> Unit

@@ -1,7 +1,7 @@
 package com.example.touchcar.presentation.choose_part.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.touchcar.domain.entity.Part
+import com.example.core_data.domain.entity.Part
 
 class ChoosePartDiffCallback(
     private val oldList: List<Part>,

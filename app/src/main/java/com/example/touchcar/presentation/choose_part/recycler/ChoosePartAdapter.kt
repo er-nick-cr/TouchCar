@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touchcar.databinding.ChoosePartRecyclerItemBinding
-import com.example.touchcar.domain.entity.Part
-import com.example.touchcar.presentation.choose_model.recycler.ChooseModelDiffCallback
+import com.example.core_data.domain.entity.Part
 
 class ChoosePartAdapter(
     private val onItemClickListener: (Part) -> Unit

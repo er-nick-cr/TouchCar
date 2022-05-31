@@ -1,17 +1,17 @@
 package com.example.touchcar.presentation.car
 
-import com.example.touchcar.domain.entity.Car
-import com.example.touchcar.presentation.model.CarListItem
+import com.example.core_data.domain.entity.Car
+import com.example.core_common.CarListItem
 import javax.inject.Inject
 
 class CarListItemFactory @Inject constructor() {
 
-    fun create(car: Car) : List<CarListItem> {
+    fun create(car: Car) : List<com.example.core_common.CarListItem> {
         val baseListItems = listOf(
-            CarListItem.CarInfo(car),
-            CarListItem.CarPartsHeader,
+            com.example.core_common.CarListItem.CarInfo(car),
+            com.example.core_common.CarListItem.CarPartsHeader,
         )
-        val carDetails = car.partSections.map { part -> CarListItem.Detail(part) }
+        val carDetails = car.partSections.map { part -> com.example.core_common.CarListItem.Detail(part) }
         return baseListItems + carDetails
     }
 }
