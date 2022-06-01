@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.databinding.EquipmentParametersRecyclerItemBinding
 import com.example.core_data.domain.entity.Parameter
+import com.example.feature_car_search.databinding.EquipmentParametersRecyclerItemBinding
 
 class EquipmentParametersAdapter : RecyclerView.Adapter<EquipmentParametersViewHolder>() {
 

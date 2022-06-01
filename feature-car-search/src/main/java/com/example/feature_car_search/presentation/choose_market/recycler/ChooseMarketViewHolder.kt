@@ -2,8 +2,8 @@ package com.example.feature_car_search.presentation.choose_market.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
-import com.example.touchcar.databinding.MarketRecyclerItemBinding
 import com.example.core_data.domain.entity.Market
+import com.example.feature_car_search.databinding.MarketRecyclerItemBinding
 
 class ChooseMarketViewHolder(
     private val binding: MarketRecyclerItemBinding,

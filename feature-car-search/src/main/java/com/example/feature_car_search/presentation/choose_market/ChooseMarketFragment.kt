@@ -10,13 +10,14 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.R
-import com.example.touchcar.databinding.ChooseMarketFragmentBinding
 import com.example.core_data.domain.entity.Manufacturer
 import com.example.core_data.domain.entity.Market
-import com.example.core_common_navigation.CarSearchRouter
-import com.example.core_common_navigation.CarSearchRouterProvider
+import com.example.feature_car_search.R
+import com.example.feature_car_search.databinding.ChooseMarketFragmentBinding
 import com.example.feature_car_search.presentation.choose_market.recycler.ChooseMarketAdapter
+import com.example.feature_car_search.router.CarSearchRouter
+import com.example.feature_car_search.router.CarSearchRouterProvider
+import com.example.touchcar.presentation.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,8 +28,8 @@ class ChooseMarketFragment : Fragment() {
     lateinit var viewModel: ChooseMarketViewModel
     private lateinit var binding: ChooseMarketFragmentBinding
     private lateinit var manufacturer: Manufacturer
-    private val router: com.example.core_common_navigation.CarSearchRouter
-        get() = (activity as com.example.core_common_navigation.CarSearchRouterProvider).router
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
 
     override fun onCreateView(

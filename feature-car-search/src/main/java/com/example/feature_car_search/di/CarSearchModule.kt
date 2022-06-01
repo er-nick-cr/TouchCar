@@ -6,7 +6,7 @@ import dagger.hilt.components.SingletonComponent
 
 @InstallIn(SingletonComponent::class)
 @Module
-internal interface CarSearchModule{
+interface CarSearchModule{
 
 }
 

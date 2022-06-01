@@ -9,12 +9,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.R
-import com.example.touchcar.databinding.ChooseEquipmentFragmentBinding
 import com.example.core_data.domain.entity.Equipment
-import com.example.core_common_navigation.CarSearchRouter
-import com.example.core_common_navigation.CarSearchRouterProvider
+import com.example.feature_car_search.R
+import com.example.feature_car_search.databinding.ChooseEquipmentFragmentBinding
 import com.example.feature_car_search.presentation.choose_equipment.recycler.ChooseEquipmentAdapter
+import com.example.feature_car_search.router.CarSearchRouter
+import com.example.feature_car_search.router.CarSearchRouterProvider
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,8 +25,8 @@ class ChooseEquipmentFragment : Fragment() {
     lateinit var viewModel: ChooseEquipmentViewModel
     private lateinit var binding: ChooseEquipmentFragmentBinding
     private lateinit var source: com.example.core_common.NetworkSource
-    private val router: com.example.core_common_navigation.CarSearchRouter
-        get() = (activity as com.example.core_common_navigation.CarSearchRouterProvider).router
+    private val router: CarSearchRouter
+        get() = (activity as CarSearchRouterProvider).router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

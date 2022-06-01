@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.databinding.ModelRecyclerItemBinding
 import com.example.core_data.domain.entity.Model
+import com.example.feature_car_search.databinding.ModelRecyclerItemBinding
 
 class ChooseModelAdapter(
     private val onItemClickListener: (Model) -> Unit

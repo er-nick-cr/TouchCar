@@ -10,6 +10,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.feature_car_search.router.CarSearchRouter
+import com.example.feature_car_search.router.CarSearchRouterProvider
 import com.example.core_data.domain.entity.Body
 import com.example.feature_car_search.R
 import com.example.feature_car_search.databinding.ChooseBodyFragmentBinding

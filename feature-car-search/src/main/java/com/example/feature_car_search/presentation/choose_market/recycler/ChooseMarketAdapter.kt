@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.databinding.MarketRecyclerItemBinding
 import com.example.core_data.domain.entity.Market
+import com.example.feature_car_search.databinding.MarketRecyclerItemBinding
 
 class ChooseMarketAdapter(
     private val onItemClickListener: (Market) -> Unit

@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
 import com.example.core_data.domain.entity.Equipment
+import com.example.feature_car_search.databinding.EquipmentRecyclerItemBinding
 
 class ChooseEquipmentAdapter(
     private val onItemClickListener: (Equipment) -> Unit

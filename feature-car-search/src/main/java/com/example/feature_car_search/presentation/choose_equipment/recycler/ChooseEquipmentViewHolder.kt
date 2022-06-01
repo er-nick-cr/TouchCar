@@ -1,8 +1,9 @@
 package com.example.feature_car_search.presentation.choose_equipment.recycler
 
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.databinding.EquipmentRecyclerItemBinding
 import com.example.core_data.domain.entity.Equipment
+import com.example.feature_car_search.databinding.EquipmentRecyclerItemBinding
 import com.example.feature_car_search.presentation.choose_equipment.recycler.parameters_recycler.EquipmentParametersAdapter
 
 class ChooseEquipmentViewHolder(

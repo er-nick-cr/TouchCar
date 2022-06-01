@@ -1,8 +1,8 @@
 package com.example.feature_car_search.presentation.choose_model.recycler
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.touchcar.databinding.ModelRecyclerItemBinding
 import com.example.core_data.domain.entity.Model
+import com.example.feature_car_search.databinding.ModelRecyclerItemBinding
 
 class ChooseModelViewHolder(
     private val binding: ModelRecyclerItemBinding,
