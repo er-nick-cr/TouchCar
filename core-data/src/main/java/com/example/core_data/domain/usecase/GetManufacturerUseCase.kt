@@ -1,4 +1,4 @@
-package com.example.touchcar.domain.usecase
+package com.example.core_data.domain.usecase
 
 import com.example.core_data.domain.repository.CarRepository
 import com.example.core_data.domain.entity.Manufacturer

@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.NetworkSource
 import com.example.core_data.domain.entity.Equipment
 import com.example.feature_car_search.R
 import com.example.feature_car_search.databinding.ChooseEquipmentFragmentBinding
@@ -24,7 +25,7 @@ class ChooseEquipmentFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChooseEquipmentViewModel
     private lateinit var binding: ChooseEquipmentFragmentBinding
-    private lateinit var source: com.example.core_common.NetworkSource
+    private lateinit var source: NetworkSource
     private val router: CarSearchRouter
         get() = (activity as CarSearchRouterProvider).router
 
@@ -47,7 +48,7 @@ class ChooseEquipmentFragment : Fragment() {
 
         val chooseEquipmentAdapter = ChooseEquipmentAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.equipmentSearchRecycler
-        source = arguments?.get(SOURCE_ARG) as com.example.core_common.NetworkSource
+        source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         setToolbarNavigationButton()
 
@@ -81,7 +82,7 @@ class ChooseEquipmentFragment : Fragment() {
 
         private const val SOURCE_ARG = "source"
 
-        fun newInstance(source: com.example.core_common.NetworkSource): ChooseEquipmentFragment {
+        fun newInstance(source: NetworkSource): ChooseEquipmentFragment {
             return ChooseEquipmentFragment().apply {
                 arguments = bundleOf(SOURCE_ARG to source)
             }

@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.NetworkSource
 import com.example.core_data.domain.entity.Manufacturer
 import com.example.core_data.domain.entity.Market
 import com.example.feature_car_search.R
@@ -73,7 +74,7 @@ class ChooseMarketFragment : Fragment() {
     }
 
     private fun onItemClick(market: Market) {
-        val source = com.example.core_common.NetworkSource(
+        val source = NetworkSource(
             type = manufacturer.type,
             baseUrl = market.marketUrl,
             innerUrl = ""

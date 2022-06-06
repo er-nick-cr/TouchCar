@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.NetworkSource
 import com.example.core_data.domain.entity.Manufacturer
 import com.example.feature_main_menu.main_menu.bottom_sheet.BottomSheetFragment
 import com.example.feature_main_menu.main_menu.recycler.MainMenuAdapter
@@ -54,7 +55,7 @@ class MainMenuFragment : Fragment() {
     }
 
     private fun startSearchByModel() {
-        val source = com.example.core_common.NetworkSource(
+        val source = NetworkSource(
             type = viewModel.currentManufacturer.type,
             baseUrl = viewModel.currentManufacturer.url,
             innerUrl = ""

@@ -3,7 +3,7 @@ package com.example.feature_main_menu.main_menu
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.core_data.domain.entity.Manufacturer
-import com.example.touchcar.domain.usecase.GetManufacturerUseCase
+import com.example.core_data.domain.usecase.GetManufacturerUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

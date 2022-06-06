@@ -1,6 +1,7 @@
 package com.example.feature_parts.car.car_recycler
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.CarListItem
 import com.example.feature_parts.databinding.CarPartRecyclerItemBinding
 
 class PartsViewHolder(
@@ -15,7 +16,7 @@ class PartsViewHolder(
         }
     }
 
-    fun bind(carListItem: com.example.core_common.CarListItem.Detail) {
+    fun bind(carListItem: CarListItem.Detail) {
         binding.partTextSearch.text = carListItem.partSection.partName
     }
 }

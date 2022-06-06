@@ -1,6 +1,7 @@
 package com.example.feature_parts.car.car_recycler
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.CarListItem
 import com.example.core_data.domain.entity.ManufacturerType
 import com.example.feature_parts.car.car_recycler.parameters_recycler.CarParametersAdapter
 import com.example.feature_parts.databinding.CarFragmentFeatureBinding
@@ -18,7 +19,7 @@ class CarFeatureViewHolder(
         recyclerView.suppressLayout(true)
     }
 
-    fun bind(carListItem: com.example.core_common.CarListItem.CarInfo, manufacturerType: ManufacturerType) {
+    fun bind(carListItem: CarListItem.CarInfo, manufacturerType: ManufacturerType) {
         binding.carLabelImage.setImageResource(manufacturerType.getLogo())
         binding.carNameHeading.text = carListItem.car.carName
         binding.carEquipmentName.text = carListItem.car.equipmentFeature
