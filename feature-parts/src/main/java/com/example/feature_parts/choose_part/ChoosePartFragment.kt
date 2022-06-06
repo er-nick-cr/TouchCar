@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.NetworkSource
 import com.example.core_data.domain.entity.Part
 import com.example.feature_parts.choose_part.recycler.ChoosePartAdapter
 import com.example.feature_parts.R
@@ -25,7 +26,7 @@ class ChoosePartFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChoosePartViewModel
     private lateinit var binding: ChoosePartFragmentBinding
-    private lateinit var source: com.example.core_common.NetworkSource
+    private lateinit var source: NetworkSource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +45,7 @@ class ChoosePartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        source = arguments?.get(SOURCE_ARG) as com.example.core_common.NetworkSource
+        source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         val choosePartAdapter = ChoosePartAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.choosePartRecycler
@@ -88,7 +89,7 @@ class ChoosePartFragment : Fragment() {
 
         private const val SOURCE_ARG = "source"
 
-        fun newInstance(source: com.example.core_common.NetworkSource): ChoosePartFragment {
+        fun newInstance(source: NetworkSource): ChoosePartFragment {
             return ChoosePartFragment().apply {
                 arguments = bundleOf(SOURCE_ARG to source)
             }

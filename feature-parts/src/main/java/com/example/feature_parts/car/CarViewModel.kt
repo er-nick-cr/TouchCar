@@ -14,7 +14,7 @@ class CarViewModel @Inject constructor(
     private val getCarUseCase: GetCarUseCase,
 ) : ViewModel() {
 
-    val carLiveData: MutableLiveData<List<com.example.core_common.CarListItem>> = MutableLiveData<List<com.example.core_common.CarListItem>>()
+    val carLiveData: MutableLiveData<List<CarListItem>> = MutableLiveData<List<CarListItem>>()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun requestCar(url: String, type: ManufacturerType) {

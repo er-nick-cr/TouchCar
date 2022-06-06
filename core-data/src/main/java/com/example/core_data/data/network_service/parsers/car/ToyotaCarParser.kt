@@ -42,7 +42,6 @@ internal class ToyotaCarParser @Inject constructor() : CarParser {
                 Parameter(
                     parameterName = container.text(),
                     parameterValue = containers[4].select("td:nth-child(${ind + 1})").text()
-
                 )
             }
         return (parameters + characterParameters).filter { parameter ->  parameter.parameterValue.isNotEmpty()}

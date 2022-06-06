@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.core_data.domain.entity.ManufacturerType
 import com.example.feature_parts.car.car_recycler.parameters_recycler.CarParametersAdapter
 import com.example.feature_parts.databinding.CarFragmentFeatureBinding
-import com.example.touchcar.presentation.utils.getLogo
+import com.example.core_common.utils.getLogo
 
 class CarFeatureViewHolder(
     private val binding: CarFragmentFeatureBinding

@@ -9,7 +9,10 @@ import javax.inject.Inject
 internal class MazdaPartParser @Inject constructor() : PartParser {
 
     override fun parse(document: Document): List<Part> {
-        val numbers: List<String> = document.select(".detail_list").text().filter { it.isDigit() }.chunked(4)
+        val numbers: List<String> = document.select(".detail_list")
+            .text()
+            .filter { it.isDigit() }
+            .chunked(4)
         val containers: Elements = document.select(".detail_list span")
 
         return containers.mapIndexed { ind, element -> getPart(element, numbers, ind) }

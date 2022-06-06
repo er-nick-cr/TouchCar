@@ -11,7 +11,7 @@ import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.feature_parts.R
 import com.example.feature_parts.car.car_recycler.CarAdapter
 import com.example.feature_parts.databinding.CarFragmentBinding
-import com.example.touchcar.presentation.utils.setOnMenuItemListener
+import com.example.core_common.utils.setOnMenuItemListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

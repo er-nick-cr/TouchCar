@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.example.core_data.domain.entity.Manufacturer
 import com.example.feature_main_menu.databinding.ManufacturerRecyclerItemBinding
-import com.example.touchcar.presentation.utils.getLogo
+import com.example.core_common.utils.getLogo
 
 class MainMenuViewHolder(
     private val binding: ManufacturerRecyclerItemBinding,

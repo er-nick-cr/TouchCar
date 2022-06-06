@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.NetworkSource
 import com.example.feature_car_search.router.CarSearchRouter
 import com.example.feature_car_search.router.CarSearchRouterProvider
 import com.example.core_data.domain.entity.Body
@@ -26,7 +27,7 @@ class ChooseBodyFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChooseBodyViewModel
     private lateinit var binding: ChooseBodyFragmentBinding
-    private lateinit var source: com.example.core_common.NetworkSource
+    private lateinit var source: NetworkSource
     private val router: CarSearchRouter
         get() = (activity as CarSearchRouterProvider).router
 
@@ -49,7 +50,7 @@ class ChooseBodyFragment : Fragment() {
 
         val chooseBodyAdapter = ChooseBodyAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.bodySearchRecycler
-        source = arguments?.get(SOURCE_ARG) as com.example.core_common.NetworkSource
+        source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         setToolbarNavigationButton()
 
@@ -86,7 +87,7 @@ class ChooseBodyFragment : Fragment() {
 
         private const val SOURCE_ARG = "source"
 
-        fun newInstance(source: com.example.core_common.NetworkSource): ChooseBodyFragment {
+        fun newInstance(source: NetworkSource): ChooseBodyFragment {
             return ChooseBodyFragment().apply {
                 arguments = bundleOf(SOURCE_ARG to source)
             }

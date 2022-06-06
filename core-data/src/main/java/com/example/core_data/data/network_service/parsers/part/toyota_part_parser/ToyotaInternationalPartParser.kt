@@ -10,9 +10,7 @@ internal class ToyotaInternationalPartParser @Inject constructor() : ToyotaPartP
 
     override fun parse(document: Document): List<Part> {
         val numbers: List<String> = document.select(".detail_list")
-            .joinToString { element -> element.ownText()
-                .replace(" - ", "")
-            }
+            .joinToString { element -> element.ownText().replace(" - ", "") }
             .replace(" -, ", "")
             .replace(" -", "")
             .chunked(5)

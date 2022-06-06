@@ -1,4 +1,4 @@
-package com.example.touchcar.presentation.utils
+package com.example.core_common.utils
 
 import com.example.core_common.R
 import com.example.core_data.domain.entity.ManufacturerType
@@ -15,8 +15,6 @@ fun ManufacturerType.getLogo(): Int {
         ManufacturerType.SUZUKI -> R.drawable.suzuki
         ManufacturerType.KIA -> R.drawable.kia
         ManufacturerType.RENAULT -> R.drawable.renault
-        else -> {
-            R.drawable.no_image
-        }
+        else -> R.drawable.no_image
     }
 }
