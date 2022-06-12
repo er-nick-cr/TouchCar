@@ -17,6 +17,7 @@ import com.example.feature_car_search.presentation.choose_model.ChooseModelFragm
 import com.example.feature_main_menu.main_menu.MainMenuFragment
 import com.example.feature_parts.car.CarFragment
 import com.example.feature_parts.choose_part.ChoosePartFragment
+import com.example.feature_parts.component.ComponentFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -83,6 +84,14 @@ class MainMenuActivity : AppCompatActivity(),
         val choosePartFragment = ChoosePartFragment.newInstance(source)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, choosePartFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun openComponentFragment(source: NetworkSource) {
+        val componentFragment = ComponentFragment.newInstance(source)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, componentFragment)
             .addToBackStack(null)
             .commit()
     }

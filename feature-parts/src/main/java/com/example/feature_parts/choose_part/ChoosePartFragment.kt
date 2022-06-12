@@ -2,7 +2,6 @@ package com.example.feature_parts.choose_part
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core_common.NetworkSource
+import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.core_data.domain.entity.Part
 import com.example.feature_parts.choose_part.recycler.ChoosePartAdapter
 import com.example.feature_parts.R
@@ -74,7 +74,9 @@ class ChoosePartFragment : Fragment() {
     }
 
     private fun onItemClick(part: Part) {
-        Log.d("url", part.partUrl)
+        val partsNavigator = activity as PartsNavigator
+        partsNavigator.openComponentFragment(source.copy(innerUrl = part.partUrl))
+
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {

@@ -39,6 +39,10 @@ internal class NetworkService @Inject constructor(
         return requestDocument(url).map { document -> commonParser.getPartsData(document, type) }
     }
 
+    fun getComponent(url: String, baseUrl: String, innerUrl: String): Single<Component> {
+        return requestDocument(url).map { document -> commonParser.getComponent(document, baseUrl, innerUrl) }
+    }
+
     private fun requestDocument(url: String): Single<Document> {
         return Single.fromCallable {
             Jsoup.connect(url).timeout(TIMEOUT).get()

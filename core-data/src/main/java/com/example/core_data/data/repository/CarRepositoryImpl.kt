@@ -1,7 +1,8 @@
-package com.example.core_data.domain.repository
+package com.example.core_data.data.repository
 
 import com.example.core_data.data.network_service.NetworkDataSource
 import com.example.core_data.domain.entity.*
+import com.example.core_data.domain.repository.CarRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -31,5 +32,9 @@ internal class CarRepositoryImpl @Inject constructor(
 
     override fun getPartsData(url: String, type: ManufacturerType): Single<PartsData> {
         return networkDataSource.getPartsData(url, type)
+    }
+
+    override fun getComponent(url: String, baseUrl: String, innerUrl: String): Single<Component> {
+        return networkDataSource.getComponent(url, baseUrl, innerUrl)
     }
 }
