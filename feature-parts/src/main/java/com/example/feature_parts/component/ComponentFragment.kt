@@ -13,16 +13,20 @@ import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide.with
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.engine.Resource
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.with
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.core_common.NetworkSource
+import com.example.core_data.domain.entity.Component
 import com.example.core_data.domain.entity.ComponentImageSize
 import com.example.core_data.domain.entity.Coordinates
 import com.example.core_data.domain.entity.Item
 import com.example.feature_parts.GlideApp
 import com.example.feature_parts.R
+import com.example.feature_parts.component.bottom_sheet.ItemsBottomSheetFragment
 import com.example.feature_parts.databinding.ComponentFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,8 +54,26 @@ class ComponentFragment : Fragment() {
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.componentLiveData.observe(this) {
-            component ->
-            GlideApp.with(this).asBitmap().load(component.imageUrl).listener(object : RequestListener<Bitmap> {
+            component -> loadImage(component)
+        }
+
+        viewModel.requestComponent(source.url, source.baseUrl, source.innerUrl)
+
+        openItemsBottomSheet()
+    }
+
+    private fun openItemsBottomSheet() {
+        val itemsBottomSheet = ItemsBottomSheetFragment()
+        childFragmentManager.beginTransaction()
+            .add(itemsBottomSheet, BOTTOM_SHEET_TAG)
+            .commit()
+    }
+
+    private fun loadImage(component: Component) {
+        GlideApp.with(this)
+            .asBitmap()
+            .load(component.imageUrl)
+            .listener(object : RequestListener<Bitmap> {
                 override fun onResourceReady(
                     resource: Bitmap?,
                     model: Any?,
@@ -59,10 +81,10 @@ class ComponentFragment : Fragment() {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-
                     if (resource != null) {
                         binding.componentImage.image = resource
                         binding.componentImage.invalidate()
+                        binding.componentImage.items = viewModel.convertCoordinates(resource, component.items, component.componentImageSize)
                     }
                     return false
                 }
@@ -76,28 +98,11 @@ class ComponentFragment : Fragment() {
                     return false
                 }
             }).submit()
-            binding.componentImage.imageSize = component.componentImageSize
-            binding.componentImage.items = convertCoordinates(binding.componentImage, component.items, component.componentImageSize)
-        }
-
-        viewModel.requestComponent(source.url, source.baseUrl, source.innerUrl)
-
-
-    }
-
-    private fun convertCoordinates(view: View, items: List<Item>, imageSize: ComponentImageSize) : List<Coordinates> {
-        return items.map { item ->
-            Coordinates(
-                x1 = item.coordinates.x1,
-                y1 = item.coordinates.y1,
-                x2 = item.coordinates.x2,
-                y2 = item.coordinates.y2
-            )
-        }
     }
 
     companion object {
 
+        private const val BOTTOM_SHEET_TAG = "tag"
         private const val SOURCE_ARG = "source"
 
         fun newInstance(source: NetworkSource): ComponentFragment {

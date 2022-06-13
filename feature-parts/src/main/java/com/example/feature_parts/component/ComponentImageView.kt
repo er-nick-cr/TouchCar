@@ -7,16 +7,9 @@ import android.util.Log
 import android.view.DragEvent
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.MotionEvent.INVALID_POINTER_ID
 import android.view.ScaleGestureDetector
-import androidx.core.graphics.createBitmap
-import androidx.core.view.MotionEventCompat
-import androidx.core.view.ViewCompat
 import com.example.core_data.domain.entity.ComponentImageSize
 import com.example.core_data.domain.entity.Coordinates
-import java.io.File
-import android.view.MotionEvent.INVALID_POINTER_ID
-
 
 class ComponentImageView @JvmOverloads constructor(
     context: Context,
@@ -26,11 +19,11 @@ class ComponentImageView @JvmOverloads constructor(
 
     lateinit var items: List<Coordinates>
     lateinit var image: Bitmap
-    lateinit var imageSize: ComponentImageSize
     private val paint = Paint()
     var lastFocusX = 0f
     var lastFocusY = 0f
     var drawMatrix = Matrix()
+
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
         override fun onScaleBegin(detector: ScaleGestureDetector?): Boolean {
@@ -74,6 +67,11 @@ class ComponentImageView @JvmOverloads constructor(
             invalidate()
             return true
         }
+
+        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+            Log.d("xselect", e?.x.toString())
+            return true
+        }
     }
 
 
@@ -95,7 +93,7 @@ class ComponentImageView @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas?.apply {
             paint.color = Color.BLUE
-            paint.strokeWidth = 10F
+            paint.strokeWidth = 5F
             paint.style = Paint.Style.STROKE
             if (::image.isInitialized) {
                 val centreX = (width - image.width)
@@ -103,8 +101,10 @@ class ComponentImageView @JvmOverloads constructor(
                 setMatrix(drawMatrix)
                 translate(centreX.toFloat() / 2, centreY.toFloat() / 2)
                 drawBitmap(image, 0F, 0F, null)
-                items.map { item ->
-                    canvas.drawRect(item.x1, item.y1, item.x2, item.y2, paint)
+                if(::items.isInitialized) {
+                    items.map { item ->
+                        canvas.drawRect(item.x1, item.y1, item.x2, item.y2, paint)
+                    }
                 }
             }
         }
