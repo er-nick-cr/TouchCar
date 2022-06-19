@@ -23,14 +23,14 @@ internal class ToyotaComponentParser @Inject  constructor(@ApplicationContext va
                 width = imageContainer.attr("width").toFloat(),
                 height = imageContainer.attr("height").toFloat(),
             ),
-            items = containers.map { container ->  getItem(container, innerUrl)}
+            items = containers.map { container ->  getItem(container, innerUrl)}.distinctBy { it.itemName }
 
         )
     }
 
     private fun getItem(container: Element, innerUrl: String) : Item {
         val url = container.attr("href")
-        val itemNumber = url.replace(innerUrl, "").replace("/", " ")
+        val itemNumber = url.replace(innerUrl, "").replace("/", " ").replace("?partno=", "")
         val name = container.attr("title")
         val coordinates = container.attr("coords").split(",")
 

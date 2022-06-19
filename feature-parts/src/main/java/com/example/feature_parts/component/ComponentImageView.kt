@@ -4,10 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
-import android.view.DragEvent
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
+import android.view.*
+import com.example.core_common.SelectedCoordinates
 import com.example.core_data.domain.entity.ComponentImageSize
 import com.example.core_data.domain.entity.Coordinates
 
@@ -19,10 +17,15 @@ class ComponentImageView @JvmOverloads constructor(
 
     lateinit var items: List<Coordinates>
     lateinit var image: Bitmap
+    lateinit var onClickImage: (SelectedCoordinates) -> Unit
     private val paint = Paint()
     var lastFocusX = 0f
     var lastFocusY = 0f
+    var selectedCoordinates = SelectedCoordinates(0f, 0f)
     var drawMatrix = Matrix()
+    var inverseDrawMatrix = Matrix()
+    var centreX = 0f
+    var centreY = 0f
 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
@@ -50,7 +53,6 @@ class ComponentImageView @JvmOverloads constructor(
             lastFocusX = focusX
             lastFocusY = focusY
             invalidate()
-
             return true
         }
     }
@@ -68,8 +70,18 @@ class ComponentImageView @JvmOverloads constructor(
             return true
         }
 
-        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-            Log.d("xselect", e?.x.toString())
+        override fun onSingleTapConfirmed(event: MotionEvent?): Boolean {
+            if (event != null) {
+                if(drawMatrix.invert(inverseDrawMatrix)) {
+                    val point = floatArrayOf(event.x, event.y)
+                    inverseDrawMatrix.mapPoints(point)
+                    val (xP, yP) = point
+                    selectedCoordinates = SelectedCoordinates(xP - centreX, yP - centreY)
+                    Log.d("selctcoords", selectedCoordinates.x.toString() + " " + selectedCoordinates.y.toString())
+                    onClickImage.invoke(selectedCoordinates)
+                }
+
+            }
             return true
         }
     }
@@ -77,7 +89,6 @@ class ComponentImageView @JvmOverloads constructor(
 
     private val scaleDetector = ScaleGestureDetector(context, scaleListener)
     private val gestureDetector = GestureDetector(context, gestureListener)
-
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         scaleDetector.onTouchEvent(event)
@@ -96,10 +107,10 @@ class ComponentImageView @JvmOverloads constructor(
             paint.strokeWidth = 5F
             paint.style = Paint.Style.STROKE
             if (::image.isInitialized) {
-                val centreX = (width - image.width)
-                val centreY = (height - image.height)
+                centreX = ((width - image.width)/2).toFloat()
+                centreY = ((height - image.height)/2).toFloat()
                 setMatrix(drawMatrix)
-                translate(centreX.toFloat() / 2, centreY.toFloat() / 2)
+                translate(centreX, centreY)
                 drawBitmap(image, 0F, 0F, null)
                 if(::items.isInitialized) {
                     items.map { item ->

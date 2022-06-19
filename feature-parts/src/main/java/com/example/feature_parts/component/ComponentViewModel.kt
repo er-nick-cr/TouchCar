@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.core_common.NetworkSource
+import com.example.core_common.SelectedCoordinates
 import com.example.core_data.domain.entity.Component
 import com.example.core_data.domain.entity.ComponentImageSize
 import com.example.core_data.domain.entity.Coordinates
@@ -18,6 +19,7 @@ class ComponentViewModel @Inject constructor(
 ) : ViewModel() {
 
     val componentLiveData: MutableLiveData<Component> = MutableLiveData<Component>()
+    val itemsLiveData: MutableLiveData<List<Item>> = MutableLiveData<List<Item>>()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun requestComponent(url: String, baseUrl: String, innerUrl: String) {
@@ -27,6 +29,7 @@ class ComponentViewModel @Inject constructor(
                 .subscribe(
                     { value ->
                         componentLiveData.postValue(value)
+                        itemsLiveData.postValue(value.items)
                     },
                     { error -> error.printStackTrace() }
                 )

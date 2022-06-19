@@ -14,4 +14,6 @@
     <color name="grey_text">#909090</color>
     <color name="car_background">#0054BB</color>
     <color name="choose_part_number_text_color">#0054BB</color>
+    <color name="component_selected_item_background">#D7E9FF</color>
+    <color name="component_selected_item_font_color">#0050B2</color>
 </resources>

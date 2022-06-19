@@ -76,7 +76,6 @@ class ChoosePartFragment : Fragment() {
     private fun onItemClick(part: Part) {
         val partsNavigator = activity as PartsNavigator
         partsNavigator.openComponentFragment(source.copy(innerUrl = part.partUrl))
-
     }
 
     private fun setDividerDecoration(recyclerView: RecyclerView) {
