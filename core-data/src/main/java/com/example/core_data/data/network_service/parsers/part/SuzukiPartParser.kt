@@ -10,10 +10,11 @@ internal class SuzukiPartParser @Inject constructor() : PartParser {
 
     override fun parse(document: Document): List<Part> {
         val containers: Elements = document.select(".detail_list a")
-        return containers.map { element -> getPart(element) }
+        val currentUrl = document.location().replace("https://suzuki.epcdata.ru/", "")
+        return containers.map { element -> getPart(element, currentUrl) }
     }
 
-    private fun getPart(container: Element): Part {
+    private fun getPart(container: Element, currentUrl: String): Part {
         return Part(
             partName = container.text()
                 .replaceBeforeLast(" - ", "")
@@ -21,7 +22,7 @@ internal class SuzukiPartParser @Inject constructor() : PartParser {
             partNumber = container.text()
                 .replaceAfterLast(" - ", "")
                 .replace(" - ", ""),
-            partUrl = container.attr("href").replace(".", "")
+            partUrl = currentUrl + container.attr("href").replace(".", "")
         )
     }
 }

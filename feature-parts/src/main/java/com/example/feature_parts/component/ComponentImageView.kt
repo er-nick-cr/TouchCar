@@ -43,8 +43,11 @@ class ComponentImageView @JvmOverloads constructor(
             val transformationMatrix = Matrix()
             val focusX: Float = detector.focusX
             val focusY: Float = detector.focusY
-            transformationMatrix.postTranslate(-focusX, -focusY)
-            transformationMatrix.postScale(detector.scaleFactor, detector.scaleFactor)
+
+            with(transformationMatrix) {
+                postTranslate(-focusX, -focusY)
+                postScale(detector.scaleFactor, detector.scaleFactor)
+            }
 
             val focusShiftX = focusX - lastFocusX
             val focusShiftY = focusY - lastFocusY
@@ -72,15 +75,13 @@ class ComponentImageView @JvmOverloads constructor(
 
         override fun onSingleTapConfirmed(event: MotionEvent?): Boolean {
             if (event != null) {
-                if(drawMatrix.invert(inverseDrawMatrix)) {
+                if (drawMatrix.invert(inverseDrawMatrix)) {
                     val point = floatArrayOf(event.x, event.y)
                     inverseDrawMatrix.mapPoints(point)
                     val (xP, yP) = point
                     selectedCoordinates = SelectedCoordinates(xP - centreX, yP - centreY)
-                    Log.d("selctcoords", selectedCoordinates.x.toString() + " " + selectedCoordinates.y.toString())
                     onClickImage.invoke(selectedCoordinates)
                 }
-
             }
             return true
         }
@@ -103,16 +104,19 @@ class ComponentImageView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.apply {
-            paint.color = Color.BLUE
-            paint.strokeWidth = 5F
-            paint.style = Paint.Style.STROKE
+            with(paint) {
+                color = Color.BLUE
+                strokeWidth = 5F
+                style = Paint.Style.STROKE
+            }
+
             if (::image.isInitialized) {
-                centreX = ((width - image.width)/2).toFloat()
-                centreY = ((height - image.height)/2).toFloat()
+                centreX = ((width - image.width) / 2).toFloat()
+                centreY = ((height - image.height) / 2).toFloat()
                 setMatrix(drawMatrix)
                 translate(centreX, centreY)
                 drawBitmap(image, 0F, 0F, null)
-                if(::items.isInitialized) {
+                if (::items.isInitialized) {
                     items.map { item ->
                         canvas.drawRect(item.x1, item.y1, item.x2, item.y2, paint)
                     }

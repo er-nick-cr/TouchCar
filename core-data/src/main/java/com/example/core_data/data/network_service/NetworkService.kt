@@ -39,8 +39,8 @@ internal class NetworkService @Inject constructor(
         return requestDocument(url).map { document -> commonParser.getPartsData(document, type) }
     }
 
-    fun getComponent(url: String, baseUrl: String, innerUrl: String): Single<Component> {
-        return requestDocument(url).map { document -> commonParser.getComponent(document, baseUrl, innerUrl) }
+    fun getComponent(url: String, baseUrl: String, innerUrl: String, type: ManufacturerType): Single<List<Component>> {
+        return requestDocument(url).map { document -> commonParser.getComponent(document, baseUrl, innerUrl, type) }
     }
 
     private fun requestDocument(url: String): Single<Document> {

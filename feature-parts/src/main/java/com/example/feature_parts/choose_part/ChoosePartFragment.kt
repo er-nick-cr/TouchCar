@@ -2,6 +2,7 @@ package com.example.feature_parts.choose_part
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -75,6 +76,7 @@ class ChoosePartFragment : Fragment() {
 
     private fun onItemClick(part: Part) {
         val partsNavigator = activity as PartsNavigator
+        Log.d("url", part.partUrl)
         partsNavigator.openComponentFragment(source.copy(innerUrl = part.partUrl))
     }
 

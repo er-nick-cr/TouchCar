@@ -1,4 +1,4 @@
-package com.example.feature_parts.component.recycler
+package com.example.feature_parts.component.items_recycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.core_data.domain.entity.Item

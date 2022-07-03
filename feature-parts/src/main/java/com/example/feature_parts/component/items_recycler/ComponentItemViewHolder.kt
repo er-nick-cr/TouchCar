@@ -1,4 +1,4 @@
-package com.example.feature_parts.component.recycler
+package com.example.feature_parts.component.items_recycler
 
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
@@ -19,11 +19,17 @@ class ComponentItemViewHolder(
         }
     }
 
-    fun bind(item: Item, selectedItem: String) {
-        binding.itemRecyclerText.text = item.itemName
-        if (item.itemName == selectedItem) {
-            binding.root.setBackgroundResource(R.color.component_selected_item_background)
-            binding.itemRecyclerText.setTextColor(Color.rgb(0, 80, 178))
+    fun bind(item: Item, isSelected: Boolean) {
+        with(binding) {
+            itemRecyclerText.text = item.itemName
+            if (isSelected) {
+                root.setBackgroundResource(R.color.component_selected_item_background)
+                itemRecyclerText.setTextColor(Color.rgb(0, 80, 178))
+            } else {
+                root.setBackgroundResource(R.color.white)
+                itemRecyclerText.setTextColor(Color.rgb(40, 40, 40))
+            }
         }
+
     }
 }

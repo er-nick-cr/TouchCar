@@ -5,5 +5,5 @@ import org.jsoup.nodes.Document
 
 internal interface ComponentParser {
 
-    fun parse(document: Document, baseUrl: String, innerUrl: String) : Component
+    fun parse(document: Document, baseUrl: String, innerUrl: String) : List<Component>
 }

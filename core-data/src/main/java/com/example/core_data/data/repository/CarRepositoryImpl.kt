@@ -34,7 +34,7 @@ internal class CarRepositoryImpl @Inject constructor(
         return networkDataSource.getPartsData(url, type)
     }
 
-    override fun getComponent(url: String, baseUrl: String, innerUrl: String): Single<Component> {
-        return networkDataSource.getComponent(url, baseUrl, innerUrl)
+    override fun getComponent(url: String, baseUrl: String, innerUrl: String, type: ManufacturerType): Single<List<Component>> {
+        return networkDataSource.getComponent(url, baseUrl, innerUrl, type)
     }
 }

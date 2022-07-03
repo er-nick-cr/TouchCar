@@ -42,7 +42,7 @@ internal class CommonParser @Inject constructor(
         return commonPartParser.parse(document, type)
     }
 
-    fun getComponent(document: Document, baseUrl: String, innerUrl: String) : Component {
-        return commonComponentParser.parse(document, baseUrl, innerUrl)
+    fun getComponent(document: Document, baseUrl: String, innerUrl: String, type: ManufacturerType) : List<Component> {
+        return commonComponentParser.parse(document, baseUrl, innerUrl, type)
     }
 }

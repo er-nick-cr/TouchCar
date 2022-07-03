@@ -30,7 +30,7 @@ internal class NetworkDataSource @Inject constructor(private val networkService:
         return networkService.getPartsData(url, type)
     }
 
-    fun getComponent(url: String, baseUrl: String, innerUrl: String): Single<Component> {
-        return networkService.getComponent(url, baseUrl, innerUrl)
+    fun getComponent(url: String, baseUrl: String, innerUrl: String, type: ManufacturerType): Single<List<Component>> {
+        return networkService.getComponent(url, baseUrl, innerUrl, type)
     }
 }
