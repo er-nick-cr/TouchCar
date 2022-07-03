@@ -2,21 +2,29 @@ package com.example.touchcar.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.core_common.NetworkSource
+import com.example.core_common_navigation.navigation.CarSearchNavigator
+import com.example.core_common_navigation.navigation.MainMenuNavigator
+import com.example.core_common_navigation.navigation.PartsNavigator
+import com.example.feature_car_search.router.CarSearchRouter
+import com.example.feature_car_search.router.CarSearchRouterProvider
 import com.example.touchcar.R
-import com.example.touchcar.domain.entity.Manufacturer
-import com.example.touchcar.presentation.car.CarFragment
-import com.example.touchcar.presentation.choose_body.ChooseBodyFragment
-import com.example.touchcar.presentation.choose_equipment.ChooseEquipmentFragment
-import com.example.touchcar.presentation.choose_market.ChooseMarketFragment
-import com.example.touchcar.presentation.choose_model.ChooseModelFragment
-import com.example.touchcar.presentation.choose_part.ChoosePartFragment
-import com.example.touchcar.presentation.main_menu.MainMenuFragment
-import com.example.touchcar.presentation.model.NetworkSource
-import com.example.touchcar.presentation.navigation.*
+import com.example.core_data.domain.entity.Manufacturer
+import com.example.feature_car_search.presentation.choose_body.ChooseBodyFragment
+import com.example.feature_car_search.presentation.choose_equipment.ChooseEquipmentFragment
+import com.example.feature_car_search.presentation.choose_market.ChooseMarketFragment
+import com.example.feature_car_search.presentation.choose_model.ChooseModelFragment
+import com.example.feature_main_menu.main_menu.MainMenuFragment
+import com.example.feature_parts.car.CarFragment
+import com.example.feature_parts.choose_part.ChoosePartFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNavigator, CarSearchRouterProvider {
+class MainMenuActivity : AppCompatActivity(),
+    CarSearchNavigator,
+    MainMenuNavigator,
+    CarSearchRouterProvider,
+    PartsNavigator {
 
     override val router: CarSearchRouter = CarSearchRouter(this)
 
@@ -79,7 +87,10 @@ class MainMenuActivity : AppCompatActivity(), CarSearchNavigator, MainMenuNaviga
             .commit()
     }
 
-    override fun openCarSearchByModel(manufacturer: Manufacturer, source: NetworkSource) {
+    override fun openCarSearchByModel(
+        manufacturer: Manufacturer,
+        source: NetworkSource
+    ) {
         router.start(manufacturer, source)
     }
 }
