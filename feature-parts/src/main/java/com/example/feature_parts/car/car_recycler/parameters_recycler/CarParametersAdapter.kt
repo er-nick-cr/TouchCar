@@ -4,19 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.BaseAdapter
+import com.example.core_common.DiffCallback
 import com.example.core_data.domain.entity.Parameter
 import com.example.feature_parts.databinding.CarEquipmentParametersRecyclerItemBinding
 
 class CarParametersAdapter(
-) : RecyclerView.Adapter<CarParametersViewHolder>() {
-
-    var items: List<Parameter> = emptyList()
-        set(value) {
-            val callback = CarParametersDiffCallback(field, value)
-            val diffResult = DiffUtil.calculateDiff(callback)
-            field = value
-            diffResult.dispatchUpdatesTo(this)
-        }
+) : BaseAdapter<Parameter, CarParametersViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarParametersViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -28,7 +22,7 @@ class CarParametersAdapter(
         holder.bind(items[position], position)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+    override fun extractId(item: Parameter): String {
+        return item.parameterName
     }
 }

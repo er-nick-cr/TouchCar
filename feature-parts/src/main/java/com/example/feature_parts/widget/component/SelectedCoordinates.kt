@@ -1,3 +1,3 @@
-package com.example.core_common
+package com.example.feature_parts.widget.component
 
 class SelectedCoordinates(val x: Float, val y: Float)

@@ -1,11 +1,10 @@
-package com.example.core_common
+package com.example.feature_parts.car
 
+import com.example.core_common.BaseListItem
 import com.example.core_data.domain.entity.Car
 import com.example.core_data.domain.entity.PartSection
 
-sealed interface CarListItem {
-
-    val id: String
+sealed interface CarListItem : BaseListItem {
 
     data class CarInfo(val car: Car) : CarListItem {
         override val id: String = "CarInfoListItem"

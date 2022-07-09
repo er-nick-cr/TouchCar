@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.core_data.domain.entity.ManufacturerType
 import com.example.core_data.domain.usecase.GetCarUseCase
-import com.example.core_common.CarListItem
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

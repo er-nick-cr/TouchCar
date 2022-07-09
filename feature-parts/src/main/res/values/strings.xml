@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">TouchCar</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="common_app_title">TouchCar</string>
     <string name="main_menu_your_cars">Ваши авто</string>
     <string name="main_menu_view_all_saved_cars">Посмотреть все</string>
     <string name="main_menu_manufacturer_logo">MANUFACTURER_LOGO</string>
     <string name="main_menu_search_title">Поиск</string>
     <string name="main_menu_search_history_title">История поиска</string>
-    <string name="next">next</string>
     <string name="bottom_sheet_type_search_heading">Выберите тип поиска</string>
     <string name="bottom_sheet_vin_search_heading">VIN-код или номер кузова</string>
     <string name="bottom_sheet_model_search_heading">Модель автомобиля</string>
@@ -22,10 +20,8 @@
     <string name="equipment_search_parameter_yes">Да</string>
     <string name="equipment_search_parameter_no">Нет</string>
     <string name="car_parts_heading">Запчасти</string>
-    <string name="car_image_description">car logo</string>
     <string name="choose_part_search_hint">Введите название агрегата…</string>
     <string name="car_save_content_button">save content</string>
     <string name="car_menu_save_title">save content</string>
-    <string name="component_image_description">component image</string>
     <string name="items_bottom_sheet_heading">Детали</string>
 </resources>

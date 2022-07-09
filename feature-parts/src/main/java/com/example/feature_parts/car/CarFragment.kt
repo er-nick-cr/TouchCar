@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.core.os.bundleOf
-import com.example.core_common.CarListItem
 import com.example.core_common.NetworkSource
 import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.feature_parts.R

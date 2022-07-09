@@ -3,7 +3,7 @@ package com.example.core_data.data.network_service.parsers.component
 import com.example.core_data.domain.entity.Component
 import com.example.core_data.domain.entity.ComponentImageSize
 import com.example.core_data.domain.entity.Coordinates
-import com.example.core_data.domain.entity.Item
+import com.example.core_data.domain.entity.ComponentPart
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
@@ -28,17 +28,17 @@ class LexusComponentParser @Inject constructor() : ComponentParser {
                 width = imageContainer.attr("width").toFloat(),
                 height = imageContainer.attr("height").toFloat(),
             ),
-            items = containers.map { container ->  getItem(container, innerUrl)}.distinctBy { it.itemName }
+            componentParts = containers.map { container ->  getItem(container, innerUrl)}.distinctBy { it.itemName }
         )
     }
 
-    private fun getItem(container: Element, innerUrl: String) : Item {
+    private fun getItem(container: Element, innerUrl: String) : ComponentPart {
         val url = container.attr("href")
         val itemNumber = url.replace(innerUrl, "").replace("/", " ").replace("?partno=", "")
         val name = container.attr("title")
         val coordinates = container.attr("coords").split(",")
 
-        return Item(
+        return ComponentPart(
             itemName = itemNumber + name,
             itemUrl = url,
             coordinates = Coordinates(

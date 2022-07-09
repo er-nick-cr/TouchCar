@@ -3,7 +3,7 @@ package com.example.feature_parts.component.items_recycler
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
-import com.example.core_data.domain.entity.Item
+import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.R
 import com.example.feature_parts.databinding.ComponentRecyclerItemBinding
 
@@ -19,9 +19,9 @@ class ComponentItemViewHolder(
         }
     }
 
-    fun bind(item: Item, isSelected: Boolean) {
+    fun bind(componentPart: ComponentPart, isSelected: Boolean) {
         with(binding) {
-            itemRecyclerText.text = item.itemName
+            itemRecyclerText.text = componentPart.itemName
             if (isSelected) {
                 root.setBackgroundResource(R.color.component_selected_item_background)
                 itemRecyclerText.setTextColor(Color.rgb(0, 80, 178))

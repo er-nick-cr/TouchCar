@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.touchcar"
-        minSdk 21
+        minSdk 23
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -46,7 +46,7 @@ dependencies {
     implementation project(":core-common-navigation")
     implementation project(":core-common")
 
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.0"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'

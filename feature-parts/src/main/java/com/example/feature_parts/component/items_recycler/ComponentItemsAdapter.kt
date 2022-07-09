@@ -4,22 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.core_common.SelectedCoordinates
-import com.example.core_data.domain.entity.Item
+import com.example.core_common.BaseAdapter
+import com.example.core_common.DiffCallback
+import com.example.feature_parts.widget.component.SelectedCoordinates
+import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.databinding.ComponentRecyclerItemBinding
 import com.example.feature_parts.utils.includes
 
 class ComponentItemsAdapter(
-    private val onItemClickListener: (Item) -> Unit,
-) : RecyclerView.Adapter<ComponentItemViewHolder>() {
-
-    var items: List<Item> = emptyList()
-        set(value) {
-            val callback = ComponentItemDiffCallback(field, value)
-            val diffResult = DiffUtil.calculateDiff(callback)
-            field = value
-            diffResult.dispatchUpdatesTo(this)
-        }
+    private val onItemClickListener: (ComponentPart) -> Unit,
+) : BaseAdapter<ComponentPart, ComponentItemViewHolder>() {
 
     private var selectedItemIndex = 0
 
@@ -31,13 +25,9 @@ class ComponentItemsAdapter(
 
     override fun onBindViewHolder(holder: ComponentItemViewHolder, position: Int) {
         holder.bind(
-            item = items[position],
+            componentPart = items[position],
             isSelected = position == selectedItemIndex,
         )
-    }
-
-    override fun getItemCount(): Int {
-        return items.size
     }
 
     fun onItemSelectedByCoordinates(selectedCoordinates: SelectedCoordinates) {
@@ -50,4 +40,8 @@ class ComponentItemsAdapter(
     }
 
     private fun onItemClick(position: Int) = onItemClickListener.invoke(items[position])
+
+    override fun extractId(item: ComponentPart): String {
+        return item.itemName
+    }
 }

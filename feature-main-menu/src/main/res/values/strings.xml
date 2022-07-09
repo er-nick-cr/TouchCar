@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">TouchCar</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="common_app_title">TouchCar</string>
     <string name="main_menu_your_cars">Ваши авто</string>
     <string name="main_menu_view_all_saved_cars">Посмотреть все</string>
-    <string name="main_menu_manufacturer_logo">MANUFACTURER_LOGO</string>
     <string name="main_menu_search_title">Поиск</string>
     <string name="main_menu_search_history_title">История поиска</string>
     <string name="next">next</string>

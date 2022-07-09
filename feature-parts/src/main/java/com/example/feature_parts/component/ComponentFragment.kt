@@ -1,6 +1,6 @@
 package com.example.feature_parts.component
 
-import android.graphics.Bitmap
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,17 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.example.core_common.NetworkSource
-import com.example.core_common.SelectedCoordinates
-import com.example.core_data.domain.entity.Component
-import com.example.core_data.domain.entity.Item
-import com.example.feature_parts.GlideApp
+import com.example.feature_parts.widget.component.SelectedCoordinates
+import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.R
 import com.example.feature_parts.component.items_recycler.ComponentItemsAdapter
 import com.example.feature_parts.component.selector_recycler.SelectorAdapter
@@ -66,18 +61,22 @@ class ComponentFragment : Fragment() {
             if (components.size > 1) {
                 selectorAdapter.items = components
             } else {
-                binding.selectorRecycler.visibility = View.GONE
+                binding.selectorRecycler.isVisible = false
             }
         }
 
         binding.selectorRecycler.adapter = selectorAdapter
 
         viewModel.currentComponentLiveData.observe(this) { component ->
-            setToolbarFeatures(component.header)
-            loadImage(component)
-            componentItemAdapter.items = component.items
-            if(component.items.size > 3) {
-                binding.componentBottomSheet.layoutParams.height = 1200
+            initToolbar(component.header)
+            with(binding.componentImage) {
+                loadImage(component)
+                onClickImage = ::onClickImage
+            }
+            componentItemAdapter.items = component.componentParts
+            if (component.componentParts.size > 3) {
+                binding.componentBottomSheet.layoutParams.height =
+                    context?.let { convertPxToDp(it, BOTTOM_SHEET_HEIGHT) }!!
             }
         }
 
@@ -87,7 +86,7 @@ class ComponentFragment : Fragment() {
         viewModel.requestComponent(source.url, source.baseUrl, source.innerUrl, source.type)
     }
 
-    private fun setToolbarFeatures(header: String) {
+    private fun initToolbar(header: String) {
         with(binding.componentToolbar) {
             navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
             setNavigationOnClickListener { activity?.onBackPressed() }
@@ -98,13 +97,8 @@ class ComponentFragment : Fragment() {
     private fun setBottomSheetOptions() {
         with(bottomSheetBehavior) {
             isHideable = false
-            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    binding.bottomSheetOpenArrow.rotation = slideOffset * -180
-                }
+            addBottomSheetCallback(BottomSheetCallback{ slideOffset ->
+                binding.bottomSheetOpenArrow.rotation = slideOffset * -180
             })
         }
     }
@@ -133,51 +127,18 @@ class ComponentFragment : Fragment() {
         viewModel.onComponentSelected(index)
     }
 
-    private fun onItemClick(item: Item) {
-        Log.d("item", item.itemName)
+    private fun onItemClick(componentPart: ComponentPart) {
+        Log.d("item", componentPart.itemName)
     }
 
-    private fun loadImage(component: Component) {
-        GlideApp.with(this)
-            .asBitmap()
-            .load(component.imageUrl)
-            .listener(object : RequestListener<Bitmap> {
-                override fun onResourceReady(
-                    resource: Bitmap?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    if (resource != null) {
-                        with(binding.componentImage) {
-                            image = resource
-                            items = viewModel.convertCoordinates(
-                                resource,
-                                component.items,
-                                component.componentImageSize
-                            )
-                            onClickImage = ::onClickImage
-                        }
-                    }
-                    return true
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    e?.printStackTrace()
-                    return false
-                }
-            }).submit()
+    private fun convertPxToDp(context: Context, px: Int): Int {
+        return (px / context.resources.displayMetrics.density).toInt()
     }
 
     companion object {
 
         private const val SOURCE_ARG = "source"
+        private const val BOTTOM_SHEET_HEIGHT = 3000
 
         fun newInstance(source: NetworkSource): ComponentFragment {
             return ComponentFragment().apply {

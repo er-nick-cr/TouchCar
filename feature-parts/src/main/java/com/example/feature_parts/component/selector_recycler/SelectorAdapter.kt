@@ -4,21 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.BaseAdapter
+import com.example.core_common.DiffCallback
 import com.example.core_data.domain.entity.Component
 import com.example.feature_parts.databinding.SelectorItemBinding
 
 class SelectorAdapter(
     private val onItemClickListener: (Int) -> Unit
-) : RecyclerView.Adapter<SelectorViewHolder>() {
+) : BaseAdapter<Component, SelectorViewHolder>() {
 
-
-    var items: List<Component> = emptyList()
-        set(value) {
-            val callback = SelectorDiffCallback(field, value)
-            val diffResult = DiffUtil.calculateDiff(callback)
-            field = value
-            diffResult.dispatchUpdatesTo(this)
-        }
     private var selectedItemIndex = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectorViewHolder {
@@ -31,16 +25,16 @@ class SelectorAdapter(
         holder.bind(position, selectedItemIndex)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     private fun onItemClick(position: Int) {
         val prevSelectedItemIndex = selectedItemIndex
         onItemClickListener.invoke(position)
         selectedItemIndex = position
         notifyItemChanged(selectedItemIndex)
         notifyItemChanged(prevSelectedItemIndex)
+    }
+
+    override fun extractId(item: Component): String {
+        return item.imageUrl
     }
 
 }

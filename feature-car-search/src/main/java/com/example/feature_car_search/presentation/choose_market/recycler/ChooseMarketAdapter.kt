@@ -4,20 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.BaseAdapter
+import com.example.core_common.DiffCallback
 import com.example.core_data.domain.entity.Market
 import com.example.feature_car_search.databinding.MarketRecyclerItemBinding
 
 class ChooseMarketAdapter(
     private val onItemClickListener: (Market) -> Unit
-) : RecyclerView.Adapter<ChooseMarketViewHolder>() {
-
-    var items: List<Market> = emptyList()
-        set(value) {
-            val callback = ChooseMarketDiffCallback(field, value)
-            val diffResult = DiffUtil.calculateDiff(callback)
-            field = value
-            diffResult.dispatchUpdatesTo(this)
-        }
+) : BaseAdapter<Market, ChooseMarketViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseMarketViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -29,9 +23,9 @@ class ChooseMarketAdapter(
         holder.bind(items[position])
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     private fun onItemClick(position: Int) = onItemClickListener.invoke(items[position])
+
+    override fun extractId(item: Market): String {
+        return item.marketName
+    }
 }

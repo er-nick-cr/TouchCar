@@ -1,12 +1,11 @@
-package com.example.feature_car_search.presentation.choose_equipment.recycler.parameters_recycler
+package com.example.core_common
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.core_data.domain.entity.Parameter
 
-class EquipmentParametersDiffCallback(
-    private val oldList: List<Parameter>,
-    private val newList: List<Parameter>
-    ) : DiffUtil.Callback() {
+class DiffCallback(
+    private val oldList: List<BaseListItem>,
+    private val newList: List<BaseListItem>
+) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldList.size
@@ -17,12 +16,10 @@ class EquipmentParametersDiffCallback(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].parameterName == newList[newItemPosition].parameterName
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition] == newList[newItemPosition]
     }
-
-
 }

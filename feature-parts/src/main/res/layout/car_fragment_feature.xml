@@ -77,11 +77,10 @@
         android:elevation="5dp"
         android:background="@drawable/circle"
         android:paddingVertical="15dp"
-        android:contentDescription="@string/car_image_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        tools:ignore="ContentDescription" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

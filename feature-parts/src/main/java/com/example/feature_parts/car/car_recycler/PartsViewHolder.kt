@@ -1,7 +1,7 @@
 package com.example.feature_parts.car.car_recycler
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.core_common.CarListItem
+import com.example.feature_parts.car.CarListItem
 import com.example.feature_parts.databinding.CarPartRecyclerItemBinding
 
 class PartsViewHolder(

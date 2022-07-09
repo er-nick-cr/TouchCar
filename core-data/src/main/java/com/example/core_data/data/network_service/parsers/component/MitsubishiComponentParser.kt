@@ -1,10 +1,9 @@
 package com.example.core_data.data.network_service.parsers.component
 
-import android.util.Log
 import com.example.core_data.domain.entity.Component
 import com.example.core_data.domain.entity.ComponentImageSize
 import com.example.core_data.domain.entity.Coordinates
-import com.example.core_data.domain.entity.Item
+import com.example.core_data.domain.entity.ComponentPart
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
@@ -17,10 +16,10 @@ class MitsubishiComponentParser @Inject constructor() : ComponentParser {
 
         val mapElements: Elements = document.select("map")
         val heading = document.select("h1").text()
-        return elements.mapIndexed { ind, container -> getComponent(container, baseUrl, innerUrl, heading, ind, mapElements) }
+        return elements.mapIndexed { ind, container -> getComponent(container, innerUrl, heading, ind, mapElements) }
     }
 
-    private fun getComponent(element: Element, baseUrl: String, innerUrl: String, heading: String, ind: Int, mapElements: Elements) : Component {
+    private fun getComponent(element: Element, innerUrl: String, heading: String, ind: Int, mapElements: Elements) : Component {
         val containers = mapElements[ind].select("area")
         val imageContainer = element.select("img")
         return Component(
@@ -30,11 +29,11 @@ class MitsubishiComponentParser @Inject constructor() : ComponentParser {
                 width = 1f,
                 height = 1f,
             ),
-            items = containers.map { container ->  getItem(container, innerUrl)}.distinctBy { it.itemName }
+            componentParts = containers.map { container ->  getItem(container, innerUrl)}.distinctBy { it.itemName }
         )
     }
 
-    private fun getItem(container: Element, innerUrl: String) : Item {
+    private fun getItem(container: Element, innerUrl: String) : ComponentPart {
         val url = container.attr("href")
         val itemNumber = url.replace(innerUrl, "").replace("/", " ").replace("?partno=", "")
         val name = container.attr("title")
@@ -46,7 +45,7 @@ class MitsubishiComponentParser @Inject constructor() : ComponentParser {
             }
         }
 
-        return Item(
+        return ComponentPart(
             itemName = itemNumber + name,
             itemUrl = url,
             coordinates = Coordinates(

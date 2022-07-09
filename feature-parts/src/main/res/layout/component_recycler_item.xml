@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:foreground="?selectableItemBackground"
     >
 
     <TextView
@@ -14,7 +15,7 @@
         android:textSize="18sp"
         android:fontFamily="@font/google_sans_regular"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="24dp"
         tools:text="11000 ENGINE ASSY, PARTIAL"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +32,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:contentDescription="@string/next" />
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

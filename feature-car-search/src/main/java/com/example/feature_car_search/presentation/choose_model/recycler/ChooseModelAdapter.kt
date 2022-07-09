@@ -4,20 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core_common.BaseAdapter
+import com.example.core_common.DiffCallback
 import com.example.core_data.domain.entity.Model
 import com.example.feature_car_search.databinding.ModelRecyclerItemBinding
 
 class ChooseModelAdapter(
     private val onItemClickListener: (Model) -> Unit
-) : RecyclerView.Adapter<ChooseModelViewHolder>() {
-
-    var items: List<Model> = emptyList()
-        set(value) {
-            val callback = ChooseModelDiffCallback(field, value)
-            val diffResult = DiffUtil.calculateDiff(callback)
-            field = value
-            diffResult.dispatchUpdatesTo(this)
-        }
+) : BaseAdapter<Model, ChooseModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseModelViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -29,9 +23,9 @@ class ChooseModelAdapter(
         holder.bind(items[position])
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     private fun onItemClickListener(position: Int) = onItemClickListener.invoke(items[position])
+
+    override fun extractId(item: Model): String {
+       return item.modelName
+    }
 }
