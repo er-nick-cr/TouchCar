@@ -2,7 +2,7 @@ package com.example.feature_car_search.presentation.choose_body.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.core_common.*
+import com.example.core_common.list.BaseAdapter
 import com.example.core_data.domain.entity.Body
 import com.example.feature_car_search.databinding.BodyRecyclerItemBinding
 

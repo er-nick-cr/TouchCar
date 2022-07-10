@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 
 @ColorInt
 fun Context.getColorCompat(@ColorRes color: Int): Int {
-
     return ContextCompat.getColor(this, color)
 }
 

@@ -2,10 +2,7 @@ package com.example.feature_car_search.presentation.choose_model.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.example.core_common.BaseAdapter
-import com.example.core_common.DiffCallback
+import com.example.core_common.list.BaseAdapter
 import com.example.core_data.domain.entity.Model
 import com.example.feature_car_search.databinding.ModelRecyclerItemBinding
 

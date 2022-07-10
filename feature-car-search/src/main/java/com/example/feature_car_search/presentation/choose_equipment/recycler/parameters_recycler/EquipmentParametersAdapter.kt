@@ -2,7 +2,7 @@ package com.example.feature_car_search.presentation.choose_equipment.recycler.pa
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.core_common.BaseAdapter
+import com.example.core_common.list.BaseAdapter
 import com.example.core_data.domain.entity.Parameter
 import com.example.feature_car_search.databinding.EquipmentParametersRecyclerItemBinding
 

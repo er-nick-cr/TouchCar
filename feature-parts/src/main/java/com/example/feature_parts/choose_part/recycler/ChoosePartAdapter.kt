@@ -2,10 +2,7 @@ package com.example.feature_parts.choose_part.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.example.core_common.BaseAdapter
-import com.example.core_common.DiffCallback
+import com.example.core_common.list.BaseAdapter
 import com.example.core_data.domain.entity.Part
 import com.example.feature_parts.databinding.ChoosePartRecyclerItemBinding
 

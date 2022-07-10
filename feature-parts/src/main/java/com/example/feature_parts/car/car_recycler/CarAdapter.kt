@@ -2,10 +2,8 @@ package com.example.feature_parts.car.car_recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.core_common.BaseListAdapter
-import com.example.core_common.DiffCallback
+import com.example.core_common.list.BaseListAdapter
 import com.example.core_data.domain.entity.ManufacturerType
 import com.example.feature_parts.car.CarListItem
 import com.example.feature_parts.R
