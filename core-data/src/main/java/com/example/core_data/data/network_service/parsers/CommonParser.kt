@@ -1,6 +1,7 @@
 package com.example.core_data.data.network_service.parsers
 
 import com.example.core_data.data.network_service.parsers.car.CommonCarParser
+import com.example.core_data.data.network_service.parsers.component.CommonComponentParser
 import com.example.core_data.data.network_service.parsers.equipment.CommonEquipmentParser
 import com.example.core_data.data.network_service.parsers.part.CommonPartParser
 import com.example.core_data.domain.entity.*
@@ -14,6 +15,7 @@ internal class CommonParser @Inject constructor(
     private val commonEquipmentParser: CommonEquipmentParser,
     private val commonCarParser: CommonCarParser,
     private val commonPartParser: CommonPartParser,
+    private val commonComponentParser: CommonComponentParser,
 ) {
 
     fun getManufacturers(document: Document): List<Manufacturer> {
@@ -38,5 +40,9 @@ internal class CommonParser @Inject constructor(
 
     fun getPartsData(document: Document, type: ManufacturerType): PartsData {
         return commonPartParser.parse(document, type)
+    }
+
+    fun getComponent(document: Document, baseUrl: String, innerUrl: String, type: ManufacturerType) : List<Component> {
+        return commonComponentParser.parse(document, baseUrl, innerUrl, type)
     }
 }

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="11dp"
         android:paddingVertical="5dp"
-        android:background="@drawable/choose_part_serial_number_background"
+        android:background="@drawable/blue_rounded_corners_background"
         android:fontFamily="@font/google_sans_bold"
         android:textSize="14sp"
         android:textColor="#0054BB"
@@ -46,6 +46,6 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/next" />
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

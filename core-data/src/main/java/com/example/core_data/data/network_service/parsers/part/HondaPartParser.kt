@@ -11,6 +11,7 @@ internal class HondaPartParser @Inject constructor() : PartParser {
     override fun parse(document: Document): List<Part> {
         val containers: Elements = document.select(".col_wide div:last-child div")
         return containers.map { element -> getPart(element) }
+            .filter { part -> part.partName.isNotEmpty() }
     }
 
     private fun getPart(container: Element): Part {

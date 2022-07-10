@@ -1,7 +1,7 @@
 package com.example.core_data.di
 
 import com.example.core_data.domain.repository.CarRepository
-import com.example.core_data.domain.repository.CarRepositoryImpl
+import com.example.core_data.data.repository.CarRepositoryImpl
 import com.example.core_data.domain.usecase.*
 import dagger.Binds
 import dagger.Module
@@ -32,4 +32,7 @@ internal interface DataModule {
 
     @Binds
     fun bindGetPartsDataUseCase(getPartsDataUseCaseImpl: GetPartsDataUseCaseImpl): GetPartsDataUseCase
+
+    @Binds
+    fun bindGetComponentUseCase(getComponentUseCaseImpl: GetComponentUseCaseImpl): GetComponentUseCase
 }

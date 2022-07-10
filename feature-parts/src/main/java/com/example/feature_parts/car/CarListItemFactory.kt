@@ -1,7 +1,6 @@
 package com.example.feature_parts.car
 
 import com.example.core_data.domain.entity.Car
-import com.example.core_common.CarListItem
 import javax.inject.Inject
 
 class CarListItemFactory @Inject constructor() {
