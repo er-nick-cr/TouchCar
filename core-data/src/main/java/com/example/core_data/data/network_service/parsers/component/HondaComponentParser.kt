@@ -9,7 +9,7 @@ import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class HondaComponentParser @Inject constructor() : ComponentParser {
+internal class HondaComponentParser @Inject constructor() : ComponentParser {
 
     override fun parse(document: Document, baseUrl: String, innerUrl: String) : List<Component> {
         val elements: Elements = document.select("img[alt*=Схема расположения запчастей]")

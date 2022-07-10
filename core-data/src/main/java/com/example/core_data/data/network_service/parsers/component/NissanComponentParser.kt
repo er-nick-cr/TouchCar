@@ -9,7 +9,7 @@ import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class NissanComponentParser @Inject constructor() : ComponentParser {
+internal class NissanComponentParser @Inject constructor() : ComponentParser {
 
     override fun parse(document: Document, baseUrl: String, innerUrl: String) : List<Component> {
         val elements: Elements = document.select(".parts_picture")

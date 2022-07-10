@@ -38,3 +38,9 @@ abstract class BaseListAdapter<T : BaseListItem, VH: RecyclerView.ViewHolder> : 
         return items.size
     }
 }
+
+interface BaseListItem {
+    val id: String
+}
+
+class ListItem<T>(override val id: String, val item: T) : BaseListItem

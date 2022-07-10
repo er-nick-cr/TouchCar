@@ -4,27 +4,24 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.*
-import androidx.core.content.ContextCompat
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import androidx.appcompat.widget.AppCompatImageView
+import com.example.core_common.utils.getColorCompat
+import com.example.core_common.utils.loadImage
 import com.example.core_data.domain.entity.Component
 import com.example.core_data.domain.entity.ComponentImageSize
 import com.example.core_data.domain.entity.ComponentPart
 import com.example.core_data.domain.entity.Coordinates
-import com.example.feature_parts.GlideApp
 import com.example.feature_parts.R
 
-class ComponentImageView @JvmOverloads constructor(
+internal class ComponentImageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
-) : androidx.appcompat.widget.AppCompatImageView(context, attrs, defStyle) {
+) : AppCompatImageView(context, attrs, defStyle) {
 
-    var items: List<Coordinates> = emptyList()
-    var image: Bitmap? = null
     var onClickImage: ((SelectedCoordinates) -> Unit)? = null
+    private var items: List<Coordinates> = emptyList()
+    private var image: Bitmap? = null
     private var ratio: Float = 1f
     private var coordinateExpander = 5f
     private val paint = Paint()
@@ -33,8 +30,8 @@ class ComponentImageView @JvmOverloads constructor(
     private var selectedCoordinates = SelectedCoordinates(0f, 0f)
     private var drawMatrix = Matrix()
     private var inverseDrawMatrix = Matrix()
-    private var centreX = 0f
-    private var centreY = 0f
+    private var centerX = 0f
+    private var centerY = 0f
     private val scaleListener = ScaleListener()
     private val gestureListener = GestureListener()
     private val scaleDetector = ScaleGestureDetector(context, scaleListener)
@@ -50,16 +47,16 @@ class ComponentImageView @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas.apply {
             with(paint) {
-                color = ContextCompat.getColor(context, R.color.component_item_stroke)
+                color = context.getColorCompat(R.color.component_item_stroke)
                 strokeWidth = 3F
                 style = Paint.Style.STROKE
             }
 
             if (image != null) {
-                centreX = ((width - image!!.width) / 2).toFloat()
-                centreY = ((height - image!!.height) / 2).toFloat()
+                centerX = ((width - image!!.width) / 2).toFloat()
+                centerY = ((height - image!!.height) / 2).toFloat()
                 setMatrix(drawMatrix)
-                translate(centreX, centreY)
+                translate(centerX, centerY)
                 drawBitmap(image!!, 0F, 0F, null)
                 items.forEach { item ->
                     canvas.drawRoundRect(item.x1, item.y1, item.x2, item.y2, 20F, 20F, paint)
@@ -70,41 +67,14 @@ class ComponentImageView @JvmOverloads constructor(
     }
 
     fun loadImage(component: Component) {
-        GlideApp.with(this)
-            .asBitmap()
-            .load(component.imageUrl)
-            .listener(object : RequestListener<Bitmap> {
-                override fun onResourceReady(
-                    resource: Bitmap?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    if (resource != null) {
-                        image = resource
-                        items = convertCoordinates(
-                            resource,
-                            component.componentParts,
-                            component.componentImageSize
-                        )
-                    }
-                    return true
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    e?.printStackTrace()
-                    return false
-                }
-            }).submit()
+       context.loadImage(
+           imageUrl = component.imageUrl,
+           onSuccess = {bitmap ->  onImageLoaded(bitmap, component)},
+           onFailure = {error -> error?.printStackTrace()}
+       )
     }
 
-    fun convertCoordinates(
+    private fun convertCoordinates(
         resource: Bitmap,
         componentParts: List<ComponentPart>,
         imageSize: ComponentImageSize
@@ -133,6 +103,15 @@ class ComponentImageView @JvmOverloads constructor(
                 y2 = (item.coordinates.y2 * ratio) + coordinateExpander
             )
         }
+    }
+
+    private fun onImageLoaded(bitmap: Bitmap, component: Component) {
+        image = bitmap
+        items = convertCoordinates(
+            bitmap,
+            component.componentParts,
+            component.componentImageSize
+        )
     }
 
     inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -184,7 +163,7 @@ class ComponentImageView @JvmOverloads constructor(
                 val point = floatArrayOf(event.x, event.y)
                 inverseDrawMatrix.mapPoints(point)
                 val (xP, yP) = point
-                selectedCoordinates = SelectedCoordinates((xP - centreX) / ratio, (yP - centreY) / ratio)
+                selectedCoordinates = SelectedCoordinates((xP - centerX) / ratio, (yP - centerY) / ratio)
                 onClickImage?.invoke(selectedCoordinates)
                 return false
             }

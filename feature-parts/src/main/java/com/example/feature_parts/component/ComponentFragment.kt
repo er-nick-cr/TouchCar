@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core_common.NetworkSource
+import com.example.core_common.utils.dp
 import com.example.feature_parts.widget.component.SelectedCoordinates
 import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.R
@@ -75,8 +76,7 @@ class ComponentFragment : Fragment() {
             }
             componentItemAdapter.items = component.componentParts
             if (component.componentParts.size > 3) {
-                binding.componentBottomSheet.layoutParams.height =
-                    context?.let { convertPxToDp(it, BOTTOM_SHEET_HEIGHT) }!!
+                binding.componentBottomSheet.layoutParams.height = BOTTOM_SHEET_HEIGHT.dp.toInt()
             }
         }
 
@@ -131,14 +131,11 @@ class ComponentFragment : Fragment() {
         Log.d("item", componentPart.itemName)
     }
 
-    private fun convertPxToDp(context: Context, px: Int): Int {
-        return (px / context.resources.displayMetrics.density).toInt()
-    }
-
     companion object {
 
         private const val SOURCE_ARG = "source"
-        private const val BOTTOM_SHEET_HEIGHT = 3000
+
+        private const val BOTTOM_SHEET_HEIGHT = 450
 
         fun newInstance(source: NetworkSource): ComponentFragment {
             return ComponentFragment().apply {
