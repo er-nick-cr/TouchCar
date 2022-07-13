@@ -84,6 +84,10 @@ class ComponentFragment : Fragment() {
         setDividerDecoration(recyclerView)
 
         viewModel.requestComponent(source.url, source.baseUrl, source.innerUrl, source.type)
+
+        childFragmentManager.setFragmentResultListener(REQUEST_KEY, this) { _, bundle ->
+            val result = bundle.getString(BUNDLE_KEY)
+        }
     }
 
     private fun initToolbar(header: String) {
@@ -129,13 +133,20 @@ class ComponentFragment : Fragment() {
 
     private fun onItemClick(componentPart: ComponentPart) {
         Log.d("item", componentPart.itemName)
+        val detailedPartFragment = DetailedPartFragment()
+        childFragmentManager.beginTransaction()
+            .add(detailedPartFragment, BOTTOM_SHEET_TAG)
+            .commit()
     }
 
     companion object {
 
         private const val SOURCE_ARG = "source"
-
         private const val BOTTOM_SHEET_HEIGHT = 450
+        private const val BUNDLE_KEY = "result"
+        private const val REQUEST_KEY = "bottom_sheet"
+        private const val REQUEST_RESULT = "model_button"
+        private const val BOTTOM_SHEET_TAG = "tag"
 
         fun newInstance(source: NetworkSource): ComponentFragment {
             return ComponentFragment().apply {

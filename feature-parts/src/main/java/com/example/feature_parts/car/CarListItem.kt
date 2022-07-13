@@ -1,6 +1,6 @@
 package com.example.feature_parts.car
 
-import com.example.core_common.BaseListItem
+import com.example.core_common.list.BaseListItem
 import com.example.core_data.domain.entity.Car
 import com.example.core_data.domain.entity.PartSection
 

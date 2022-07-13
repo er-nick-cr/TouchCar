@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppBottomSheetItemsTheme"
+    <style name="AppDetailedPartItemsTheme"
         parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
         <item name="enableEdgeToEdge">true</item>
     </style>
 
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bottom_sheet_background</item>
+        <item name="android:background">@drawable/detailed_parts_background</item>
     </style>
 
 </resources>
