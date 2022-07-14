@@ -51,10 +51,8 @@ class ChoosePartFragment : Fragment() {
         val choosePartAdapter = ChoosePartAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.choosePartRecycler
 
-        viewModel.partsLiveData
-            .observe(this) {parts -> choosePartAdapter.items = parts}
-        viewModel.headerLiveData
-            .observe(this) {value -> setToolbarFeatures(value)}
+        viewModel.partsLiveData.observe(this) {parts -> choosePartAdapter.items = parts}
+        viewModel.headerLiveData.observe(this) {value -> setToolbarFeatures(value)}
 
         recyclerView.adapter = choosePartAdapter
         setDividerDecoration(recyclerView)
@@ -76,7 +74,6 @@ class ChoosePartFragment : Fragment() {
 
     private fun onItemClick(part: Part) {
         val partsNavigator = activity as PartsNavigator
-        Log.d("url", part.partUrl)
         partsNavigator.openComponentFragment(source.copy(innerUrl = part.partUrl))
     }
 

@@ -10,4 +10,5 @@
     <color name="choose_part_number_text_color">#0054BB</color>
     <color name="component_selected_item_background">#D7E9FF</color>
     <color name="component_item_stroke">#0675FE</color>
+    <color name="detailed_part_button_background">#0675FE</color>
 </resources>

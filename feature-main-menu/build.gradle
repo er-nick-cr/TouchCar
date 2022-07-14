@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation project(":core-common")
     implementation project(":core-data")
+    implementation project(':core-common-navigation')
     
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -56,18 +57,17 @@ dependencies {
     implementation "com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0"
 
 //  Dagger
-    implementation 'com.google.dagger:dagger-android:2.35.1'
-    implementation 'com.google.dagger:dagger-android-support:2.17'
-    implementation project(':core-common-navigation')
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.27'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.38.1'
+    implementation 'com.google.dagger:dagger-android:2.42'
+    implementation 'com.google.dagger:dagger-android-support:2.42'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.42'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.42'
 
 //  Recycler
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     //  Hilt
-    implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-compiler:2.38.1"
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-compiler:2.42"
 
 
 }

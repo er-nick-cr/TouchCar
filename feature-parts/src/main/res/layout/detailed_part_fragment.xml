@@ -6,9 +6,9 @@
     android:id="@+id/layout_expanded"
     android:layout_width="match_parent"
     android:layout_height="362dp"
+    android:background="@drawable/detailed_parts_background"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@drawable/detailed_parts_background"
     app:behavior_hideable="false"
     app:behavior_peekHeight="362dp"
     app:layout_behavior="@string/bottom_sheet_behavior"
@@ -26,41 +26,29 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="11000 ENGINE ASSY, PARTIAL" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/detailed_parts_list"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detailed_part_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/detailed_part_heading">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        tools:listitem="@layout/detailed_part_recycler_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/detailed_part_heading" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detailed_part_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/detailed_parts_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/detailed_parts_list">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@drawable/detailed_fragment_button_background"
-            android:text="@string/detailed_part_button_text"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:fontFamily="@font/google_sans_regular"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:background="@drawable/detailed_fragment_button_background"
+        android:text="@string/detailed_part_button_text"
+        android:foreground="?selectableItemBackground"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
+        app:fontFamily="@font/google_sans_regular"
+        app:layout_constraintTop_toBottomOf="@id/detailed_part_recycler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
