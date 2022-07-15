@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailedPartFragment : BottomSheetDialogFragment() {
+internal class DetailedPartFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var viewModel: DetailedPartViewModel

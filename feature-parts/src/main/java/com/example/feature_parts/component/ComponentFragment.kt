@@ -121,12 +121,11 @@ class ComponentFragment : Fragment() {
         )
         viewModel.currentItemsLiveData.value
             ?.indexOfFirst { item -> item.coordinates.includes(invertedSelectedCoordinates) }
+            ?.takeIf { index -> index != -1}
             ?.let { index ->
-                if (index != -1) {
                     componentItemAdapter.onItemSelectedByCoordinates(invertedSelectedCoordinates)
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                     binding.componentRecycler.scrollToPosition(index)
-                }
             }
     }
 

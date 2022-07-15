@@ -5,7 +5,7 @@ import com.example.core_data.domain.entity.ManufacturerType
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
-class CommonDetailedPartParser @Inject constructor(
+internal class CommonDetailedPartParser @Inject constructor(
     private val toyotaDetailedPartParser: ToyotaDetailedPartParser
 ) {
 

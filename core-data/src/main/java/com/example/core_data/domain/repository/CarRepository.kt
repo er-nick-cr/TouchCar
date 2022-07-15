@@ -3,7 +3,7 @@ package com.example.core_data.domain.repository
 import com.example.core_data.domain.entity.*
 import io.reactivex.Single
 
-interface CarRepository {
+internal interface CarRepository {
 
     fun getManufacturers(): Single<List<Manufacturer>>
     fun getModels(url: String): Single<List<Model>>

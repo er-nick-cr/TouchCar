@@ -10,7 +10,7 @@ interface GetManufacturerUseCase {
     fun getManufacturer(): Single<List<Manufacturer>>
 }
 
-class GetManufacturerUseCaseImpl @Inject constructor(
+internal class GetManufacturerUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
 ) : GetManufacturerUseCase {
 

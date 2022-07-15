@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class ToyotaDetailedPartParser @Inject constructor() : DetailedPartParser {
+internal class ToyotaDetailedPartParser @Inject constructor() : DetailedPartParser {
 
     override fun parse(document: Document): DetailedPart {
         val elements: Elements = document.select(".parts-in-stock-widget_parts-table tr")

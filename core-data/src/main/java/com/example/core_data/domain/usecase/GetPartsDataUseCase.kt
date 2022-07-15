@@ -11,7 +11,7 @@ interface GetPartsDataUseCase {
     fun getPartsData(url: String, type: ManufacturerType): Single<PartsData>
 }
 
-class GetPartsDataUseCaseImpl @Inject constructor(
+internal class GetPartsDataUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
 ) : GetPartsDataUseCase {
 
