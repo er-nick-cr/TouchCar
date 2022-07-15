@@ -20,6 +20,9 @@ import com.example.feature_parts.R
 import com.example.feature_parts.component.items_recycler.ComponentItemsAdapter
 import com.example.feature_parts.component.selector_recycler.SelectorAdapter
 import com.example.feature_parts.databinding.ComponentFragmentBinding
+import com.example.feature_parts.detailed_part.DetailedPartFragment
+import com.example.feature_parts.utils.BottomSheetCallback
+import com.example.feature_parts.utils.includes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -111,16 +114,19 @@ class ComponentFragment : Fragment() {
         recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
-    fun onClickImage(selectedCoordinates: SelectedCoordinates) {
-        viewModel.itemsLiveData.observe(this) { items ->
-            val index = items.indexOfFirst {item ->  selectedCoordinates.x in item.coordinates.x1..item.coordinates.x2 &&
-                        selectedCoordinates.y in item.coordinates.y1..item.coordinates.y2 }
-            if (index != -1) {
-                componentItemAdapter.onItemSelectedByCoordinates(index)
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                binding.componentRecycler.scrollToPosition(index)
+    private fun onClickImage(selectedCoordinates: SelectedCoordinates) {
+        val invertedSelectedCoordinates = SelectedCoordinates(
+            x = selectedCoordinates.x,
+            y = selectedCoordinates.y
+        )
+        viewModel.currentItemsLiveData.value
+            ?.indexOfFirst { item -> item.coordinates.includes(invertedSelectedCoordinates) }
+            ?.takeIf { index -> index != -1}
+            ?.let { index ->
+                    componentItemAdapter.onItemSelectedByCoordinates(invertedSelectedCoordinates)
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    binding.componentRecycler.scrollToPosition(index)
             }
-        }
     }
 
     private fun onSelectorItemClick(index: Int) {
@@ -129,13 +135,20 @@ class ComponentFragment : Fragment() {
 
     private fun onItemClick(componentPart: ComponentPart) {
         Log.d("item", componentPart.itemName)
+        val detailedPartFragment = DetailedPartFragment.newInstance(source.copy(innerUrl = componentPart.itemUrl))
+        childFragmentManager.beginTransaction()
+            .add(detailedPartFragment, BOTTOM_SHEET_TAG)
+            .commit()
     }
 
     companion object {
 
         private const val SOURCE_ARG = "source"
-
         private const val BOTTOM_SHEET_HEIGHT = 450
+        private const val BUNDLE_KEY = "result"
+        private const val REQUEST_KEY = "bottom_sheet"
+        private const val REQUEST_RESULT = "model_button"
+        private const val BOTTOM_SHEET_TAG = "tag"
 
         fun newInstance(source: NetworkSource): ComponentFragment {
             return ComponentFragment().apply {

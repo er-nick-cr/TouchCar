@@ -10,7 +10,7 @@ interface GetBodyListUseCase {
     fun getBodyList(url: String): Single<List<Body>>
 }
 
-class GetBodyListUseCaseImpl @Inject constructor(
+internal class GetBodyListUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
 ) : GetBodyListUseCase {
     override fun getBodyList(url: String): Single<List<Body>> {

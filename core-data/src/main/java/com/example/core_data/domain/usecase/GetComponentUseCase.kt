@@ -11,7 +11,7 @@ interface GetComponentUseCase {
     fun getComponent(url: String, baseUrl: String, innerUrl: String, type: ManufacturerType): Single<List<Component>>
 }
 
-class GetComponentUseCaseImpl @Inject constructor(
+internal class GetComponentUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
 ) : GetComponentUseCase {
 

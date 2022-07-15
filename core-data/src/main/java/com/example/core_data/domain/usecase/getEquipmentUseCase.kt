@@ -11,7 +11,7 @@ interface GetEquipmentUseCase {
     fun getEquipment(url: String, manufacturerType: ManufacturerType): Single<List<Equipment>>
 }
 
-class GetEquipmentUseCaseImpl @Inject constructor(
+internal class GetEquipmentUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
 ) : GetEquipmentUseCase {
 

@@ -9,7 +9,7 @@ interface GetModelsUseCase {
     fun getModels(url: String): Single<List<Model>>
 }
 
-class GetModelsUseCaseImpl @Inject constructor(
+internal class GetModelsUseCaseImpl @Inject constructor(
     private val carRepository: CarRepository
     ) : GetModelsUseCase {
 

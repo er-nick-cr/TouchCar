@@ -1,6 +1,5 @@
 package com.example.feature_parts.component
 
-import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.core_data.domain.entity.*

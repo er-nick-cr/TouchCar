@@ -6,8 +6,7 @@ import com.example.core_common.list.BaseAdapter
 import com.example.core_data.domain.entity.Parameter
 import com.example.feature_parts.databinding.CarEquipmentParametersRecyclerItemBinding
 
-class CarParametersAdapter(
-) : BaseAdapter<Parameter, CarParametersViewHolder>() {
+class CarParametersAdapter : BaseAdapter<Parameter, CarParametersViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarParametersViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)

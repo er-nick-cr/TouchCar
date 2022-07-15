@@ -24,4 +24,5 @@
     <string name="car_save_content_button">save content</string>
     <string name="car_menu_save_title">save content</string>
     <string name="items_bottom_sheet_heading">Детали</string>
+    <string name="detailed_part_button_text">Найти в интернете</string>
 </resources>
