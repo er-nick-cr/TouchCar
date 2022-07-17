@@ -134,7 +134,7 @@ class ComponentFragment : Fragment() {
     }
 
     private fun onItemClick(componentPart: ComponentPart) {
-        Log.d("item", componentPart.itemName)
+        Log.d("item", componentPart.itemUrl)
         val detailedPartFragment = DetailedPartFragment.newInstance(source.copy(innerUrl = componentPart.itemUrl))
         childFragmentManager.beginTransaction()
             .add(detailedPartFragment, BOTTOM_SHEET_TAG)
@@ -145,9 +145,6 @@ class ComponentFragment : Fragment() {
 
         private const val SOURCE_ARG = "source"
         private const val BOTTOM_SHEET_HEIGHT = 450
-        private const val BUNDLE_KEY = "result"
-        private const val REQUEST_KEY = "bottom_sheet"
-        private const val REQUEST_RESULT = "model_button"
         private const val BOTTOM_SHEET_TAG = "tag"
 
         fun newInstance(source: NetworkSource): ComponentFragment {

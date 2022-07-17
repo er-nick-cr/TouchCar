@@ -6,7 +6,9 @@ import org.jsoup.nodes.Document
 import javax.inject.Inject
 
 internal class CommonDetailedPartParser @Inject constructor(
-    private val toyotaDetailedPartParser: ToyotaDetailedPartParser
+    private val defaultDetailedPartParser: DefaultDetailedPartParser,
+    private val nissanSubaruDetailedPartParser: NissanSubaruDetailedPartParser,
+    private val suzukiDetailedPartParser: SuzukiDetailedPartParser
 ) {
 
     fun parse(document: Document, type: ManufacturerType): DetailedPart {
@@ -16,8 +18,11 @@ internal class CommonDetailedPartParser @Inject constructor(
 
     private fun getCarParser(type: ManufacturerType): DetailedPartParser {
         return when (type) {
-            ManufacturerType.TOYOTA -> toyotaDetailedPartParser
-            else -> toyotaDetailedPartParser
+            ManufacturerType.TOYOTA -> defaultDetailedPartParser
+            ManufacturerType.NISSAN -> nissanSubaruDetailedPartParser
+            ManufacturerType.SUBARU -> nissanSubaruDetailedPartParser
+            ManufacturerType.SUZUKI -> suzukiDetailedPartParser
+            else -> defaultDetailedPartParser
         }
     }
 }
