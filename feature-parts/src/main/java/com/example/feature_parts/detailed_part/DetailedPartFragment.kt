@@ -20,6 +20,7 @@ import android.content.ComponentName
 
 import android.content.Intent
 import android.net.Uri
+import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.core_data.domain.entity.DetailedPart
 import com.example.core_data.domain.entity.DetailedPartItem
 import com.example.core_data.domain.entity.ManufacturerType
@@ -68,7 +69,8 @@ internal class DetailedPartFragment : BottomSheetDialogFragment() {
     }
 
     private fun openBrowser(searchQuery: String) {
-        startActivity(Intent(Intent.ACTION_WEB_SEARCH).putExtra(SearchManager.QUERY, searchQuery))
+        val partsNavigator = activity as PartsNavigator
+        partsNavigator.openInternetSearchByPart(searchQuery)
     }
 
     companion object {

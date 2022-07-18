@@ -6,4 +6,5 @@ interface PartsNavigator {
 
     fun openChoosePartFragment(source: NetworkSource)
     fun openComponentFragment(source: NetworkSource)
+    fun openInternetSearchByPart(searchQuery: String)
 }

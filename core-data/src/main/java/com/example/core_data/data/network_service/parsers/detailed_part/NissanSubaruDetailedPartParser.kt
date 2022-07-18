@@ -26,12 +26,12 @@ class NissanSubaruDetailedPartParser @Inject constructor() : DetailedPartParser 
 
         return DetailedPart(
             heading = name,
-            searchQuery = partsParsed.filter { it.partName == "OEM номер запчасти" }[0].partValue + name,
-            items = partsParsed.filter { it.partName != "Название" }
-                .filter { it.partName != "No" }
-                .filter { it.partName != "Под заказ" }
-                .filter { it.partName != "В наличии" }
-                .filter { it.partName != "В наличии и под заказ" }
+            searchQuery = partsParsed.first { it.partName == "OEM номер запчасти" }.partValue + name,
+            items = partsParsed.filter { it.partName !in RESTRICTED_NAMES }
         )
+    }
+
+    private companion object {
+        val RESTRICTED_NAMES = setOf("Название", "No", "Под заказ", "В наличии", "В наличии и под заказ")
     }
 }

@@ -1,5 +1,7 @@
 package com.example.touchcar.presentation
 
+import android.app.SearchManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -71,6 +73,10 @@ class MainMenuActivity : AppCompatActivity(),
     override fun openComponentFragment(source: NetworkSource) {
         val componentFragment = ComponentFragment.newInstance(source)
         openFragment(componentFragment)
+    }
+
+    override fun openInternetSearchByPart(searchQuery: String) {
+        startActivity(Intent(Intent.ACTION_WEB_SEARCH).putExtra(SearchManager.QUERY, searchQuery))
     }
 
     override fun openCarSearchByModel(

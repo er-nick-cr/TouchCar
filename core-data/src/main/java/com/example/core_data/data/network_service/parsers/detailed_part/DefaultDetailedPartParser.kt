@@ -20,15 +20,17 @@ internal class DefaultDetailedPartParser @Inject constructor() : DetailedPartPar
                     partValue = valueElements[index].text()
                 )
             }
+        val name = partsParsed.first { it.partName == "Название" }.partValue
 
         return DetailedPart(
-            heading = partsParsed.filter { it.partName == "Название" }[0].partValue,
-            searchQuery =  partsParsed.filter { it.partName == "OEM номер запчасти" }[0].partValue + " " + partsParsed.filter { it.partName == "Название" }[0].partValue,
-            items = partsParsed.filter { it.partName != "Название" }
-                .filter { it.partName != "No" }
-                .filter { it.partName != "Под заказ" }
-                .filter { it.partName != "В наличии" }
+            heading = name,
+            searchQuery =  partsParsed.first { it.partName == "OEM номер запчасти" }.partValue + " " + name,
+            items = partsParsed.filter { it.partName !in RESTRICTED_NAMES }
                 .filter { it.partValue.isNotEmpty() }
         )
+    }
+
+    private companion object {
+        val RESTRICTED_NAMES = setOf("Название", "No", "Под заказ", "В наличии")
     }
 }
