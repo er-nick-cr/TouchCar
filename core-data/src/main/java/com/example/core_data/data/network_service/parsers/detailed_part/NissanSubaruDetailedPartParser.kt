@@ -6,10 +6,13 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-internal class ToyotaDetailedPartParser @Inject constructor() : DetailedPartParser {
+class NissanSubaruDetailedPartParser @Inject constructor() : DetailedPartParser {
 
     override fun parse(document: Document): DetailedPart {
         val elements: Elements = document.select(".parts-in-stock-widget_parts-table tr")
+        val name = document.select(".top_cars h4").text()
+            .replaceBeforeLast(": ", "")
+            .replace(": ", "")
         val headingElements = elements[0].select("th")
         val valueElements = elements[1].select("td")
 
@@ -19,13 +22,16 @@ internal class ToyotaDetailedPartParser @Inject constructor() : DetailedPartPars
                 partValue = valueElements[index].text()
             )
         }
+            .filter { part -> part.partValue.isNotEmpty() }
 
         return DetailedPart(
-            heading = partsParsed.filter { it.partName == "Название" }[0].partValue,
-            items = partsParsed.filter { it.partName != "Название" }
-                .filter { it.partName != "No" }
-                .filter { it.partName != "Под заказ" }
-                .filter { it.partName != "В наличии" }
+            heading = name,
+            searchQuery = partsParsed.first { it.partName == "OEM номер запчасти" }.partValue + name,
+            items = partsParsed.filter { it.partName !in RESTRICTED_NAMES }
         )
+    }
+
+    private companion object {
+        val RESTRICTED_NAMES = setOf("Название", "No", "Под заказ", "В наличии", "В наличии и под заказ")
     }
 }
