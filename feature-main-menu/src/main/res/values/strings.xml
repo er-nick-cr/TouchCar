@@ -25,4 +25,6 @@
     <string name="car_save_content_button">save content</string>
     <string name="car_menu_save_title">save content</string>
     <string name="component_image_description">component image</string>
+    <string name="main_menu_search_by_vin">Введите VIN-код или номер кузова</string>
+    <string name="search_by_vin_button_text">Искать</string>
 </resources>

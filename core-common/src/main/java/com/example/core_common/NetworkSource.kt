@@ -13,5 +13,10 @@ data class NetworkSource(
 ) : Parcelable {
 
     @IgnoredOnParcel
-    val url: String = baseUrl + innerUrl
+    val url: String = if (innerUrl.contains("search_frame")) {
+        innerUrl
+    } else {
+        (baseUrl + innerUrl).replaceAfter("?frame_no", "")
+            .replace("?frame_no", "")
+    }
 }

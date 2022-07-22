@@ -14,6 +14,7 @@ class DetailedPartViewModel @Inject constructor(
 ) : ViewModel() {
 
     val detailedPartLiveData: MutableLiveData<DetailedPart> = MutableLiveData<DetailedPart>()
+    var searchQuery = ""
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun requestDetailedPart(url: String, type: ManufacturerType) {
@@ -21,7 +22,10 @@ class DetailedPartViewModel @Inject constructor(
             getDetailedPartUseCase.getDetailedPart(url, type)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                    { value -> detailedPartLiveData.postValue(value)},
+                    { value ->
+                        detailedPartLiveData.postValue(value)
+                        searchQuery = value.searchQuery
+                    },
                     { error -> error.printStackTrace()}
                 )
         )

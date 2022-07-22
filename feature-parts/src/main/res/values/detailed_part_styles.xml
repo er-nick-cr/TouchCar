@@ -4,7 +4,7 @@
     <style name="AppDetailedPartItemsTheme"
         parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="enableEdgeToEdge">false</item>
+        <item name="enableEdgeToEdge">true</item>
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_expanded"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="229dp"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ProgressBar
+        android:id="@+id/vin_search_progress_bar"
+        android:visibility="invisible"
+        android:theme="@style/CircularProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/vin_search_heading"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:text="@string/main_menu_search_by_vin"
+        android:textColor="@color/text_main"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/vin_search_description"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:textColor="@color/grey_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vin_search_heading"
+        tools:text="Номер указан в свидетельстве о регистрации
+ в поле «Кузов» или «Шасси»." />
+
+    <EditText
+        android:id="@+id/vin_search_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:paddingHorizontal="24dp"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/input_background"
+        app:layout_constraintTop_toBottomOf="@id/vin_search_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/detailed_part_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:background="@drawable/search_by_vin_button_backgroud"
+        android:text="@string/search_by_vin_button_text"
+        android:layout_marginHorizontal="24dp"
+        android:foreground="?selectableItemBackground"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
+        app:fontFamily="@font/google_sans_regular"
+        app:layout_constraintTop_toBottomOf="@id/vin_search_edit_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

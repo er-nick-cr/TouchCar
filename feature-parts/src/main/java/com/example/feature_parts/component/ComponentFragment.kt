@@ -1,6 +1,5 @@
 package com.example.feature_parts.component
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core_common.NetworkSource
 import com.example.core_common.utils.dp
+import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.feature_parts.widget.component.SelectedCoordinates
 import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.R
@@ -135,10 +135,15 @@ class ComponentFragment : Fragment() {
 
     private fun onItemClick(componentPart: ComponentPart) {
         Log.d("item", componentPart.itemUrl)
-        val detailedPartFragment = DetailedPartFragment.newInstance(source.copy(innerUrl = componentPart.itemUrl))
-        childFragmentManager.beginTransaction()
-            .add(detailedPartFragment, BOTTOM_SHEET_TAG)
-            .commit()
+        if(componentPart.itemName.contains("**") && !componentPart.itemName.contains("Std Part")) {
+            val partsNavigator = activity as PartsNavigator
+            partsNavigator.openComponentFragment(source.copy(innerUrl = componentPart.itemUrl))
+        } else {
+            val detailedPartFragment = DetailedPartFragment.newInstance(source.copy(innerUrl = componentPart.itemUrl))
+            childFragmentManager.beginTransaction()
+                .add(detailedPartFragment, BOTTOM_SHEET_TAG)
+                .commit()
+        }
     }
 
     companion object {

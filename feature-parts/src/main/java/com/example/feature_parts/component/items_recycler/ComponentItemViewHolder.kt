@@ -3,9 +3,12 @@ package com.example.feature_parts.component.items_recycler
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
+import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.R
+import com.example.feature_parts.component.ComponentFragment
 import com.example.feature_parts.databinding.ComponentRecyclerItemBinding
+import com.example.feature_parts.detailed_part.DetailedPartFragment
 
 class ComponentItemViewHolder(
     private val binding: ComponentRecyclerItemBinding,
@@ -29,7 +32,11 @@ class ComponentItemViewHolder(
                 root.setBackgroundResource(R.color.white)
                 itemRecyclerText.setTextColor(Color.rgb(40, 40, 40))
             }
+            if(componentPart.itemName.contains("**") && !componentPart.itemName.contains("Std Part")) {
+                next.setImageResource(R.drawable.schema_icon)
+            } else {
+                next.setImageResource(R.drawable.continue_icon)
+            }
         }
-
     }
 }

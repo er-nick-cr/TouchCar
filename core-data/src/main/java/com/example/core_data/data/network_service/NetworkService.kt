@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document
 import javax.inject.Inject
 
 internal class NetworkService @Inject constructor(
-    private val commonParser: CommonParser
+    private val commonParser: CommonParser,
 ) {
 
     fun getManufacturers(): Single<List<Manufacturer>> {
@@ -45,6 +45,10 @@ internal class NetworkService @Inject constructor(
 
     fun getDetailedPart(url: String, type: ManufacturerType): Single<DetailedPart> {
         return requestDocument(url).map { document -> commonParser.getDetailedPart(document, type) }
+    }
+
+    fun getBaseUrl(url: String): Single<String> {
+        return requestDocument(url).map { document -> commonParser.getBaseUrl(document) }
     }
 
     private fun requestDocument(url: String): Single<Document> {

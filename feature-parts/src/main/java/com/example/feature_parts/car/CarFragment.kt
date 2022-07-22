@@ -35,11 +35,10 @@ class CarFragment : Fragment() {
 
         source = arguments?.get(SOURCE_ARG) as NetworkSource
         val carAdapter = CarAdapter(source.type, ::onItemClick)
-
         setToolbarNavigationButton()
 
         viewModel.carLiveData
-            .observe(this) { carModels ->
+            .observe(viewLifecycleOwner) { carModels ->
                 carAdapter.items = carModels
             }
 

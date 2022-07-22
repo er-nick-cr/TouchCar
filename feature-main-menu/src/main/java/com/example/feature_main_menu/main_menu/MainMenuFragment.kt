@@ -8,11 +8,12 @@ import androidx.fragment.app.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core_common.NetworkSource
 import com.example.core_data.domain.entity.Manufacturer
-import com.example.feature_main_menu.main_menu.bottom_sheet.BottomSheetFragment
+import com.example.feature_main_menu.main_menu.search_by_model_bottom_sheet.SearchByModelBottomSheetFragment
 import com.example.feature_main_menu.main_menu.recycler.MainMenuAdapter
 import com.example.core_common_navigation.navigation.MainMenuNavigator
 import com.example.feature_main_menu.R
 import com.example.feature_main_menu.databinding.MainMenuFragmentBinding
+import com.example.feature_main_menu.main_menu.search_by_vin_bottom_sheet.SearchByVinBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,8 +49,10 @@ class MainMenuFragment : Fragment() {
 
         childFragmentManager.setFragmentResultListener(REQUEST_KEY, this) { _, bundle ->
             val result = bundle.getString(BUNDLE_KEY)
-            if (result == REQUEST_RESULT) {
+            if (result == MODEL_REQUEST_RESULT) {
                 startSearchByModel()
+            } else if( result == VIN_REQUEST_RESULT) {
+                startSearchByVin(viewModel.currentManufacturer)
             }
         }
     }
@@ -64,9 +67,16 @@ class MainMenuFragment : Fragment() {
         mainMenuNavigator.openCarSearchByModel(viewModel.currentManufacturer, source)
     }
 
+    private fun startSearchByVin(manufacturer: Manufacturer) {
+        val bottomSheetFragment = SearchByVinBottomSheetFragment.newInstance(manufacturer)
+        childFragmentManager.beginTransaction()
+            .add(bottomSheetFragment, BOTTOM_SHEET_TAG)
+            .commit()
+    }
+
     private fun onItemClick(manufacturer: Manufacturer) {
         viewModel.currentManufacturer = manufacturer
-        val bottomSheetFragment = BottomSheetFragment()
+        val bottomSheetFragment = SearchByModelBottomSheetFragment()
         childFragmentManager.beginTransaction()
             .add(bottomSheetFragment, BOTTOM_SHEET_TAG)
             .commit()
@@ -76,7 +86,8 @@ class MainMenuFragment : Fragment() {
 
         private const val BUNDLE_KEY = "result"
         private const val REQUEST_KEY = "bottom_sheet"
-        private const val REQUEST_RESULT = "model_button"
+        private const val MODEL_REQUEST_RESULT = "model_button"
+        private const val VIN_REQUEST_RESULT = "vin_button"
         private const val BOTTOM_SHEET_TAG = "tag"
     }
 }

@@ -12,8 +12,7 @@ class MainMenuViewModel @Inject constructor(
     private val getManufacturerUseCase: GetManufacturerUseCase
 ) : ViewModel() {
 
-    val manufacturerLiveData: MutableLiveData<List<Manufacturer>> =
-        MutableLiveData<List<Manufacturer>>()
+    val manufacturerLiveData: MutableLiveData<List<Manufacturer>> = MutableLiveData<List<Manufacturer>>()
     lateinit var currentManufacturer: Manufacturer
     private val disposable: CompositeDisposable = CompositeDisposable()
 
