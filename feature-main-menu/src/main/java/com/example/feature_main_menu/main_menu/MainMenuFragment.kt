@@ -43,7 +43,9 @@ class MainMenuFragment : Fragment() {
         val mainMenuAdapter = MainMenuAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.manufacturerSearchRecycler
 
-        viewModel.manufacturerLiveData.observe(this) { manufacturers -> mainMenuAdapter.items = manufacturers }
+        viewModel.manufacturerLiveData.observe(this) { manufacturers ->
+            mainMenuAdapter.items = manufacturers
+        }
         recyclerView.adapter = mainMenuAdapter
         viewModel.getManufacturers()
 
@@ -51,14 +53,14 @@ class MainMenuFragment : Fragment() {
             val result = bundle.getString(BUNDLE_KEY)
             if (result == MODEL_REQUEST_RESULT) {
                 startSearchByModel()
-            } else if( result == VIN_REQUEST_RESULT) {
+            } else if (result == VIN_REQUEST_RESULT) {
                 startSearchByVin(viewModel.currentManufacturer)
             }
         }
     }
 
     private fun startSearchByModel() {
-        val source = NetworkSource(
+        val source = NetworkSource.newNetworkSource(
             type = viewModel.currentManufacturer.type,
             baseUrl = viewModel.currentManufacturer.url,
             innerUrl = ""

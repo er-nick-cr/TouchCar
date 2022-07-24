@@ -7,9 +7,11 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.example.core_common.NetworkSource
+import com.example.core_common.utils.indexesOf
 import com.example.core_common_navigation.navigation.CarSearchNavigator
 import com.example.core_data.domain.entity.Manufacturer
 import com.example.feature_main_menu.R
@@ -51,12 +53,19 @@ class SearchByVinBottomSheetFragment : BottomSheetDialogFragment() {
         setSpannedText()
 
         binding.detailedPartButton.setOnClickListener {
+            val vin = binding.vinSearchEditText.text.toString()
+            viewModel.checkUserVin(vin).let {
+                if (it) {
+                    viewModel.getBaseUrl(manufacturer.formUrl + vin)
+                } else {
+                    Toast.makeText(context, getString(R.string.vin_error), Toast.LENGTH_SHORT).show()
+                }
+            }
 
-            viewModel.getBaseUrl(manufacturer.formUrl + binding.vinSearchEditText.text.toString())
         }
 
         viewModel.baseUrlLiveData.observe(viewLifecycleOwner) { value ->
-            val source = NetworkSource(
+            val source = NetworkSource.newNetworkSource(
                 type = manufacturer.type,
                 baseUrl = value,
                 innerUrl = manufacturer.formUrl + binding.vinSearchEditText.text.toString()
@@ -67,39 +76,28 @@ class SearchByVinBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         viewModel.loadingState.observe(viewLifecycleOwner) { value ->
-            context?.let {
                 with(binding) {
                     vinSearchProgressBar.isVisible = value
                     detailedPartButton.isEnabled = !value
-                    detailedPartButton.setBackgroundColor(it.getColor(R.color.disabled_color))
+                    detailedPartButton.setBackgroundColor(requireContext().getColor(R.color.disabled_color))
                 }
-            }
         }
     }
 
     private fun setSpannedText() {
-        val spanText = SpannableStringBuilder(SPAN_TEXT)
-        with(spanText) {
-            setSpan(
-                context?.let { ForegroundColorSpan(it.getColor(R.color.text_main)) },
-                51,
-                56,
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-            setSpan(
-                context?.let { ForegroundColorSpan(it.getColor(R.color.text_main)) },
-                63,
-                68,
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
+        val string = getString(R.string.vin_bottom_sheet_description)
+        val spanText = SpannableStringBuilder(string)
+        val color = requireContext().getColor(R.color.text_main)
+
+        string.indexesOf(SEARCHED_CHAR).map {
+            spanText.setSpan(ForegroundColorSpan(color), it.first, it.second, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         }
         binding.vinSearchDescription.text = spanText
     }
 
     companion object {
 
-        private const val SPAN_TEXT =
-            "Номер указан в свидетельстве о регистрации в поле «Кузов» или «Шасси»."
+        private const val SEARCHED_CHAR = "\""
         private const val MANUFACTURER_ARG = "url"
 
         fun newInstance(manufacturer: Manufacturer): SearchByVinBottomSheetFragment {

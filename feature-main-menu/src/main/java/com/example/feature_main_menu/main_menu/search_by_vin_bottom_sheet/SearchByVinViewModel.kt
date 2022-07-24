@@ -27,6 +27,14 @@ class SearchByVinViewModel @Inject constructor(
         )
     }
 
+    fun checkUserVin(vin: String) : Boolean {
+        val regex = Regex(
+            pattern = "[a-zA-Z]+[0-9]+([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[eE]([+-]?\\d+))?",
+            options = setOf(RegexOption.IGNORE_CASE)
+        )
+        return regex.matches(vin)
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

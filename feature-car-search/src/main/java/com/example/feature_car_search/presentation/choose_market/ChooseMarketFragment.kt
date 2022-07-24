@@ -74,7 +74,7 @@ class ChooseMarketFragment : Fragment() {
     }
 
     private fun onItemClick(market: Market) {
-        val source = NetworkSource(
+        val source = NetworkSource.newNetworkSource(
             type = manufacturer.type,
             baseUrl = market.marketUrl,
             innerUrl = ""

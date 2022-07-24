@@ -25,7 +25,7 @@ import android.util.DisplayMetrics
 
 
 @AndroidEntryPoint
-internal class DetailedPartFragment : BottomSheetDialogFragment() {
+class DetailedPartFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var viewModel: DetailedPartViewModel
@@ -54,7 +54,7 @@ internal class DetailedPartFragment : BottomSheetDialogFragment() {
         val adapter = DetailedPartAdapter()
 
         binding.detailedPartButton.setOnClickListener {
-            openBrowser(viewModel.searchQuery)
+            openBrowser(viewModel.detailedPartLiveData.value?.searchQuery.orEmpty())
         }
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 

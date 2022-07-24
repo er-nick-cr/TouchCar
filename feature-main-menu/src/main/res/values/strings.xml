@@ -27,4 +27,6 @@
     <string name="component_image_description">component image</string>
     <string name="main_menu_search_by_vin">Введите VIN-код или номер кузова</string>
     <string name="search_by_vin_button_text">Искать</string>
+    <string name="vin_bottom_sheet_description">"Номер указан в свидетельстве о регистрации в поле \"Кузов\" или \"Шасси\"."</string>
+    <string name="vin_error">Введен некорректный VIN или номер кузова.</string>
 </resources>

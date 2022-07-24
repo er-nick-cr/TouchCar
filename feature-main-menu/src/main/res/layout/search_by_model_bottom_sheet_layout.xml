@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/VIN_search_block"
+        android:id="@+id/vin_search_block"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/type_search_heading">
 
         <ImageView
-            android:id="@+id/VIN_search_icon"
+            android:id="@+id/vin_search_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/vin_icon"
@@ -47,7 +47,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/VIN_search_heading"
+            android:id="@+id/vin_search_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/google_sans_regular"
@@ -55,7 +55,7 @@
             android:textColor="@color/text_main"
             android:textSize="18sp"
             android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/VIN_search_icon"
+            app:layout_constraintStart_toEndOf="@id/vin_search_icon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -68,7 +68,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/VIN_search_block">
+        app:layout_constraintTop_toBottomOf="@+id/vin_search_block">
 
         <ImageView
             android:id="@+id/model_search_icon"

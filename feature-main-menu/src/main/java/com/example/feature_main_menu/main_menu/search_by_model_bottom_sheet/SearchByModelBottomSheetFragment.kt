@@ -38,7 +38,7 @@ class SearchByModelBottomSheetFragment : BottomSheetDialogFragment() {
                     bundleOf(BUNDLE_KEY to result)
                 )
             }
-            VINSearchBlock.setOnClickListener {
+            vinSearchBlock.setOnClickListener {
                 val result = VIN_REQUEST_RESULT
                 setFragmentResult(
                     REQUEST_KEY,

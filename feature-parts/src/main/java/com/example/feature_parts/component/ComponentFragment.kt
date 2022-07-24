@@ -1,7 +1,6 @@
 package com.example.feature_parts.component
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,14 +12,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core_common.NetworkSource
 import com.example.core_common.utils.dp
-import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.feature_parts.widget.component.SelectedCoordinates
 import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.R
 import com.example.feature_parts.component.items_recycler.ComponentItemsAdapter
+import com.example.feature_parts.component.navigation_event.Event
+import com.example.feature_parts.component.navigation_event.NavigationEvent
+import com.example.feature_parts.component.navigation_event.NavigationEventFactory
 import com.example.feature_parts.component.selector_recycler.SelectorAdapter
 import com.example.feature_parts.databinding.ComponentFragmentBinding
-import com.example.feature_parts.detailed_part.DetailedPartFragment
 import com.example.feature_parts.utils.BottomSheetCallback
 import com.example.feature_parts.utils.includes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -61,7 +61,7 @@ class ComponentFragment : Fragment() {
         setBottomSheetOptions()
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
-        viewModel.componentsLiveData.observe(this) {components ->
+        viewModel.componentsLiveData.observe(viewLifecycleOwner) { components ->
             if (components.size > 1) {
                 selectorAdapter.items = components
             } else {
@@ -71,7 +71,7 @@ class ComponentFragment : Fragment() {
 
         binding.selectorRecycler.adapter = selectorAdapter
 
-        viewModel.currentComponentLiveData.observe(this) { component ->
+        viewModel.currentComponentLiveData.observe(viewLifecycleOwner) { component ->
             initToolbar(component.header)
             with(binding.componentImage) {
                 loadImage(component)
@@ -83,6 +83,15 @@ class ComponentFragment : Fragment() {
             }
         }
 
+        viewModel.navigationEventLiveData.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let {
+                when (it) {
+                    is NavigationEvent.OpenComponentFragment -> it.open()
+                    is NavigationEvent.OpenDetailedPartFragment -> it.open()
+                }
+            }
+        }
+
         recyclerView.adapter = componentItemAdapter
         setDividerDecoration(recyclerView)
 
@@ -91,7 +100,8 @@ class ComponentFragment : Fragment() {
 
     private fun initToolbar(header: String) {
         with(binding.componentToolbar) {
-            navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
+            navigationIcon =
+                ResourcesCompat.getDrawable(resources, R.drawable.toolbar_back_button, null)
             setNavigationOnClickListener { activity?.onBackPressed() }
             title = header
         }
@@ -100,7 +110,7 @@ class ComponentFragment : Fragment() {
     private fun setBottomSheetOptions() {
         with(bottomSheetBehavior) {
             isHideable = false
-            addBottomSheetCallback(BottomSheetCallback{ slideOffset ->
+            addBottomSheetCallback(BottomSheetCallback { slideOffset ->
                 binding.bottomSheetOpenArrow.rotation = slideOffset * -180
             })
         }
@@ -121,11 +131,11 @@ class ComponentFragment : Fragment() {
         )
         viewModel.currentItemsLiveData.value
             ?.indexOfFirst { item -> item.coordinates.includes(invertedSelectedCoordinates) }
-            ?.takeIf { index -> index != -1}
+            ?.takeIf { index -> index != -1 }
             ?.let { index ->
-                    componentItemAdapter.onItemSelectedByCoordinates(invertedSelectedCoordinates)
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    binding.componentRecycler.scrollToPosition(index)
+                componentItemAdapter.onItemSelectedByCoordinates(invertedSelectedCoordinates)
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                binding.componentRecycler.scrollToPosition(index)
             }
     }
 
@@ -134,16 +144,16 @@ class ComponentFragment : Fragment() {
     }
 
     private fun onItemClick(componentPart: ComponentPart) {
-        Log.d("item", componentPart.itemUrl)
-        if(componentPart.itemName.contains("**") && !componentPart.itemName.contains("Std Part")) {
-            val partsNavigator = activity as PartsNavigator
-            partsNavigator.openComponentFragment(source.copy(innerUrl = componentPart.itemUrl))
-        } else {
-            val detailedPartFragment = DetailedPartFragment.newInstance(source.copy(innerUrl = componentPart.itemUrl))
-            childFragmentManager.beginTransaction()
-                .add(detailedPartFragment, BOTTOM_SHEET_TAG)
-                .commit()
-        }
+        val navigationEvent = NavigationEventFactory().create(
+            activity = activity,
+            childFragmentManager = childFragmentManager,
+            componentPart = componentPart,
+            source = source,
+            tag = BOTTOM_SHEET_TAG
+        )
+        viewModel.navigationEventLiveData.postValue(
+            Event(navigationEvent)
+        )
     }
 
     companion object {

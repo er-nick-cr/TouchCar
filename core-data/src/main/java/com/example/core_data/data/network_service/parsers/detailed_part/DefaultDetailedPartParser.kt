@@ -25,11 +25,7 @@ internal class DefaultDetailedPartParser @Inject constructor() : DetailedPartPar
                 )
             }
 
-        val name = if (partsParsed.indexOfFirst { it.partName == "Название" } != -1) {
-            partsParsed.first { it.partName == "Название" }.partValue
-        } else {
-            ""
-        }
+        val name = partsParsed.find { it.partName == "Название" }?.partValue.orEmpty()
 
         return DetailedPart(
             heading = name,
