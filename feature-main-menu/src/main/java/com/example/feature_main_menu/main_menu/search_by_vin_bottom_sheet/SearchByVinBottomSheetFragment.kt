@@ -7,11 +7,11 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.example.core_common.NetworkSource
 import com.example.core_common.utils.indexesOf
+import com.example.core_common.utils.toast
 import com.example.core_common_navigation.navigation.CarSearchNavigator
 import com.example.core_data.domain.entity.Manufacturer
 import com.example.feature_main_menu.R
@@ -54,18 +54,16 @@ class SearchByVinBottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.detailedPartButton.setOnClickListener {
             val vin = binding.vinSearchEditText.text.toString()
-            viewModel.checkUserVin(vin).let {
-                if (it) {
-                    viewModel.getBaseUrl(manufacturer.formUrl + vin)
-                } else {
-                    Toast.makeText(context, getString(R.string.vin_error), Toast.LENGTH_SHORT).show()
-                }
-            }
 
+            viewModel.getUrlByVin(vin, manufacturer.formUrl)
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            toast(R.string.vin_error)
         }
 
         viewModel.baseUrlLiveData.observe(viewLifecycleOwner) { value ->
-            val source = NetworkSource.newNetworkSource(
+            val source = NetworkSource(
                 type = manufacturer.type,
                 baseUrl = value,
                 innerUrl = manufacturer.formUrl + binding.vinSearchEditText.text.toString()
@@ -89,7 +87,7 @@ class SearchByVinBottomSheetFragment : BottomSheetDialogFragment() {
         val spanText = SpannableStringBuilder(string)
         val color = requireContext().getColor(R.color.text_main)
 
-        string.indexesOf(SEARCHED_CHAR).map {
+        string.indexesOf(OPEN_SEARCHED_CHAR, CLOSE_SEARCHED_CHAR).map {
             spanText.setSpan(ForegroundColorSpan(color), it.first, it.second, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         }
         binding.vinSearchDescription.text = spanText
@@ -97,7 +95,8 @@ class SearchByVinBottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
 
-        private const val SEARCHED_CHAR = "\""
+        private const val OPEN_SEARCHED_CHAR = "«"
+        private const val CLOSE_SEARCHED_CHAR = "»"
         private const val MANUFACTURER_ARG = "url"
 
         fun newInstance(manufacturer: Manufacturer): SearchByVinBottomSheetFragment {

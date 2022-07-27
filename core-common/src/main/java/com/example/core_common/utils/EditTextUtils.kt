@@ -1,4 +1,4 @@
-package com.example.touchcar.presentation.utils
+package com.example.core_common.utils
 
 import android.text.Editable
 import android.text.TextWatcher

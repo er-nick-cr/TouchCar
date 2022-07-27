@@ -40,6 +40,13 @@ class MainMenuActivity : AppCompatActivity(),
         openFragment(mainMenuFragment)
     }
 
+    override fun openCarSearchByModel(
+        manufacturer: Manufacturer,
+        source: NetworkSource
+    ) {
+        router.start(manufacturer, source)
+    }
+
     override fun openChooseMarket(manufacturer: Manufacturer) {
         val chooseMarketFragment = ChooseMarketFragment.newInstance(manufacturer)
         openFragment(chooseMarketFragment)
@@ -77,13 +84,6 @@ class MainMenuActivity : AppCompatActivity(),
 
     override fun openInternetSearchByPart(searchQuery: String) {
         startActivity(Intent(Intent.ACTION_WEB_SEARCH).putExtra(SearchManager.QUERY, searchQuery))
-    }
-
-    override fun openCarSearchByModel(
-        manufacturer: Manufacturer,
-        source: NetworkSource
-    ) {
-        router.start(manufacturer, source)
     }
 
     private fun openFragment(fragment: Fragment) {

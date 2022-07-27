@@ -12,15 +12,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core_common.NetworkSource
 import com.example.core_common.utils.dp
+import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.feature_parts.widget.component.SelectedCoordinates
 import com.example.core_data.domain.entity.ComponentPart
 import com.example.feature_parts.R
 import com.example.feature_parts.component.items_recycler.ComponentItemsAdapter
-import com.example.feature_parts.component.navigation_event.Event
-import com.example.feature_parts.component.navigation_event.NavigationEvent
-import com.example.feature_parts.component.navigation_event.NavigationEventFactory
 import com.example.feature_parts.component.selector_recycler.SelectorAdapter
 import com.example.feature_parts.databinding.ComponentFragmentBinding
+import com.example.feature_parts.detailed_part.DetailedPartFragment
 import com.example.feature_parts.utils.BottomSheetCallback
 import com.example.feature_parts.utils.includes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -84,11 +83,9 @@ class ComponentFragment : Fragment() {
         }
 
         viewModel.navigationEventLiveData.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let {
-                when (it) {
-                    is NavigationEvent.OpenComponentFragment -> it.open()
-                    is NavigationEvent.OpenDetailedPartFragment -> it.open()
-                }
+            when (event) {
+                is NavigationEvent.OpenComponentFragment -> openComponentFragment(event.componentPart)
+                is NavigationEvent.OpenDetailedPartFragment -> openDetailedPartFragment(event.componentPart)
             }
         }
 
@@ -144,16 +141,21 @@ class ComponentFragment : Fragment() {
     }
 
     private fun onItemClick(componentPart: ComponentPart) {
-        val navigationEvent = NavigationEventFactory().create(
-            activity = activity,
-            childFragmentManager = childFragmentManager,
-            componentPart = componentPart,
-            source = source,
-            tag = BOTTOM_SHEET_TAG
-        )
-        viewModel.navigationEventLiveData.postValue(
-            Event(navigationEvent)
-        )
+        viewModel.setNavigationEvent(componentPart)
+    }
+
+    private fun openComponentFragment(componentPart: ComponentPart) {
+        val partsNavigator = activity as PartsNavigator
+        partsNavigator.openComponentFragment(source.copy(innerUrl = componentPart.itemUrl))
+    }
+
+    private fun openDetailedPartFragment(componentPart: ComponentPart) {
+        val detailedPartFragment =
+            DetailedPartFragment.newInstance(source.copy(innerUrl = componentPart.itemUrl))
+
+        childFragmentManager.beginTransaction()
+            .add(detailedPartFragment, BOTTOM_SHEET_TAG)
+            .commit()
     }
 
     companion object {

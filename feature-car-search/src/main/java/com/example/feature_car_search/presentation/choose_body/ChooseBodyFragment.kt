@@ -17,7 +17,7 @@ import com.example.core_data.domain.entity.Body
 import com.example.feature_car_search.R
 import com.example.feature_car_search.databinding.ChooseBodyFragmentBinding
 import com.example.feature_car_search.presentation.choose_body.recycler.ChooseBodyAdapter
-import com.example.touchcar.presentation.utils.addTextChangedListener
+import com.example.core_common.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -55,7 +55,7 @@ class ChooseBodyFragment : Fragment() {
         setToolbarNavigationButton()
 
         viewModel.bodyLiveData
-            .observe(this) { models -> chooseBodyAdapter.items = models }
+            .observe(viewLifecycleOwner) { models -> chooseBodyAdapter.items = models }
         recyclerView.adapter = chooseBodyAdapter
         setDividerDecoration(recyclerView)
         viewModel.requestBodyList(source.url)

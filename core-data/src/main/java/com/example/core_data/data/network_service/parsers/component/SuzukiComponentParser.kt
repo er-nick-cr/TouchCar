@@ -47,7 +47,8 @@ internal class SuzukiComponentParser @Inject constructor() : ComponentParser {
                 y1 = coordinates[1].toFloat(),
                 x2 = coordinates[2].toFloat(),
                 y2 = coordinates[3].toFloat()
-            )
+            ),
+            isSchema = false
         )
     }
 }

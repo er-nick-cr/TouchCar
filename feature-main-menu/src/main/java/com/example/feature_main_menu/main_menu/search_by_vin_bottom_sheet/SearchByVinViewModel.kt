@@ -13,9 +13,19 @@ class SearchByVinViewModel @Inject constructor(
 
     val baseUrlLiveData = MutableLiveData<String>()
     val loadingState = MutableLiveData<Boolean>()
+    val error = MutableLiveData<Unit>()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    fun getBaseUrl(url: String) {
+    fun getUrlByVin(vin: String, formUrl: String) {
+        val isMatched = Regex(
+            pattern = "[a-zA-Z]+[0-9]+([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[eE]([+-]?\\d+))?",
+            options = setOf(RegexOption.IGNORE_CASE)
+        ).matches(vin)
+
+        if (isMatched) getBaseUrl (formUrl + vin) else error.postValue(Unit)
+    }
+
+    private fun getBaseUrl(url: String) {
         loadingState.postValue(true)
         disposable.add(
             getBaseUrlUseCase.getBaseUrl(url)
@@ -25,14 +35,6 @@ class SearchByVinViewModel @Inject constructor(
                     { error -> error.printStackTrace() }
                 )
         )
-    }
-
-    fun checkUserVin(vin: String) : Boolean {
-        val regex = Regex(
-            pattern = "[a-zA-Z]+[0-9]+([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[eE]([+-]?\\d+))?",
-            options = setOf(RegexOption.IGNORE_CASE)
-        )
-        return regex.matches(vin)
     }
 
     override fun onCleared() {

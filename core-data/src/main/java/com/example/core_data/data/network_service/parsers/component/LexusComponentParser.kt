@@ -37,6 +37,7 @@ internal class LexusComponentParser @Inject constructor() : ComponentParser {
         val itemNumber = url.replace(innerUrl, "").replace("/", " ").replace("?partno=", "")
         val name = container.attr("title")
         val coordinates = container.attr("coords").split(",")
+        val isSchema = name.contains("**") && !name.contains("Std Part")
 
         return ComponentPart(
             itemName = itemNumber + name,
@@ -46,8 +47,8 @@ internal class LexusComponentParser @Inject constructor() : ComponentParser {
                 y1 = coordinates[1].toFloat(),
                 x2 = coordinates[2].toFloat(),
                 y2 = coordinates[3].toFloat()
-            )
+            ),
+            isSchema = isSchema
         )
     }
-
 }

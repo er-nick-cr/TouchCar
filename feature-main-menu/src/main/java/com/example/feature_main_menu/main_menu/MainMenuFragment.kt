@@ -43,7 +43,7 @@ class MainMenuFragment : Fragment() {
         val mainMenuAdapter = MainMenuAdapter(::onItemClick)
         val recyclerView: RecyclerView = binding.manufacturerSearchRecycler
 
-        viewModel.manufacturerLiveData.observe(this) { manufacturers ->
+        viewModel.manufacturerLiveData.observe(viewLifecycleOwner) { manufacturers ->
             mainMenuAdapter.items = manufacturers
         }
         recyclerView.adapter = mainMenuAdapter
@@ -60,7 +60,7 @@ class MainMenuFragment : Fragment() {
     }
 
     private fun startSearchByModel() {
-        val source = NetworkSource.newNetworkSource(
+        val source = NetworkSource(
             type = viewModel.currentManufacturer.type,
             baseUrl = viewModel.currentManufacturer.url,
             innerUrl = ""
