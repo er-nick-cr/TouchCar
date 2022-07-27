@@ -17,7 +17,8 @@ internal class CommonParser @Inject constructor(
     private val commonCarParser: CommonCarParser,
     private val commonPartParser: CommonPartParser,
     private val commonComponentParser: CommonComponentParser,
-    private val commonDetailedPartParser: CommonDetailedPartParser
+    private val commonDetailedPartParser: CommonDetailedPartParser,
+    private val baseUrlParser: BaseUrlParser
 ) {
 
     fun getManufacturers(document: Document): List<Manufacturer> {
@@ -50,5 +51,9 @@ internal class CommonParser @Inject constructor(
 
     fun getDetailedPart(document: Document, type: ManufacturerType): DetailedPart {
         return commonDetailedPartParser.parse(document, type)
+    }
+
+    fun getBaseUrl(document: Document): String {
+        return baseUrlParser.parse(document)
     }
 }

@@ -1,34 +1,31 @@
 package com.example.feature_parts.detailed_part
 
-import android.app.SearchManager
+import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
 import com.example.core_common.NetworkSource
+import com.example.core_common_navigation.navigation.PartsNavigator
 import com.example.feature_parts.R
-import com.example.feature_parts.component.ComponentFragment
 import com.example.feature_parts.databinding.DetailedPartFragmentBinding
 import com.example.feature_parts.detailed_part.recycler.DetailedPartAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import android.content.ComponentName
+import android.graphics.drawable.LayerDrawable
 
-import android.content.Intent
-import android.net.Uri
-import com.example.core_common_navigation.navigation.PartsNavigator
-import com.example.core_data.domain.entity.DetailedPart
-import com.example.core_data.domain.entity.DetailedPartItem
-import com.example.core_data.domain.entity.ManufacturerType
-import java.lang.Exception
+import android.graphics.drawable.Drawable
+
+import android.graphics.drawable.GradientDrawable
+
+import android.util.DisplayMetrics
 
 
 @AndroidEntryPoint
-internal class DetailedPartFragment : BottomSheetDialogFragment() {
+class DetailedPartFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var viewModel: DetailedPartViewModel
@@ -42,7 +39,12 @@ internal class DetailedPartFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DetailedPartFragmentBinding.bind(inflater.inflate(R.layout.detailed_part_fragment, container))
+        binding = DetailedPartFragmentBinding.bind(
+            inflater.inflate(
+                R.layout.detailed_part_fragment,
+                container
+            )
+        )
         return binding.root
     }
 
@@ -51,16 +53,14 @@ internal class DetailedPartFragment : BottomSheetDialogFragment() {
 
         val adapter = DetailedPartAdapter()
 
+        binding.detailedPartButton.setOnClickListener {
+            openBrowser(viewModel.detailedPartLiveData.value?.searchQuery.orEmpty())
+        }
         source = arguments?.get(SOURCE_ARG) as NetworkSource
 
         viewModel.detailedPartLiveData.observe(this) { detailedPart ->
             adapter.items = detailedPart.items
-            with(binding) {
-                detailedPartHeading.text = detailedPart.heading
-                detailedPartButton.setOnClickListener {
-                    openBrowser(detailedPart.searchQuery)
-                }
-            }
+            binding.detailedPartHeading.text = detailedPart.heading
         }
 
         binding.detailedPartRecycler.adapter = adapter

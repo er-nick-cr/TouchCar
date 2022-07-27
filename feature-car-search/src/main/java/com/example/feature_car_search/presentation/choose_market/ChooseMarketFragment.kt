@@ -18,7 +18,7 @@ import com.example.feature_car_search.databinding.ChooseMarketFragmentBinding
 import com.example.feature_car_search.presentation.choose_market.recycler.ChooseMarketAdapter
 import com.example.feature_car_search.router.CarSearchRouter
 import com.example.feature_car_search.router.CarSearchRouterProvider
-import com.example.touchcar.presentation.utils.addTextChangedListener
+import com.example.core_common.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -58,7 +58,7 @@ class ChooseMarketFragment : Fragment() {
         setToolbarNavigationButton()
 
         viewModel.setUpMarkets(manufacturer.market)
-        viewModel.marketLiveData.observe(this) { markets -> chooseMarketAdapter.items = markets }
+        viewModel.marketLiveData.observe(viewLifecycleOwner) { markets -> chooseMarketAdapter.items = markets }
         recyclerView.adapter = chooseMarketAdapter
         setDividerDecoration(recyclerView)
         binding.searchBar.addTextChangedListener(

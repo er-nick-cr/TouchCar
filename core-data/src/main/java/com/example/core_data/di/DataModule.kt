@@ -38,4 +38,7 @@ internal interface DataModule {
 
     @Binds
     fun bindGetDetailedPartUseCase(getDetailedPartUseCaseImpl: GetDetailedPartUseCaseImpl): GetDetailedPartUseCase
+
+    @Binds
+    fun getBaseUseCase(getBaseUrlUseCaseImpl: GetBaseUrlUseCaseImpl): GetBaseUrlUseCase
 }

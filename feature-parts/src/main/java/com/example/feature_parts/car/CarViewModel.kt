@@ -3,6 +3,7 @@ package com.example.feature_parts.car
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.core_data.domain.entity.ManufacturerType
+import com.example.core_data.domain.usecase.GetBaseUrlUseCase
 import com.example.core_data.domain.usecase.GetCarUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

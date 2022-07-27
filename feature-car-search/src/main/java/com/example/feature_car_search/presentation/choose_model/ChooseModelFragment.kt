@@ -17,7 +17,7 @@ import com.example.feature_car_search.databinding.ChooseModelFragmentBinding
 import com.example.feature_car_search.presentation.choose_model.recycler.ChooseModelAdapter
 import com.example.feature_car_search.router.CarSearchRouter
 import com.example.feature_car_search.router.CarSearchRouterProvider
-import com.example.touchcar.presentation.utils.addTextChangedListener
+import com.example.core_common.utils.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -56,7 +56,7 @@ class ChooseModelFragment : Fragment() {
         setToolbarNavigationButton()
 
         viewModel.modelLiveData
-            .observe(this) { models -> chooseModelAdapter.items = models }
+            .observe(viewLifecycleOwner) { models -> chooseModelAdapter.items = models }
 
         recyclerView.adapter = chooseModelAdapter
         setDividerDecoration(recyclerView)

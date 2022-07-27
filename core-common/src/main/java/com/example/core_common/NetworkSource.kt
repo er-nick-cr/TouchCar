@@ -6,12 +6,17 @@ import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class NetworkSource(
+data class NetworkSource constructor(
     val type: ManufacturerType,
     val baseUrl: String,
     val innerUrl: String,
 ) : Parcelable {
 
     @IgnoredOnParcel
-    val url: String = baseUrl + innerUrl
+    val url = if (innerUrl.contains("search_frame")) {
+        innerUrl
+    } else {
+        (baseUrl + innerUrl).replaceAfter("?frame_no", "")
+            .replace("?frame_no", "")
+    }
 }

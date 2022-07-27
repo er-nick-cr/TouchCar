@@ -9,7 +9,11 @@ import javax.inject.Inject
 internal class DefaultDetailedPartParser @Inject constructor() : DetailedPartParser {
 
     override fun parse(document: Document): DetailedPart {
-        val elements: Elements = document.select(".parts-in-stock-widget_parts-table tr")
+        val elements: Elements = if (document.select(".parts-in-stock-widget_parts-table tr").size != 0) {
+            document.select(".parts-in-stock-widget_parts-table tr")
+        } else {
+            document.select(".table tr")
+        }
         val headingElements = elements[0].select("th")
         val valueElements = elements[1].select("td")
 
@@ -20,7 +24,8 @@ internal class DefaultDetailedPartParser @Inject constructor() : DetailedPartPar
                     partValue = valueElements[index].text()
                 )
             }
-        val name = partsParsed.first { it.partName == "Название" }.partValue
+
+        val name = partsParsed.find { it.partName == "Название" }?.partValue.orEmpty()
 
         return DetailedPart(
             heading = name,

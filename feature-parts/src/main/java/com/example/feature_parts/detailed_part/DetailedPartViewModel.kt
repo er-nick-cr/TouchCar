@@ -21,7 +21,9 @@ class DetailedPartViewModel @Inject constructor(
             getDetailedPartUseCase.getDetailedPart(url, type)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                    { value -> detailedPartLiveData.postValue(value)},
+                    { value ->
+                        detailedPartLiveData.postValue(value)
+                    },
                     { error -> error.printStackTrace()}
                 )
         )
