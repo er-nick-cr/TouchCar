@@ -87,7 +87,7 @@ class SearchByVinBottomSheetFragment : BottomSheetDialogFragment() {
         val spanText = SpannableStringBuilder(string)
         val color = requireContext().getColor(R.color.text_main)
 
-        string.indexesOf(OPEN_SEARCHED_CHAR, CLOSE_SEARCHED_CHAR).map {
+        string.indexesOf(OPEN_SEARCHED_CHAR, CLOSE_SEARCHED_CHAR).forEach {
             spanText.setSpan(ForegroundColorSpan(color), it.first, it.second, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         }
         binding.vinSearchDescription.text = spanText
